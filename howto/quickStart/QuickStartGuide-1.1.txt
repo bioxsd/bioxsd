@@ -1,0 +1,238 @@
+﻿==============================
+| A QUICK OVERVIEW OF BioXSD |
+==============================
+{Paradoxically in a version without XML or even SGML :-)  Will be turned into XHTML at some point.}
+
+
+
+BioXSD offers a data model and exchange format primarily for 4 types of data:
+
+1. SEQUENCES/SEQUENCE RECORDS
+2. ALIGNMENTS
+3. FEATURE RECORDS
+4. REFERENCES TO DATA AND DATABASES, PUBLICATIONS, ONTOLOGIES, TAXONOMIES, CONCEPTS, OR OTHER KINDS OF OBJECTS
+
+In addition, it contains many AUXILIARY TYPES that are used inside the data listed above, but can be used also in other contexts.
+
+
+
+The reference documentation of the latest stable release of BioXSD is at http://bioxsd.org/technicalDocumentation/BioXSD-1.1.
+
+The corresponding BioXSD XML Schema is available at http://bioxsd.org/BioXSD-1.1.xsd. For browsing the schema, it is recommended to use one of the graphical XSD browsers such as XSD Diagram or the specialised XML editors: XML Copy Editor, XMLSpy, oXygen XML Editor, or the one in Eclipse. Alternatively, textual viewing of the XSD is recommended in viewers/editors with XML syntax highlighting such as the XML-specific ones or vim, emacs, etc...  Some Web browser have XML highlighting (Opera, Firefox, Chrome, IE), but clutter the empty lines thus jeopardising the readability.
+
+
+
+For using BioXSD in Web-service clients and servers, it is recommended to use an *XML data binding* framework that usually comes integrated within an HTTP ("REST") or SOAP framework. Such HTTP/REST or SOAP frameworks may be able to read a WSDL file which includes the definition of the Web-service API, and generate classes (in the given programming language) for the service and for the XSD types used in the WSDL. If you need to find a suitable Web-service framework for your favourite programming language, search for "WSDL to [your favourite language]". For example for "WSDL to Java" there are JAX-WS/JAXB, Axis2, CXF, for Python SUDS (clients only) and ZSI, and there is more for C++, PHP, Perl, .NET/Mono, ... In case you don't find a suitable "WSDL to [your favourite language]" framework, you may consider using an *XML data binding* framework with an "XSD to [your favourite language]" functionality (same as when using BioXSD independently of a Web service - see next).
+
+{An example of a Web service client code will come here...}
+
+For using BioXSD independently of a Web service, it is recommended to use an *XML data binding* framework, too. A data binding framework reads an XSD and generates corresponding classes in your favourite programming language. For Java there is for example the JAXB data binding, a light-weight ADB, or heavy-weight XmlBeans, for C++ e.g. the xsdcxx C++/Tree Mapping, for Perl e.g. XML::Compile, etc ...
+
+
+
+
+
+1. SEQUENCES/SEQUENCE RECORDS
+=============================
+
+
+a) "Pure", "naked" *sequence* without any metadata is just the string of 1-letter coded nucleotides or amino acids.
+
+In BioXSD, these are represented in 5 flavours by simple XML types (ordered from more generic to more specific) 'Biosequence', 'GeneralNucleotideSequence' and 'GeneralAminoacidSequence' (these 2 allow ambiguous positions and untypical amino acids), and 'NucleotideSequence' and 'AminoacidSequence' (these 2 are "pure", unambiguous sequences). The allowed alphabets - now re-ordered for better readability of the patterns - are:
+
+'NucleotideSequence'		[acgt]+ or [acgu]+
+'GeneralNucleotideSequence'	[acgtrykmswbdhvn]+ or [acgurykmswbdhvn]+
+'AminoacidSequence'		[ACDEFGHIKLMNPQRSTVWY]+
+'GeneralAminoacidSequence'	[ACDEFGHIKLMNPQRSTVWYBJZXUO]+
+'Biosequence'			[acgtrykmswbdhvn]+ or [acgurykmswbdhvn]+ or [ACDEFGHIKLMNPQRSTVWYBJZXUO]+
+
+The reference documentation of the BioXSD sequence types is at http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#GeneralNucleotideSequence and below. The definitions are in the beginning of the BioXSD XML Schema (http://bioxsd.org/BioXSD-1.1.xsd).
+
+Note that generalisation/specialisation of types (by restriction, extension, or union), and polymorphism of instances, work as expected in XML Schema. Thus a more specific type can always be used in place of a more generic one, but not vice-versa (unless the instance of a generic type is also a valid instance of the specific one).
+
+
+
+b) *Sequence record* is a light-weight type of data containing a sequence and optionally some basic metadata about the sequence, but no features. The metadata serves primarily the purpose of identifying, for the user, what sequence it is.
+
+Sequence records are represented by complex XML types, in the same 5 flavours as sequences themselves: 'BiosequenceRecord', 'GeneralNucleotideSequenceRecord', 'GeneralAminoacidSequenceRecord', 'NucleotideSequenceRecord', and 'AminoacidSequenceRecord'.
+
+Only the 'sequence' element is mandatory. All the other elements - metadata - are optional:
+
+'species'		is a "complex" element (i.e. containing more attributes and elements) for the biological origin of the biopolymer molecule (it can be an organism species, a strain, a sample, a condition, population, individual, tissue, a concrete cell, ...).
+'reference'		is a complex element for identification of the sequence with respect to sequences in databases or data sets (it would typically contain an accession within a database or an identifier within a data set, and/or other metadata related to identification).
+'name'			is purely for human users, if they wish that sequence has one.
+'note'			is also purely for human users, if they need one.
+'translationData'	is a complex element that if needed, may enable automated translation between nucleotide and amino-acid sequence, with given genetic code, frame phase and direction.
+'inlineBaseQuality'	is for letter-encoded quality scores of bases identified by sequencing (not available for amino-acid sequences).
+
+Examples of sequence records and a top-level type diagram are in the middle left of the http://bioxsd.org/bxPoster.pdf.
+
+The reference documentation of the BioXSD sequence records is at http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#BiosequenceRecord and below, and the definitions follow the sequence definitions in the BioXSD XML Schema (http://bioxsd.org/BioXSD-1.1.xsd).
+
+
+
+
+
+2. ALIGNMENTS
+=============
+
+
+Alignment types in BioXSD are the last group that comes in the same 5 flavours as sequences: 'BiosequenceAlignment', 'GeneralNucleotideSequenceAlignment', 'GeneralAminoacidSequenceAlignment', 'NucleotideSequenceAlignment', and 'AminoacidSequenceAlignment'.
+
+Note! An alignment type in BioXSD serves for representing an alignment of 2 or more sequences, where all the sequences are treated equally. That means that none of the aligned sequences can be marked as the reference or the query. For alignments of query sequences to reference sequences, use 'FeatureRecord' (see 3. FEATURE RECORDS).
+
+BioXSD alignment is a complex type containing at least two or more 'alignedSequence' elements. In the simple case, each 'alignedSequence' element contains one sequence record (see 1.b), optionally a position of the local alignment, optionally a direction of the alignment, and zero or more 'gap', 'insert', and 'frameshift' elements.
+
+{An example will come here...}
+
+
+
+Advanced:
+
+Alignments may include more metadata: 'alignedBy' elements contain provenance data ('method') and optionally various alignment-level scores assigned by this method. The 'sequenceScore' element on the other hand contains various scores for each single sequence in the alignment assigned by one of the used methods ('methodIdRef' element links a 'localId' attribute of a 'method' in one of the 'alignedBy').
+
+BioXSD can represent also alignments of sequences where (some of) the sequences themselves are not explicitly present. For such case, use the 'BiosequenceAlignment' and - instead of a 'sequenceRecord' element - use either: i.) a 'sequenceRefence' element (reference to a sequence in a database or data set); ii.) a 'sequenceName' if there is no way of identifying the sequence in a better, machine-understandable way; or iii.) a set of elements for identifying a general or individual genome: mandatory 'species', 'genomeBuild', and 'chromosome', and optional 'sequencePosition', 'variantAccession', and 'variantNote'.
+
+
+
+The reference documentation of the BioXSD alignments is at http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#BiosequenceAlignment and below, and the definitions follow the sequence records in the BioXSD XML Schema (http://bioxsd.org/BioXSD-1.1.xsd).
+
+
+
+
+
+3. FEATURE RECORDS
+==================
+
+
+'FeatureRecord' is the more heavy-weight type in BioXSD that aims at being able to represent ALL SORTS OF FEATURES AND DATA related to biopolymers, genomes, and gene products (All of those have a *sequence* that positioned features can be positioned at. BioXSD FeatureRecord can, however, represent also the non-positioned features relevant to the sequence, molecule, or organism as a whole).
+
+BioXSD 'FeatureRecord'-s can be combined with each other by simply merging the right lists of elements from multiple FeatureRecord-s, thus integrating "biologically" different types of information about a biopolymer or genome.
+
+The 'annotation' with features always relates to a "reference" sequence that is present in one of the same choices of ways as in a 'BiosequenceAlignment' introduced above: either explicitly as a sequence record, or referentially as a data reference, name, or a chromosome in a genome build.
+
+
+
+Some typical examples of features that can be well represented by BioXSD 'FeatureRecord' are:
+
+* Sequence similarity/homology - including alignments of a set of query sequences to a set of reference sequences, such as for example sequence-similarity search results (e.g. by BLAST), sequence-profile search results (e.g. by HMMER), or sequencing reads aligned to a genome
+* Structure of nucleic acids, peptides and proteins - including base pairs with different kinds of binding, residue contacts, secondary structure elements, domains, modifications, or active sites
+* Genes, regulatory elements, various gene products, their relations and interactions, epigenetics
+* Experimental measurements of gene-product abundance (e.g. "gene expression" or transcriptomics from RNA-seq) and properties (e.g. binding or non-binding of specific molecules such as from ChIP-seq/exo, FAIRE-seq, DNase-seq)
+* Sequence variation in an individual or a population with respect to a reference sequence/genome
+
+
+
+More details about the representation of features in BioXSD can be found in http://www.biomedcentral.com/1471-2105/12/494, especially in Table 5 and in section "BioXSD 1.1: Enhanced and optimized XML format" (pages 13-15).
+
+Examples of BioXSD feature records are at http://bioxsd.org/exampleFeatureRecords.html.
+
+The reference documentation of the BioXSD feature record is at http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#FeatureType (a type of feature that is observed or estimated), http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#FeatureOccurenceData (details of an observed or estimated presence of the given type of feature), and http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#FeatureRecord (the whole feature record with a "reference" sequence and "annotation"). The related type definitions follow after the alignments in the BioXSD XML Schema (http://bioxsd.org/BioXSD-1.1.xsd), roughly in one third of the XSD file.
+
+
+
+
+
+4. REFERENCES TO DATA AND DATABASES, PUBLICATIONS, ONTOLOGIES, TAXONOMIES, CONCEPTS, OR OTHER KINDS OF OBJECTS
+==============================================================================================================
+
+
+
+References to *external* objects are represented in BioXSD by a set of complex XML types 'DatabaseReference', 'EntryReference', 'OntologyReference', 'SemanticConcept', 'Species', 'SequenceReference', and 'Method', and a hierarchy of simple XML types rooted under 'Accession' that represent types of accessions of public bioinformatics data entries.
+
+*Internal* cross-references across a BioXSD data instance are on the other hand identified by simple BioXSD type 'LocalId' (http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#LocalId).
+
+Examples of references to external and internal objects are present in the examples of sequence records, alignments, and feature records.
+
+The reference documentation of the external BioXSD references starts at http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#DatabaseReference. The documentation of public accessions starts at http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Accession. The definitions start roughly in 2 thirds of the BioXSD XML Schema (http://bioxsd.org/BioXSD-1.1.xsd).
+
+
+
+
+
+AUXILIARY TYPES
+===============
+
+
+
+Basic general types, all simple XML types:
+
+AnyInteger				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#AnyInteger
+NonnegativeInteger			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#NonnegativeInteger
+NonzeroInteger				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#NonzeroInteger
+InsertionInteger			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#InsertionInteger
+PositiveInteger				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#PositiveInteger
+AnyDecimal				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#AnyDecimal
+Probability				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Probability
+Certainty				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Certainty
+Verdict					http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Verdict
+Reliability				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Reliability
+ScoreValue				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#ScoreValue
+Uri					http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Uri
+Text					http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Text
+Name					http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Name
+ChromosomeName				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#ChromosomeName
+DatabaseName				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#DatabaseName
+OntologyName				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#OntologyName
+ScoreName				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#ScoreName
+Phase					http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Phase
+BaseQualityString			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#BaseQualityString
+
+
+
+Enumerations (simple types):
+
+RecommendedScoreName			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#RecommendedScoreName
+RecommendedVerdict			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#RecommendedVerdict
+RecommendedReliability			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#RecommendedReliability
+QualitativeCertainty			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#QualitativeCertainty
+Strand					http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Strand
+OutsidePositionCorrespondance		http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#OutsidePositionCorrespondance
+RecommendedDatabaseName			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#RecommendedDatabaseName
+RecommendedOntologyName			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#RecommendedOntologyName
+
+
+
+Other, auxiliary complex types not explicitly mentioned anywhere above:
+
+Flag					http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Flag
+MethodResult				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#MethodResult
+Result					http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Result
+Score					http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Score
+ScoreType				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#ScoreType
+TranslationData				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#TranslationData
+AminoacidTranslationData		http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#AminoacidTranslationData
+GeneticCode				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#GeneticCode
+
+Ones inside alignments:
+Gap					http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Gap
+Insert					http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Insert
+Frameshift				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Frameshift
+AlignedBiosequence			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#AlignedBiosequence
+AlignedGeneralNucleotideSequence	http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#AlignedGeneralNucleotideSequence
+AlignedGeneralAminoacidSequence		http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#AlignedGeneralAminoacidSequence
+AlignedNucleotideSequence		http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#AlignedNucleotideSequence
+AlignedAminoacidSequence		http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#AlignedAminoacidSiosequence
+
+Ones inside feature records:
+FeatureTypeDetails			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#FeatureTypeDetails
+Evidence				http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#Evidence
+PredictionResult			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#PredictionResult
+ExperimentalResult			http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#ExperimentalResult
+
+And finally positions on a sequence:
+Documentation "starts" at http://bioxsd.org/technicalDocumentation/BioXSD-1.1/#GeneralSequencePosition.
+Definitions start by 'GeneralSequencePoint' roughly in the middle of the XSD (http://bioxsd.org/BioXSD-1.1.xsd).
+
+Note: Sequence position types in BioXSD comprise altogether 16 complex types in 2 flavours of certainty (general and certain, e.g. 'GeneralSequencePosition' and 'SequencePosition'), times 2 flavours of location (on the sequence or outside of it, e.g. 'SequencePoint' and 'OutsideSequencePoint'), and a number of "shapes":
+* any "shape" (e.g. 'SequencePosition')
+* point (a base or a residue, e.g. 'SequencePoint')
+* insertion point (in between 2 bases or residues, e.g. 'SequenceInsertionPoint')
+* segment (from 'min' base or residue to 'max' base or residue, both included; always 'min' < 'max', direction represented by 'strand'; e.g. 'SequenceSegment')
+* partition (from the beginning of the sequence or the end of the previous partition, exclusive, to 'max' base or residue, inclusive; e.g. 'SequencePartition')
+
+All sequence positions in BioXSD are 1-based!
+
+
+
+[Matúš Kalaš support@bioxsd.org Last update: 2015-May-15]

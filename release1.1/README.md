@@ -1,3 +1,6 @@
+*stable1.1(current)*
+*currentStable(Version)1.1*
+
 This is the folder with the latest stable release of BioXSD, i.e. the latest stable minor release (namely version 1.1.3) within the latest stable major release (major version 1.1, namespace http://bioxsd.org/BioXSD-1.1, canonical location http://bioxsd.org/BioXSD-1.1.xsd).
 
 
