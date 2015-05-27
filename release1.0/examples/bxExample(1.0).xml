@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bxExamples
 	xmlns="http://bioxsd.org/example"
-	xmlns:bx="http://bioxsd.org/BioXSD-0.4"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://bioxsd.org/example bxExample(0.4).xsd"
+	xsi:schemaLocation="http://bioxsd.org/example bxExample(1.0).xsd"
 >
 
 

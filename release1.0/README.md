@@ -1,17 +1,17 @@
-## BioXSD 0.4
+## BioXSD 1.0
 
-This is the folder with the last and clean pre-production release of BioXSD (*i.e.* major 0.4, minor 0.4.2.1) before the first stable production release (*i.e.* major 1.0, minor 1.0.0).
+This is the folder with the first major stable production release of BioXSD (*i.e.* major version 1.0, minor version 1.0.0).
 
-Added to GitHub for eventual "archaeological" purposes. Older releases than 0.4.2.1 are omitted from GitHub.
+Added to GitHub for eventual "archaeological" purposes.
 
 
 
-**Namespace:** http://bioxsd.org/BioXSD-0.4
+**Namespace:** http://bioxsd.org/BioXSD-1.0
 
-**Canonical location:** http://bioxsd.org/BioXSD-0.4.xsd
+**Canonical location:** http://bioxsd.org/BioXSD-1.0.xsd	(currently superceded at this location with 1.0.2)
 
-**Major version:** 0.4
+**Major version:** 1.0
 
-**Minor version:** 0.4.2.1
+**Minor version:** 1.0.0
 
-**Release date:** 2010-04-05
+**Release date:** 2010-04-08
