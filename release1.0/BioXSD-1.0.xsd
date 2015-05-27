@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema
-	version="1.0.0"
+	version="1.0.1"
 	targetNamespace="http://bioxsd.org/BioXSD-1.0"
 	xmlns="http://bioxsd.org/BioXSD-1.0"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -717,6 +717,12 @@
 		</xs:annotation>
 		<xs:restriction base="GenbankAccession">
 			<xs:pattern value="[A-Z]{5}[0-9]{7}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="PubmedId">
+		<xs:restriction base="Accession">
+			<xs:pattern value="[0-9]{1,9}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	
@@ -1716,3 +1722,10 @@
 
 	
 </xs:schema>
+
+<!--============== CHANGELOG ==================
+version		status			released		changes
+==============================================
+1.0.1			Current 1.0	2010-10-22	PubmedId added.
+1.0.0								2010-04-08	(same as the pre-production version 0.4, only namespace and version changed, and dev comments & ineffectual annotations removed).
+================ CHANGELOG =================-->

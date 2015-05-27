@@ -1,6 +1,6 @@
 ## BioXSD 1.0
 
-This is the folder with the first major stable production release of BioXSD (*i.e.* major version 1.0, minor version 1.0.0).
+This is the folder with the first minor patch of the first major stable production release of BioXSD (*i.e.* major version 1.0, minor version 1.0.1).
 
 Added to GitHub for eventual "archaeological" purposes.
 
@@ -12,6 +12,6 @@ Added to GitHub for eventual "archaeological" purposes.
 
 **Major version:** 1.0
 
-**Minor version:** 1.0.0
+**Minor version:** 1.0.1
 
-**Release date:** 2010-04-08
+**Release date:** 2010-10-22
