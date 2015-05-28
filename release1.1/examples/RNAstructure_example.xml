@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bxExamples
+	xmlns="http://bioxsd.org/example"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://bioxsd.org/example http://bioxsd.org/bxExamples(1.0).xsd"
+>
+
+
+
+
+	<!--==
+
+Simple FASTA format with in-line 2ndary structure in dot-bracket/Vienna format:
+
+>gi|4972014|emb|AJ237949.1| Scenedesmus acuminatus 5.8S and 26S rRNA partial genes and ITS2, strain Hegewald 1986-2
+GCGTCG ...etc...
+.((.)) ...etc...
+
+
+This format is very compact, but cannot represent "context-sensitive" dependencies (like pseudoknots).
+Following is a tentative in-line representation of "context-free" RNA structure in BioXSD format (NucleotideSequenceRecord type):
+(all additional data about the sequence are optional)
+
+	==-->
+	<exampleRnaWithStructure>
+			<bx:sequence>gcgtcg</bx:sequence>
+			<bx:species>
+				<bx:databaseName>NCBI Taxonomy</bx:databaseName>
+				<bx:accession>91191</bx:accession>
+				<bx:name>Scenedesmus acuminatus</bx:name>
+				<bx:note>strain Hegewald 1986-2</bx:note>
+			</bx:species>
+			<bx:customName>5.8S and 26S rRNA partial genes and ITS2</bx:customName>
+			<bx:customNote>only 1st 6 bases for illustration; structure doesn't correspond to reality</bx:customNote>
+			<bx:formalReference>
+				<bx:databaseName>DDBJ/GenBank/EMBL</bx:databaseName>
+				<bx:accession>AJ237949</bx:accession>
+				<bx:entryVersion>1</bx:entryVersion>
+			</bx:formalReference>
+			<rnaSecondaryStructure>.((.))</rnaSecondaryStructure>
+	</exampleRnaWithStructure>
+
+
+	<!--==
+
+RNA structure can of course also be represented in generic formats for sequence features/properties.
+Such representations are less compact than the in-line notation (i.e. dot-bracket), but allow representation of any structures (including e.g. pseudoknots).
+
+
+The same RNA structure in a generic feature format (GFF3 as an example tabular format):
+	
+ 0		##gff-version	3
+ 1		##sequence-region		AJ237949	1	6
+ 2		AJ237949	.	base_pair		2	2	.	.	.	ID=pair001
+ 3		AJ237949	.	base_pair 		6	6	.	.	.	ID=pair001
+ 4		AJ237949	.	base_pair		3	3	.	.	.	ID=pair002
+ 5		AJ237949	.	base_pair		5	5	.	.	.	ID=pair002
+
+
+Unless it is critical for performance or other kind of convenience to support the in-line format (i.e. dot-bracket) of RNA secondary structure as shown above, it's suggested to use the generic BioXSD format for sequence features/properties (AnnotatedSequence type).
+The example represented in BioXSD AnnotatedSequence format follows.
+It looks verbose compared to the tabular/textual format due to all the XML tags, but offers the advantages of XSD/XML, no splitting of single features into multiple lines (like the base pairs in the above GFF3 example), enables more semantic annotation, and simplifies eventual merging of diverse annotations.
+
+	==-->	
+	<exampleRnaStructureAnnotation>
+	
+		<bx:sequenceRecord>
+			<bx:sequence>gcgtcg</bx:sequence>
+			<bx:species>
+				<bx:databaseName>NCBI Taxonomy</bx:databaseName>
+				<bx:accession>91191</bx:accession>
+				<bx:name>Scenedesmus acuminatus</bx:name>
+				<bx:note>strain Hegewald 1986-2</bx:note>
+			</bx:species>
+			<bx:customName>5.8S and 26S rRNA partial genes and ITS2</bx:customName>
+			<bx:customNote>only 1st 6 bases for illustration; structure doesn't correspond to reality</bx:customNote>
+			<bx:formalReference>
+				<bx:databaseName>DDBJ/GenBank/EMBL</bx:databaseName>
+				<bx:accession>AJ237949</bx:accession>
+				<bx:entryVersion>1</bx:entryVersion>
+			</bx:formalReference>
+		</bx:sequenceRecord>
+		
+		<bx:annotation>
+			<bx:feature>
+				<bx:name>Base pair</bx:name>
+				<bx:equalTerm>
+					<bx:ontologyName>Sequence Ontology</bx:ontologyName><!--==can be URI instead, or in addition==-->
+					<bx:ontologyVersion>1.187</bx:ontologyVersion><!--==not needed normally (here only to illustrate that it can be defined)==-->
+					<bx:accession>0000028</bx:accession><!--==can be URI instead, or in addition==-->
+					<bx:termName>base_pair</bx:termName><!--==not needed, only for human convenience==-->
+				</bx:equalTerm>
+				<bx:className>RNA secondary structure</bx:className><!--==not needed, but gives more info about context==-->
+				<bx:classTerm><!--==not needed, but gives more info about context==-->
+					<bx:ontologyName>Sequence Ontology</bx:ontologyName>
+					<bx:accession>0000122</bx:accession>
+					<bx:termName>RNA_sequence_secondary_structure</bx:termName>
+				</bx:classTerm>
+			</bx:feature>
+			
+			<bx:occurence>
+				<bx:position>
+					<bx:point>2</bx:point>
+					<bx:point>6</bx:point>
+				</bx:position>			
+			</bx:occurence>
+			<bx:occurence>
+				<bx:position>
+					<bx:point>3</bx:point>
+					<bx:point>5</bx:point>
+				</bx:position>
+			</bx:occurence>
+			
+			<!--==Etc with other base pairs==-->
+			
+		</bx:annotation>
+	
+		<!--==Here any other features than base pairs can follow, thus enabling smooth integration of various types of data about the sequence/molecule/genomic element==-->
+		
+	</exampleRnaStructureAnnotation>
+
+
+
+
+</bxExamples>

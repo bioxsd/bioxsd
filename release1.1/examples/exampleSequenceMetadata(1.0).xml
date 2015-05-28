@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bxExamples
+	xmlns="http://bioxsd.org/example"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://bioxsd.org/example http://bioxsd.org/bxExamples(1.0).xsd"
+>
+
+	<!--The following 3 pairs of sequence records illustrate usage and importance of various sequence metadata within simple sequence records in BioXSD (type BiosequenceRecord).
+	Look at the differences between the 2 records in each pair:-->
+
+
+	<!--Pair #1-->
+	<!--1a)-->
+	<exampleSequenceRecord>
+		<bx:sequence>MRPSGTAGAALLALLAAL</bx:sequence>
+		<bx:customName>EGFR_HUMAN Epidermal growth factor receptor precursor</bx:customName>
+		<bx:customNote>EC: 2.7.1.112</bx:customNote>
+		<bx:formalReference>
+			<bx:databaseName>UniProt</bx:databaseName>
+			<bx:databaseUri>http://www.uniprot.org/uniprot</bx:databaseUri>
+			<bx:accession xsi:type="bx:UniprotAccession">P00533</bx:accession>
+			<bx:entryUri>http://www.uniprot.org/uniprot/P00533</bx:entryUri>
+			<bx:subsequencePosition>
+				<bx:segment>
+					<bx:min>1</bx:min>
+					<bx:max>17</bx:max>
+				</bx:segment>
+			</bx:subsequencePosition>
+		</bx:formalReference>
+	</exampleSequenceRecord>
+	<!--1b)-->
+	<exampleSequenceRecord>
+		<bx:sequence>LSALLWTGAM</bx:sequence>
+		<bx:customName>EGFR_HUMAN Epidermal growth factor receptor precursor</bx:customName>
+		<bx:customNote>EC: 2.7.1.112</bx:customNote>
+		<bx:formalReference>
+			<bx:databaseName>UniProt</bx:databaseName>
+			<bx:databaseUri>http://www.uniprot.org/uniprot</bx:databaseUri>
+			<bx:accession xsi:type="bx:UniprotAccession">P00533</bx:accession>
+			<bx:entryUri>http://www.uniprot.org/uniprot/P00533</bx:entryUri>
+			<bx:subsequencePosition>
+				<bx:segment>
+					<bx:min>74</bx:min>
+					<bx:max>83</bx:max>
+				</bx:segment>
+			</bx:subsequencePosition>
+		</bx:formalReference>
+	</exampleSequenceRecord>
+
+
+	<!--Pair #2-->
+	<!--2a)-->
+	<exampleSequenceRecord>
+		<bx:sequence>MRPSGTAGAALLALLAAL</bx:sequence>
+		<bx:species>
+			<bx:name>Edita</bx:name>
+		</bx:species>
+		<bx:customName>EGFR_HUMAN Epidermal growth factor receptor precursor</bx:customName>
+		<bx:customNote>EC: 2.7.1.112</bx:customNote>
+		<bx:formalReference>
+			<bx:databaseName>UniProt</bx:databaseName>
+			<bx:databaseUri>http://www.uniprot.org/uniprot</bx:databaseUri>
+			<bx:accession xsi:type="bx:UniprotAccession">P00533</bx:accession>
+			<bx:entryUri>http://www.uniprot.org/uniprot/P00533</bx:entryUri>
+		</bx:formalReference>
+	</exampleSequenceRecord>
+	<!--2b)-->
+	<exampleSequenceRecord>
+		<bx:sequence>MRPSGTAGAALLALLAAW</bx:sequence>
+		<bx:species>
+			<bx:name>Matus</bx:name>
+		</bx:species>
+		<bx:customName>EGFR_HUMAN Epidermal growth factor receptor precursor</bx:customName>
+		<bx:customNote>The mutation L-W causes blue skin colour :)</bx:customNote>
+		<bx:formalReference>
+			<bx:databaseName>UniProt</bx:databaseName>
+			<bx:databaseUri>http://www.uniprot.org/uniprot</bx:databaseUri>
+			<bx:accession xsi:type="bx:UniprotAccession">P00533</bx:accession>
+			<bx:entryUri>http://www.uniprot.org/uniprot/P00533</bx:entryUri>
+		</bx:formalReference>
+	</exampleSequenceRecord>
+	
+
+	<!--Pair #3-->
+	<!--3a)-->
+	<exampleSequenceRecord>
+		<bx:sequence>MRPSGTAGAALLALLAAL</bx:sequence>
+		<bx:customName>EGFR_HUMAN Epidermal growth factor receptor precursor</bx:customName>
+		<bx:customNote>EC: 2.7.1.112</bx:customNote>
+		<bx:formalReference>
+			<bx:databaseName>UniProt</bx:databaseName>
+			<bx:databaseUri>http://www.uniprot.org/uniprot</bx:databaseUri>
+			<bx:webserviceReference>
+				<bx:wsdl>http://uniprot.org/uniprotSOAP.wsdl</bx:wsdl>
+				<bx:operation>getBxSequenceByAccession</bx:operation>
+				<bx:date>2012-08-15</bx:date>
+			</bx:webserviceReference>
+			<bx:accession xsi:type="bx:UniprotAccession">P00533</bx:accession>
+			<bx:entryUri>http://www.uniprot.org/uniprot/P00533</bx:entryUri>
+		</bx:formalReference>
+	</exampleSequenceRecord>
+	<!--3b)-->
+	<exampleSequenceRecord>
+		<bx:sequence>MRPSGTAGAAWAWAAL</bx:sequence>
+		<bx:customName>EGFR_HUMAN Epidermal growth factor receptor precursor</bx:customName>
+		<bx:customNote>EC: 2.7.1.112 {it seems that the WS had some terrible bug;D}</bx:customNote>
+		<bx:formalReference>
+			<bx:databaseName>UniProt</bx:databaseName>
+			<bx:databaseUri>http://www.uniprot.org/uniprot</bx:databaseUri>
+			<bx:webserviceReference>
+				<bx:wsdl>http://uniprot.org/uniprotSOAP.wsdl</bx:wsdl>
+				<bx:operation>getBxSequenceByAccession</bx:operation>
+				<bx:date>2011-04-23</bx:date>
+			</bx:webserviceReference>
+			<bx:accession xsi:type="bx:UniprotAccession">P00533</bx:accession>
+			<bx:entryUri>http://www.uniprot.org/uniprot/P00533</bx:entryUri>
+		</bx:formalReference>
+	</exampleSequenceRecord>
+	
+	
+	<!--Note: When we imagine that we're sending one of such sequence-record pairs to an alignment service, we will need to be able to distinguish the 2 sequence records in the resulting alignment, ideally by keeping the same metadata in the aligned sequences. A good alignment (or another) service thus preserves all the metadata from the inputs.-->
+	
+</bxExamples>
