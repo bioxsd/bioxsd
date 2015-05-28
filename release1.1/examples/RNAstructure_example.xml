@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bxExamples
 	xmlns="http://bioxsd.org/example"
-	xmlns:bx="http://bioxsd.org/BioXSD-1.0"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.1beta1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://bioxsd.org/example bxExamples(1.0).xsd"
+	xsi:schemaLocation="http://bioxsd.org/example bxExamples(1.1beta1).xsd"
 >
 
 
@@ -25,19 +25,19 @@ Following is a tentative in-line representation of "context-free" RNA structure 
 	==-->
 	<exampleRnaWithStructure>
 			<bx:sequence>gcgtcg</bx:sequence>
-			<bx:species>
-				<bx:databaseName>NCBI Taxonomy</bx:databaseName>
-				<bx:accession>91191</bx:accession>
-				<bx:name>Scenedesmus acuminatus</bx:name>
-				<bx:note>strain Hegewald 1986-2</bx:note>
-			</bx:species>
-			<bx:customName>5.8S and 26S rRNA partial genes and ITS2</bx:customName>
-			<bx:customNote>only 1st 6 bases for illustration; structure doesn't correspond to reality</bx:customNote>
-			<bx:formalReference>
-				<bx:databaseName>DDBJ/GenBank/EMBL</bx:databaseName>
-				<bx:accession>AJ237949</bx:accession>
-				<bx:entryVersion>1</bx:entryVersion>
-			</bx:formalReference>
+			<bx:species
+				dbName="NCBI Taxonomy"
+				accession="9119"
+				speciesName="Scenedesmus acuminatus"
+				speciesNote="strain Hegewald 1986-2"
+			/>
+			<bx:reference
+				dbName="DDBJ/GenBank/EMBL"
+				accession="AJ237949"
+				entryVersion="1"
+			/>
+			<bx:name>5.8S and 26S rRNA partial genes and ITS2</bx:name>
+			<bx:note>only 1st 6 bases for illustration; structure doesn't correspond to reality</bx:note>
 			<rnaSecondaryStructure>.((.))</rnaSecondaryStructure>
 	</exampleRnaWithStructure>
 
@@ -65,52 +65,60 @@ It looks verbose compared to the tabular/textual format due to all the XML tags,
 	==-->	
 	<exampleRnaStructureAnnotation>
 	
-		<bx:sequenceRecord>
-			<bx:sequence>gcgtcg</bx:sequence>
-			<bx:species>
-				<bx:databaseName>NCBI Taxonomy</bx:databaseName>
-				<bx:accession>91191</bx:accession>
-				<bx:name>Scenedesmus acuminatus</bx:name>
-				<bx:note>strain Hegewald 1986-2</bx:note>
-			</bx:species>
-			<bx:customName>5.8S and 26S rRNA partial genes and ITS2</bx:customName>
-			<bx:customNote>only 1st 6 bases for illustration; structure doesn't correspond to reality</bx:customNote>
-			<bx:formalReference>
-				<bx:databaseName>DDBJ/GenBank/EMBL</bx:databaseName>
-				<bx:accession>AJ237949</bx:accession>
-				<bx:entryVersion>1</bx:entryVersion>
-			</bx:formalReference>
-		</bx:sequenceRecord>
+		<bx:referenceSequence>
+			<bx:sequenceRecord>
+				<bx:sequence>gcgtcg</bx:sequence>
+				<bx:species
+					dbName="NCBI Taxonomy"
+					accession="9119"
+					speciesName="Scenedesmus acuminatus"
+					speciesNote="strain Hegewald 1986-2"
+				/>
+				<bx:reference
+					dbName="DDBJ/GenBank/EMBL"
+					accession="AJ237949"
+					entryVersion="1"
+				/>
+				<bx:name>5.8S and 26S rRNA partial genes and ITS2</bx:name>
+				<bx:note>only 1st 6 bases for illustration; structure doesn't correspond to reality</bx:note>
+			</bx:sequenceRecord>		
+		</bx:referenceSequence>
 		
 		<bx:annotation>
 			<bx:feature>
 				<bx:name>Base pair</bx:name>
-				<bx:equalTerm>
-					<bx:ontologyName>Sequence Ontology</bx:ontologyName><!--==can be URI instead, or in addition==-->
-					<bx:ontologyVersion>1.187</bx:ontologyVersion><!--==not needed normally (here only to illustrate that it can be defined)==-->
-					<bx:accession>0000028</bx:accession><!--==can be URI instead, or in addition==-->
-					<bx:termName>base_pair</bx:termName><!--==not needed, only for human convenience==-->
-				</bx:equalTerm>
+				<bx:equalConcept
+					ontologyName="Sequence Ontology"
+					ontologyVersion="1.187"
+					accession="0000028"
+					term="base_pair"
+				/>
+					<!--=='ontologyName' can be URI instead, or in addition==-->
+					<!--=='ontologyVersion' not needed normally (here only to illustrate that it can be defined)==-->
+					<!--==instead of 'accession' can be URI in 'conceptUri', or both can be filled in==-->
+					<!--=='term' not needed, only for human convenience==-->
 				<bx:className>RNA secondary structure</bx:className><!--==not needed, but gives more info about context==-->
-				<bx:classTerm><!--==not needed, but gives more info about context==-->
-					<bx:ontologyName>Sequence Ontology</bx:ontologyName>
-					<bx:accession>0000122</bx:accession>
-					<bx:termName>RNA_sequence_secondary_structure</bx:termName>
-				</bx:classTerm>
+				<bx:classConcept
+					ontologyName="Sequence Ontology"
+					accession="0000122"
+					term="RNA_sequence_secondary_structure"
+				/><!--==not needed, but gives more info about the context==-->
 			</bx:feature>
 			
-			<bx:occurence>
+			<bx:occurrence>
 				<bx:position>
-					<bx:point>2</bx:point>
-					<bx:point>6</bx:point>
-				</bx:position>			
-			</bx:occurence>
-			<bx:occurence>
-				<bx:position>
-					<bx:point>3</bx:point>
-					<bx:point>5</bx:point>
+					<bx:point pos="2"/>
+					<bx:point pos="6"/>
 				</bx:position>
-			</bx:occurence>
+				<!--Other data about this base pair can be included here-->
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position>
+					<bx:point pos="3"/>
+					<bx:point pos="5"/>
+				</bx:position>
+				<!--Other data about this base pair can be included here-->
+			</bx:occurrence>
 			
 			<!--==Etc with other base pairs==-->
 			

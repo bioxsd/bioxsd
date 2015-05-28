@@ -1,0 +1,1866 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--============== LICENCE ================
+Available under the Creative Commons BY-ND 3.0 licence with additionally allowed:
+a) inclusion, xs:extensions, and xs:restrictions in user's XML namespace (URI domain owned by the user);
+b) public redistribution of versions with custom xs:appinfo in the original XML namespace.
+Contributions to new canonical versions, in the 'bioxsd.org' XML namespace, are welcome under supervision of the BioXSD consortium (in order to keep BioXSD a common, canonical data model).
+================ CREDITS ================
+XML Schema editing and documentation: Matúš Kalaš
+Management, requirements, supporting implementations: Inge Jonassen, Pål Puntervoll, Kristoffer Rapacki, Christophe Blanchet
+Requirements, supporting implementations, or testing: Edita Bartaševičiūtė, Alexandre Joseph, Jon Ison, Armin Töpfer, Jan Krüger & Sven Hartmeier (BiBiServ), Sveinung Gundersen & the GTrack team, and all software developers and data providers that use oe explore BioXSD
+Acknowledgement for conceptual or technical support: Steve Pettifer, Gert Vriend, Rodrigo Lopez, Jan Christian Bryne, Renzo Kottmann (GCDML), the EMBRACE project, Torbjørn Lium, Alexandr Oltu
+BioXSD has been and is further being developed as a part of multiple collaborative projects. There has never been any funding dedicated exclusively to BioXSD.
+Projects that contributed to BioXSD: EMBRACE (European Commission FP6), eSysbio (Research Council of Norway), Center for Disease Systems Biology (Villum Foundation), HIPCAL (l'Agence Nationale de la Recherche)
+============== PUBLICATION ==============
+Kalaš, M., Puntervoll, P., Joseph, A., Bartaševičiūtė, E., Töpfer, A., Venkataraman, P., Pettifer, S., Bryne, J.C., Ison, J., Blanchet, C., Rapacki, K. and Jonassen, I. (2010). 
+BioXSD: the common data-exchange format for everyday bioinformatics web services. Bioinformatics, 26, i540-i546. doi: 10.1093/bioinformatics/btq391	PMID: 20823319
+=== ABOUT, DOCUMENTATION, INFORMATION ===
+http://bioxsd.org
+=============== CONTACT ================
+support@bioxsd.org
+========== RELEASE INFORMATION ==========
+For version information, changelog, and release dates, please refer to the bottom of this file.
+======================================-->
+
+<xs:schema
+	version="1.1beta1"
+	targetNamespace="http://bioxsd.org/BioXSD-1.1beta1"
+	xmlns="http://bioxsd.org/BioXSD-1.1beta1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:sawsdl="http://www.w3.org/ns/sawsdl"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified"
+>
+
+
+	<xs:annotation>
+		<xs:documentation>BioXSD: The common XML Schema (canonical data model) for bioinformatics Web services and everyday bioinformatics.
+<i>Defines XML exchange formats for: sequences, sequence annotations, sequence similarity/alignments, references and supporting types of data</i></xs:documentation>
+	</xs:annotation>
+
+
+
+
+	<!--============================ SIMPLE SEQUENCES ============================-->
+
+
+
+
+	<xs:simpleType name="GeneralNucleotideSequence" sawsdl:modelReference="http://purl.org/edam/data/0001210 http://purl.org/edam/format/0001957">
+		<xs:annotation>
+			<xs:documentation>Nucleotide sequence, possibly with ambiguous ("degenerate") bases</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[acgtrykmswbdhvn]+"/>
+			<xs:pattern value="[acgurykmswbdhvn]+"/>
+			<xs:maxLength value="1000000000000"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="GeneralAminoacidSequence" sawsdl:modelReference="http://purl.org/edam/data/0001219 http://purl.org/edam/format/0001957">
+		<xs:annotation>
+			<xs:documentation>Amino-acid sequence, possibly with ambiguous residues (Asx, Xle, Glx, Xaa/Unk) and additional residues (Pyl and Sec)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[ACDEFGHIKLMNPQRSTVWYBJZXUO]+"/>
+			<xs:maxLength value="1000000000"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Biosequence" sawsdl:modelReference="http://purl.org/edam/data/00002094 http://purl.org/edam/format/0001957">
+		<xs:annotation>
+			<xs:documentation>Nucleotide or amino-acid sequence, possibly with ambiguous bases and residues</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="GeneralNucleotideSequence GeneralAminoacidSequence"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="NucleotideSequence">
+		<xs:annotation>
+			<xs:documentation>Nucleotide sequence without ambiguous ("degenerate") bases</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="GeneralNucleotideSequence">
+			<xs:pattern value="[acgt]+"/>
+			<xs:pattern value="[acgu]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="AminoacidSequence">
+		<xs:annotation>
+			<xs:documentation>Amino-acid sequence without ambiguous and additional residues (Pyl, Sec)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="GeneralAminoacidSequence">
+			<xs:pattern value="[ACDEFGHIKLMNPQRSTVWY]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="BaseQualityString">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[!-~]+"/>
+			<xs:maxLength value="1000000000000"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+
+
+	<!--=========================== SEQUENCE RECORDS ===========================-->
+
+
+
+
+	<xs:complexType name="BiosequenceRecord" sawsdl:modelReference="http://purl.org/edam/data/0002203 http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Nucleotide or amino-acid sequence record including the generic sequence and optional metadata</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="sequence" type="Biosequence"/>
+			<xs:element name="species" type="Species" minOccurs="0"/>
+			<xs:element name="reference" type="SequenceReference" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Reference to where the sequence originates from: a database entry or an explicit super-sequence</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="Name" minOccurs="0" sawsdl:modelReference="http://purl.org/edam/data/0002154"/>
+			<xs:element name="note" type="Text" minOccurs="0"/>
+			<xs:element name="translationData" type="TranslationData" minOccurs="0"/>
+			<xs:element name="inlineBaseQuality" type="BaseQualityString" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralNucleotideSequenceRecord" sawsdl:modelReference="http://purl.org/edam/data/0002203 http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Nucleotide sequence record including the generic nucleotide sequence and optional metadata</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="BiosequenceRecord">
+				<xs:sequence>
+					<xs:element name="sequence" type="GeneralNucleotideSequence"/>
+					<xs:element name="species" type="Species" minOccurs="0"/>
+					<xs:element name="reference" type="SequenceReference" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Reference to where the sequence originates from: a database entry or an explicit super-sequence</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="name" type="Name" minOccurs="0"/>
+					<xs:element name="note" type="Text" minOccurs="0"/>
+					<xs:element name="translationData" type="TranslationData" minOccurs="0"/>
+					<xs:element name="inlineBaseQuality" type="BaseQualityString" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralAminoacidSequenceRecord" sawsdl:modelReference="http://purl.org/edam/data/0002203 http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Amino-acid sequence record including the generic amino-acid sequence and optional metadata</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="BiosequenceRecord">
+				<xs:sequence>
+					<xs:element name="sequence" type="GeneralAminoacidSequence"/>
+					<xs:element name="species" type="Species" minOccurs="0"/>
+					<xs:element name="reference" type="SequenceReference" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Reference to where the sequence originates from: a database entry or an explicit super-sequence</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="name" type="Name" minOccurs="0"/>
+					<xs:element name="note" type="Text" minOccurs="0"/>
+					<xs:element name="translationData" type="AminoacidTranslationData" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="NucleotideSequenceRecord" sawsdl:modelReference="http://purl.org/edam/data/0002203 http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Nucleotide sequence record including the unambiguous nucleotide sequence and optional metadata</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralNucleotideSequenceRecord">
+				<xs:sequence>
+					<xs:element name="sequence" type="NucleotideSequence"/>
+					<xs:element name="species" type="Species" minOccurs="0"/>
+					<xs:element name="reference" type="SequenceReference" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Reference to where the sequence originates from: a database entry or an explicit super-sequence</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="name" type="Name" minOccurs="0"/>
+					<xs:element name="note" type="Text" minOccurs="0"/>
+					<xs:element name="translationData" type="TranslationData" minOccurs="0"/>
+					<xs:element name="inlineBaseQuality" type="BaseQualityString" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AminoacidSequenceRecord" sawsdl:modelReference="http://purl.org/edam/data/0002203 http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Amino-acid sequence record including the unambiguous amino-acid sequence and optional metadata</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralAminoacidSequenceRecord">
+				<xs:sequence>
+					<xs:element name="sequence" type="AminoacidSequence"/>
+					<xs:element name="species" type="Species" minOccurs="0"/>
+					<xs:element name="reference" type="SequenceReference" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Reference to where the sequence originates from: a database entry or an explicit super-sequence</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="name" type="Name" minOccurs="0"/>
+					<xs:element name="note" type="Text" minOccurs="0"/>
+					<xs:element name="translationData" type="AminoacidTranslationData" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+
+
+	<!--=========================== ALIGNMENTS ===========================-->
+
+
+
+
+	<xs:complexType name="Gap">
+		<xs:annotation>
+			<xs:documentation>Single gap in an aligned sequence</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="pos" type="InsertionInteger" use="required" sawsdl:modelReference="http://purl.org/edam/data/0001016"/>
+		<xs:attribute name="len" type="PositiveInteger" use="required"/>
+	</xs:complexType>
+
+	<xs:complexType name="Frameshift">
+		<xs:annotation>
+			<xs:documentation>Frame-shift in an aligned amino-acid sequence</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="pos" type="InsertionInteger" use="required" sawsdl:modelReference="http://purl.org/edam/data/0001016"/>
+		<xs:attribute name="bases" use="required">
+			<xs:simpleType>
+				<xs:restriction base="NonzeroInteger">
+					<xs:minInclusive value="-2"/>
+					<xs:maxInclusive value="2"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+
+
+
+
+	<xs:complexType name="AlignedBiosequence">
+		<xs:sequence>
+			<xs:element name="localAlignmentPosition" type="SequencePosition" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Coordinates of the locally aligned sub-sequence. (Not present means global alignment)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="sequenceRecord" type="BiosequenceRecord"/>
+				<xs:element name="sequenceReference" type="SequenceReference"/>
+				<xs:element name="sequenceName" type="Name" sawsdl:modelReference="http://purl.org/edam/data/0002154"/>
+				<xs:sequence>
+					<xs:element name="species" type="Species"/>
+					<xs:element name="genomeBuild" type="EntryReference" sawsdl:modelReference="http://purl.org/edam/data/0002340"/>
+					<xs:element name="chromosome" type="ChromosomeName"/>
+					<xs:element name="subsequencePosition" type="SequencePosition" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Coordinates of a sub-sequence within the chromosome</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="variantAccession" type="Accession" minOccurs="0" sawsdl:modelReference="http://purl.org/edam/data/0001063 http://purl.org/edam/data/0002091"/>
+					<xs:element name="variantNote" type="Name" minOccurs="0" sawsdl:modelReference="http://purl.org/edam/data/0001063"/>
+				</xs:sequence>
+			</xs:choice>
+			<xs:element name="gap" type="Gap" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="frameshift" type="Frameshift" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="reversedDirection" type="Flag" minOccurs="0"/>
+			<xs:element name="sequenceScore" type="Result" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AlignedGeneralNucleotideSequence">
+		<xs:complexContent>
+			<xs:restriction base="AlignedBiosequence">
+				<xs:sequence>
+					<xs:element name="localAlignmentPosition" type="SequencePosition" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Coordinates of the locally aligned sub-sequence. (Not present means global alignment)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="sequenceRecord" type="GeneralNucleotideSequenceRecord"/>
+					<xs:element name="gap" type="Gap" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="reversedDirection" type="Flag" minOccurs="0"/>
+					<xs:element name="sequenceScore" type="Result" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AlignedGeneralAminoacidSequence">
+		<xs:complexContent>
+			<xs:restriction base="AlignedBiosequence">
+				<xs:sequence>
+					<xs:element name="localAlignmentPosition" type="SequencePosition" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Coordinates of the locally aligned sub-sequence. (Not present means global alignment)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="sequenceRecord" type="GeneralAminoacidSequenceRecord"/>
+					<xs:element name="gap" type="Gap" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="frameshift" type="Frameshift" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="reversedDirection" type="Flag" minOccurs="0"/>
+					<xs:element name="sequenceScore" type="Result" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="AlignedNucleotideSequence">
+		<xs:complexContent>
+			<xs:restriction base="AlignedGeneralNucleotideSequence">
+				<xs:sequence>
+					<xs:element name="localAlignmentPosition" type="SequencePosition" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Coordinates of the locally aligned sub-sequence. (Not present means global alignment)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="sequenceRecord" type="NucleotideSequenceRecord"/>
+					<xs:element name="gap" type="Gap" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="reversedDirection" type="Flag" minOccurs="0"/>
+					<xs:element name="sequenceScore" type="Result" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AlignedAminoacidSequence">
+		<xs:complexContent>
+			<xs:restriction base="AlignedGeneralAminoacidSequence">
+				<xs:sequence>
+					<xs:element name="localAlignmentPosition" type="SequencePosition" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Coordinates of the locally aligned sub-sequence. (Not present means global alignment)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="sequenceRecord" type="AminoacidSequenceRecord"/>
+					<xs:element name="gap" type="Gap" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="frameshift" type="Frameshift" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="reversedDirection" type="Flag" minOccurs="0"/>
+					<xs:element name="sequenceScore" type="Result" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+
+
+	<xs:complexType name="BiosequenceAlignment" sawsdl:modelReference="http://purl.org/edam/data/0000863 http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Alignment of 2..n generic nucleotide or amino-acid sequences</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="alignedSequence" type="AlignedBiosequence" minOccurs="2" maxOccurs="unbounded">
+				<xs:unique name="uniqueGapPos_b">
+					<xs:selector xpath="gap"/>
+					<xs:field xpath="@pos"/>
+				</xs:unique>
+				<xs:unique name="uniqueFrameshiftPos_b">
+					<xs:selector xpath="frameshift"/>
+					<xs:field xpath="@pos"/>
+				</xs:unique>
+			</xs:element>
+			<xs:element name="note" type="Text" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralNucleotideSequenceAlignment" sawsdl:modelReference="http://purl.org/edam/data/0001383">
+		<xs:annotation>
+			<xs:documentation>Alignment of 2..n generic nucleotide sequences</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="BiosequenceAlignment">
+				<xs:sequence>
+					<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="alignedSequence" type="AlignedGeneralNucleotideSequence" minOccurs="2" maxOccurs="unbounded">
+						<xs:unique name="uniqueGapPos_gn">
+							<xs:selector xpath="gap"/>
+							<xs:field xpath="@pos"/>
+						</xs:unique>
+					</xs:element>
+					<xs:element name="note" type="Text" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralAminoacidSequenceAlignment" sawsdl:modelReference="http://purl.org/edam/data/0001384">
+		<xs:annotation>
+			<xs:documentation>Alignment of 2..n generic amino-acid sequences</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="BiosequenceAlignment">
+				<xs:sequence>
+					<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="alignedSequence" type="AlignedGeneralAminoacidSequence" minOccurs="2" maxOccurs="unbounded">
+						<xs:unique name="uniqueGapPos_ga">
+							<xs:selector xpath="gap"/>
+							<xs:field xpath="@pos"/>
+						</xs:unique>
+						<xs:unique name="uniqueFrameshiftPos_ga">
+							<xs:selector xpath="frameshift"/>
+							<xs:field xpath="@pos"/>
+						</xs:unique>
+					</xs:element>
+					<xs:element name="note" type="Text" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="NucleotideSequenceAlignment">
+		<xs:annotation>
+			<xs:documentation>Alignment of 2..n nucleotide sequences</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralNucleotideSequenceAlignment">
+				<xs:sequence>
+					<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="alignedSequence" type="AlignedNucleotideSequence" minOccurs="2" maxOccurs="unbounded">
+						<xs:unique name="uniqueGapPos_n">
+							<xs:selector xpath="gap"/>
+							<xs:field xpath="@pos"/>
+						</xs:unique>
+					</xs:element>
+					<xs:element name="note" type="Text" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AminoacidSequenceAlignment">
+		<xs:annotation>
+			<xs:documentation>Alignment of 2..n amino-acid sequences</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralAminoacidSequenceAlignment">
+				<xs:sequence>
+					<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="alignedSequence" type="AlignedAminoacidSequence" minOccurs="2" maxOccurs="unbounded">
+						<xs:unique name="uniqueGapPos_a">
+							<xs:selector xpath="gap"/>
+							<xs:field xpath="@pos"/>
+						</xs:unique>
+						<xs:unique name="uniqueFrameshiftPos_a">
+							<xs:selector xpath="frameshift"/>
+							<xs:field xpath="@pos"/>
+						</xs:unique>
+					</xs:element>
+					<xs:element name="note" type="Text" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+
+
+	<!--=========================== FEATURE  ===========================-->
+
+
+
+
+	<xs:complexType name="FeatureType" sawsdl:modelReference="http://purl.org/edam/data/0001015 http://purl.org/edam/format/0002352"><!--"Sequence feature identifier"(1015)--><!--"BioXSD"(2352)-->
+		<xs:annotation>
+			<xs:documentation>Annotation by a particular feature. That is, a sequence annotation track for one particular reference sequence.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:sequence>
+					<xs:element name="name" type="Name" sawsdl:modelReference="http://purl.org/edam/data/0001015"><!--"Sequence feature identifier"(1015)-->
+						<xs:annotation>
+							<xs:documentation>Human-readable display name of the feature</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="equalConcept" type="OntologyConcept" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0001015"/><!--"Sequence feature identifier"(1015)-->
+				</xs:sequence>
+				<xs:element name="equalConcept" type="OntologyConcept" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0001015"/><!--"Sequence feature identifier"(1015)-->
+			</xs:choice>
+			<xs:element name="equalAlias" type="Name" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0001015"><!--"Sequence feature identifier"(1015)-->
+				<xs:annotation>
+					<xs:documentation>Alternative human-readable display name of the feature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="className" type="Name" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>More generic class of features containing this feature (human-readable display name of the class)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="classConcept" type="OntologyConcept" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="properties" type="FeatureTypeDetails" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="FeatureTypeDetails" sawsdl:modelReference="http://purl.org/edam/data/0001021 http://purl.org/edam/format/0002352"><!--"Sequence feature qualifier"(1021)--><!--"BioXSD"(2352)-->
+		<xs:annotation>
+			<xs:documentation>Specific properties of a feature</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="specificFeatureName" type="Name" minOccurs="0" sawsdl:modelReference="http://purl.org/edam/data/0001020"/><!--"Sequence feature qualifier"(1021)-->
+			<xs:element name="specificFeatureConcept" type="OntologyConcept" minOccurs="0" maxOccurs="unbounded"/><!--"Sequence feature qualifier"(1021)-->
+			<xs:element name="specificFeatureAlias" type="Name" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0001020"/><!--"Sequence feature qualifier"(1021)-->
+			<xs:element name="databaseEntry" type="EntryReference" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/resource/0002228">
+				<xs:annotation>
+					<xs:documentation>Pointer to a database entry specifying the feature-type details</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="note" type="Text" minOccurs="0"/>
+			
+			<xs:element name="association" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0002093 http://purl.org/edam/format/0002352">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="relationName" type="Name" minOccurs="0"/>
+						<xs:element name="relationConcept" type="OntologyConcept" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:choice>
+							<xs:element name="associatedConcept" type="OntologyConcept" maxOccurs="unbounded"/>
+							<xs:element name="associatedDatabaseEntry" type="EntryReference" maxOccurs="unbounded"/>
+							<xs:element name="associatedDatabase" type="DatabaseReference" maxOccurs="unbounded"/>
+							<xs:element name="associatedFeature" type="FeatureType" maxOccurs="unbounded"/>
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="FeatureOccurrenceData" sawsdl:modelReference="http://purl.org/edam/data/0001021 http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Occurrence of a feature in a reference sequence. Positioned or non-positioned (applied to the whole sequence)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="appliesToWholeSequence" type="Flag"/>
+				<xs:element name="position" type="GeneralSequencePosition"/>
+			</xs:choice>
+			<xs:element name="occurrenceEntryReference" type="EntryReference" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="occurrenceName" type="Name" minOccurs="0"/>
+			<xs:element name="occurrenceNote" type="Text" minOccurs="0"/>
+			<xs:element name="featureTypeDetails" type="FeatureTypeDetails" minOccurs="0"/>
+			<xs:element name="score" type="Score" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="evidence" type="Evidence" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="frame" minOccurs="0" sawsdl:modelReference="http://purl.org/edam/data/0002126">
+				<xs:annotation>
+					<xs:documentation>NB. Should be 0 for non-translated but transcribed features. Should be 'strand'*(('min'-1) mod 3 + 1) for translated features within a whole-chromosome annotation</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="AnyInteger">
+						<xs:minInclusive value="-3"/>
+						<xs:maxInclusive value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="phase" type="Phase" minOccurs="0"/>
+			<xs:element name="variation" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0000918 http://purl.org/edam/format/0002352">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="original" type="Biosequence" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:choice>
+							<xs:element name="variant" type="Biosequence" maxOccurs="unbounded"/>
+							<xs:element name="missing" type="Flag"/>
+						</xs:choice>
+						<xs:element name="score" type="Score" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="position" type="SequencePosition" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>NB. Corresponds to a position within the feature occurrence</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="alignment" minOccurs="0" sawsdl:modelReference="http://purl.org/edam/data/0001381 http://purl.org/edam/format/0002352">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="alignmentOfReference" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="gap" type="Gap" minOccurs="0" maxOccurs="unbounded"/>
+									<xs:element name="frameshift" type="Frameshift" minOccurs="0" maxOccurs="unbounded"/>
+									<xs:element name="sequenceScore" type="Result" minOccurs="0" maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+							<xs:unique name="uniqueGapPos_ar">
+								<xs:selector xpath="gap"/>
+								<xs:field xpath="@pos"/>
+							</xs:unique>
+							<xs:unique name="uniqueFrameshiftPos_ar">
+								<xs:selector xpath="frameshift"/>
+								<xs:field xpath="@pos"/>
+							</xs:unique>
+						</xs:element>
+						<xs:element name="alignedSequence" type="AlignedBiosequence">
+							<xs:unique name="uniqueGapPos_as">
+								<xs:selector xpath="gap"/>
+								<xs:field xpath="@pos"/>
+							</xs:unique>
+							<xs:unique name="uniqueFrameshiftPos_as">
+								<xs:selector xpath="frameshift"/>
+								<xs:field xpath="@pos"/>
+							</xs:unique>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+		</xs:sequence>
+	</xs:complexType>
+
+
+
+
+	<!--=========================== FEATURE BUNDLES ===========================-->
+
+
+
+
+	<xs:complexType name="AnnotatedSequence" sawsdl:modelReference="http://purl.org/edam/data/0002044 http://purl.org/edam/data/0000867 http://purl.org/edam/data/0001381 http://purl.org/edam/data/0000855 http://purl.org/edam/data/0002201 http://purl.org/edam/data/0000924 http://purl.org/edam/data/0000857 http://purl.org/edam/data/0000916 http://purl.org/edam/data/0002084 http://purl.org/edam/data/0000896 http://purl.org/edam/data/0002081 http://purl.org/edam/format/0002352"><!--"Sequence data"(0002044)--><!--"Sequence alignment annotation"(0000867)--><!--"Sequence alignment (pairwise)"(0001381)--><!--"Sequence annotation"(0000855)--><!--"Sequence record full"(0002201)--><!--"Sequence trace"(0000924)--><!--"Sequence database hits"(0000857)--><!--"Gene annotation"(0000916)--><!--"Nucleic acid annotation"(0002084)--><!--"Protein annotation"(0000896)--><!--"Secondary structure"(0002081)--><!--"BioXSD format"(0002352)-->
+		<xs:annotation>
+			<xs:documentation>Sequence annotated with sequence features</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+		
+			<!--= Reference sequence =-->
+			<xs:element name="referenceSequence">
+				<xs:annotation>
+					<xs:documentation>The *reference* sequence that is annotated</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="sequenceRecord" type="BiosequenceRecord"/>
+						<xs:element name="sequenceReference" type="SequenceReference"/>
+						<xs:element name="sequenceName" type="Name" sawsdl:modelReference="http://purl.org/edam/data/0002154"/>
+						<xs:sequence>
+							<xs:element name="species" type="Species"/>
+							<xs:element name="genomeBuild" type="EntryReference" sawsdl:modelReference="http://purl.org/edam/data/0002340"/>
+							<xs:element name="chromosome" type="ChromosomeName"/>
+							<xs:element name="subsequencePosition" type="SequencePosition" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Coordinates of a sub-sequence within the chromosome</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="variantAccession" type="Accession" minOccurs="0" sawsdl:modelReference="http://purl.org/edam/data/0001063 http://purl.org/edam/data/0002091"/>
+							<xs:element name="variantNote" type="Name" minOccurs="0" sawsdl:modelReference="http://purl.org/edam/data/0001063"/>
+						</xs:sequence>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:choice maxOccurs="unbounded">
+			
+				<!--= Annotation by a feature (a track) =-->
+				<xs:element name="annotation" sawsdl:modelReference="http://purl.org/edam/data/0003002 http://purl.org/edam/format/0002352"><!--"Sequence annotation track"(0003002)--><!--"BioXSD format"(0002352)-->
+					<xs:annotation>
+						<xs:documentation>Annotation by a particular feature or property. Corresponds to one sequence annotation track.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<!--= Feature type =-->
+							<xs:element name="feature" type="FeatureType"/>
+							<!--= Condensed references for feature occurrence(s) =-->
+							<xs:element name="condensedReferences" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+											<xs:element name="method" type="Method" minOccurs="0"/>
+											<xs:element name="ontology" type="OntologyReference" minOccurs="0"/>
+											<xs:element name="database" type="DatabaseReference" minOccurs="0"/>
+											<xs:element name="scoreType" type="ScoreType" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<!--= Feature occurrence(s) (instance(s)) =-->
+							<xs:element name="occurrence" type="FeatureOccurrenceData" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
+				<!--= Annotation by a block of inter-related features =-->
+				<xs:element name="blockWithOccurrenceReferences">
+					<xs:complexType>
+						<xs:sequence>
+			
+							<!--= Sources (globally declared) =-->
+							<xs:element name="database" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0000856">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="DatabaseReference">
+											<xs:attribute name="localId" type="LocalId" use="required"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ontology" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="OntologyReference">
+											<xs:attribute name="localId" type="LocalId" use="required"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ontologyConcept" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="OntologyConcept">
+											<xs:attribute name="localId" type="LocalId" use="required"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="method" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0000856">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="Method">
+											<xs:attribute name="localId" type="LocalId" use="required"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="scoreType" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="ScoreType">
+											<xs:attribute name="localId" type="LocalId" use="required"/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+			
+							<!--= Annotation by a feature (in a block) =-->
+							<xs:element name="annotation" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0003002 http://purl.org/edam/format/0002352"><!--"Sequence annotation track"(0003002)--><!--"BioXSD format"(0002352)-->
+								<xs:annotation>
+									<xs:documentation>Annotation by a particular feature or property. Corresponds to one sequence annotation track.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+									
+										<!--= Feature type (in a block) =-->
+										<xs:element name="feature" type="FeatureType"/>
+										
+										<!--= Condensed references for feature occurrence(s) =-->
+										<xs:element name="condensedReferences" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:choice>
+														<xs:element name="method" type="Method" minOccurs="0"/>
+														<xs:element name="methodIdRef" type="LocalId" minOccurs="0"/>
+													</xs:choice>
+													<xs:choice>
+														<xs:element name="ontology" type="OntologyReference" minOccurs="0"/>
+														<xs:element name="ontologyIdRef" type="LocalId" minOccurs="0"/>
+													</xs:choice>
+													<xs:choice>
+														<xs:element name="database" type="DatabaseReference" minOccurs="0"/>
+														<xs:element name="databaseIdRef" type="LocalId" minOccurs="0"/>
+													</xs:choice>
+													<xs:choice>
+														<xs:element name="scoreType" type="ScoreType" minOccurs="0"/>
+														<xs:element name="scoreTypeIdRef" type="LocalId" minOccurs="0"/>
+													</xs:choice>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+											
+										<!--= Feature occurrence(s) (instance(s)) (in a block) =-->
+										<xs:element name="occurrence" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:complexContent>
+													<xs:extension base="FeatureOccurrenceData">
+														<xs:sequence>
+															<xs:element name="association" minOccurs="0" maxOccurs="unbounded">
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="relationName" type="Name" minOccurs="0"/>
+																		<xs:element name="relationConcept" type="OntologyConcept" minOccurs="0" maxOccurs="unbounded"/>
+																		<xs:element name="relationConceptIdRef" type="LocalId" minOccurs="0" maxOccurs="unbounded"/>
+																		<xs:element name="associatedFeatureOccurrence" maxOccurs="unbounded">
+																			<xs:complexType>
+																				<xs:sequence>
+																					<xs:element name="score" type="Score" minOccurs="0" maxOccurs="unbounded"/>
+																				</xs:sequence>
+																				<xs:attribute name="localIdRef" use="required"/>
+																			</xs:complexType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:sequence>
+														<xs:attribute name="localId" type="LocalId"/>
+													</xs:extension>
+												</xs:complexContent>
+											</xs:complexType>
+										</xs:element>
+										
+									</xs:sequence>
+								</xs:complexType>
+								
+							</xs:element>
+							
+						</xs:sequence>
+					</xs:complexType>
+					
+					<xs:unique name="uniqueLocalId_occ">
+						<xs:selector xpath="annotation/occurrence"/>
+						<xs:field xpath="@localId"/>
+					</xs:unique>
+					
+				</xs:element>
+			
+			</xs:choice>
+		
+		</xs:sequence>
+	</xs:complexType>
+
+
+
+
+	<!--=========================== RESULTS, SCORE, EVIDENCE ===========================-->
+
+
+
+	
+	<xs:complexType name="Evidence" sawsdl:modelReference="http://purl.org/edam/data/0002042 http://purl.org/edam/format/0002352">
+		<xs:choice>
+			<xs:element name="predicted" type="PredictionResult"/>
+			<xs:element name="experimental" type="ExperimentalEvidence"/>
+		</xs:choice>
+	</xs:complexType>
+	
+	<xs:complexType name="MethodResult">
+		<xs:sequence>
+			<xs:element name="method">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="Method">
+							<xs:attribute name="localId" type="LocalId"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="score" type="Score" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="Result">
+		<xs:sequence>
+			<xs:element name="methodIdRef" type="LocalId" sawsdl:modelReference="http://purl.org/edam/data/0000007 http://purl.org/edam/data/0002337 http://purl.org/edam/data/0000977 http://purl.org/edam/format/0002352"/>
+			<xs:element name="score" type="Score" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="PredictionResult">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="method" type="Method" sawsdl:modelReference="http://purl.org/edam/data/0000856"/>
+				<xs:element name="methodIdRef" type="LocalId" sawsdl:modelReference="http://purl.org/edam/data/0000007 http://purl.org/edam/data/0002337 http://purl.org/edam/data/0000977 http://purl.org/edam/format/0002352 http://purl.org/edam/data/0000856"/>
+			</xs:choice>
+			<xs:element name="score" type="Score" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="verdict" type="Verdict" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ExperimentalEvidence">
+		<xs:sequence>
+				<xs:element name="dataReference" type="EntryReference" sawsdl:modelReference="http://purl.org/edam/data/0000856"/>
+			<xs:element name="citation" type="EntryReference" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0000970 http://purl.org/edam/resource/0000606"/>
+			<xs:element name="verdict" type="Verdict" minOccurs="0"/>
+			<xs:element name="reliability" type="Reliability" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ScoreType" sawsdl:modelReference="http://purl.org/edam/data/0001772 http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Type of score of an experiment or computation</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="concept" type="OntologyConcept" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="method" type="Method" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0000856"/>
+			<xs:element name="methodIdRef" type="LocalId" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0000007 http://purl.org/edam/data/0002337 http://purl.org/edam/data/0000977 http://purl.org/edam/format/0002352 http://purl.org/edam/data/0000856"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="ScoreName"/>
+		<xs:attribute name="index" type="Name"/>
+		<xs:attribute name="unit" type="Name"/>
+		<xs:attribute name="note" type="Text"/>
+	</xs:complexType>
+	
+	<xs:complexType name="Score" sawsdl:modelReference="http://purl.org/edam/data/0001772 http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Score of an experiment or computation</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ScoreType">
+				<xs:sequence>
+					<xs:element name="position" type="SequencePosition" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>NB. Corresponds to a position in the (sub)sequence the score belongs to</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:attribute name="value" type="ScoreValue" use="required"/>
+				<xs:attribute name="scoreTypeIdRef" type="LocalId"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+
+
+	<!--=========================== SEQUENCE POSITIONS ===========================-->
+
+
+
+
+	<xs:complexType name="GeneralSequencePoint" sawsdl:modelReference="http://purl.org/edam/data/0001016 http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Position in the sequence, referring to a single point (base, residue, or C-alpha atom), possibly with a certain level of uncertainty</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="pos" type="PositiveInteger">
+			<xs:annotation>
+				<xs:documentation>NB. Omit 'pos' attribute only if 'certainty'="Unknown"</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="strand" type="Strand"/>
+		<xs:attribute name="certainty" type="Certainty" default="Certain"/>
+	</xs:complexType>
+
+	<xs:complexType name="SequencePoint">
+		<xs:annotation>
+			<xs:documentation>Certain position in the sequence, referring to a single point (base, residue, or C-alpha atom)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralSequencePoint">
+				<xs:attribute name="pos" type="PositiveInteger" use="required"/>
+				<xs:attribute name="certainty" type="Certainty" fixed="Certain" use="prohibited"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralSequenceInsertionPoint" sawsdl:modelReference="http://purl.org/edam/data/0001016">
+		<xs:annotation>
+			<xs:documentation>Position of an insertion into the sequence, possibly with a certain level of uncertainty.
+NB. Insertion *behind* (to the right of) the given point in the direction of the sequence; *-1* for preceeding the sequence.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="pos" type="InsertionInteger">
+			<xs:annotation>
+				<xs:documentation>NB. Omit 'pos' attribute only if 'certainty'="Unknown"</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="strand" type="Strand"/>
+		<xs:attribute name="certainty" type="Certainty" default="Certain"/>
+	</xs:complexType>
+
+	<xs:complexType name="SequenceInsertionPoint">
+		<xs:annotation>
+			<xs:documentation>Certain position of an insertion into the sequence.
+NB. Insertion *behind* (to the right of) the given point in the direction of the sequence; *-1* for preceeding the sequence.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralSequenceInsertionPoint">
+				<xs:attribute name="pos" type="InsertionInteger" use="required"/>
+				<xs:attribute name="certainty" type="Certainty" fixed="Certain" use="prohibited"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralOutsideSequencePoint" sawsdl:modelReference="http://purl.org/edam/data/0001016">
+		<xs:annotation>
+			<xs:documentation>Position outside of the reference sequence, referring to a single point (a nucleotide, residue, or C-alpha atom), possibly uncertain</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="pos" type="NonzeroInteger">
+			<xs:annotation>
+				<xs:documentation>NB. Omit 'pos' attribute only if 'certainty'="Unknown"</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="strand" type="Strand"/>
+		<xs:attribute name="certainty" type="Certainty" default="Certain"/>
+	</xs:complexType>
+
+	<xs:complexType name="OutsideSequencePoint">
+		<xs:annotation>
+			<xs:documentation>Certain position outside of the reference sequence, referring to a single point (a nucleotide, residue, or C-alpha atom)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralOutsideSequencePoint">
+				<xs:attribute name="pos" type="NonzeroInteger" use="required"/>
+				<xs:attribute name="certainty" type="Certainty" fixed="Certain" use="prohibited"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralSequenceSegment" sawsdl:modelReference="http://purl.org/edam/data/0001017">
+		<xs:annotation>
+			<xs:documentation>Position in the sequence referring to a continuous segment of the sequence, possibly uncertain</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="min" type="PositiveInteger">
+			<xs:annotation>
+				<xs:documentation>NB. Keep 'min' &lt; 'max', use 'strand' if necessary. Omit 'min' attribute only if 'minCertainty'="Unknown"</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="max" type="PositiveInteger">
+			<xs:annotation>
+				<xs:documentation>NB. Keep 'max' > 'min', use 'strand' if necessary. Omit 'max' attribute only if 'maxCertainty'="Unknown"</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="strand" type="Strand"/>
+		<xs:attribute name="minCertainty" type="Certainty" default="Certain"/>
+		<xs:attribute name="maxCertainty" type="Certainty" default="Certain"/>
+	</xs:complexType>
+
+	<xs:complexType name="SequenceSegment">
+		<xs:annotation>
+			<xs:documentation>Certain position in the sequence referring to a scontinuous segment of the sequence</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralSequenceSegment">
+				<xs:attribute name="min" type="PositiveInteger" use="required">
+					<xs:annotation>
+						<xs:documentation>NB. Keep 'min' &lt; 'max', use 'strand' if necessary.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="max" type="PositiveInteger" use="required">
+					<xs:annotation>
+						<xs:documentation>NB. Keep 'max' > 'min', use 'strand' if necessary.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="minCertainty" type="Certainty" fixed="Certain" use="prohibited"/>
+				<xs:attribute name="maxCertainty" type="Certainty" fixed="Certain" use="prohibited"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralOutsideSequenceSegment" sawsdl:modelReference="http://purl.org/edam/data/0001017">
+		<xs:annotation>
+			<xs:documentation>Position outside of the reference sequence, referring to a continuous segment, possibly uncertain</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="min" type="NonzeroInteger">
+			<xs:annotation>
+				<xs:documentation>NB. Keep 'min' &lt; 'max', use 'strand' if necessary. Omit 'min' attribute only if 'minCertainty'="Unknown"</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="max" type="NonzeroInteger">
+			<xs:annotation>
+				<xs:documentation>NB. Keep 'max' > 'min', use 'strand' if necessary. Omit 'max' attribute only if 'maxCertainty'="Unknown"</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="strand" type="Strand"/>
+		<xs:attribute name="minCertainty" type="Certainty" default="Certain"/>
+		<xs:attribute name="maxCertainty" type="Certainty" default="Certain"/>
+	</xs:complexType>
+
+	<xs:complexType name="OutsideSequenceSegment">
+		<xs:annotation>
+			<xs:documentation>Certain position outside of the reference sequence, referring to a continuous segment</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralOutsideSequenceSegment">
+				<xs:attribute name="min" type="NonzeroInteger" use="required">
+					<xs:annotation>
+						<xs:documentation>NB. Keep 'min' &lt; 'max', use 'strand' if necessary.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="max" type="NonzeroInteger" use="required">
+					<xs:annotation>
+						<xs:documentation>NB. Keep 'max' > 'min', use 'strand' if necessary.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="minCertainty" type="Certainty" fixed="Certain" use="prohibited"/>
+				<xs:attribute name="maxCertainty" type="Certainty" fixed="Certain" use="prohibited"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralSequencePartition">
+		<xs:attribute name="max" type="PositiveInteger">
+			<xs:annotation>
+				<xs:documentation>NB. Omit 'max' attribute only if 'certainty'="Unknown"</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="certainty" type="Certainty" default="Certain"/>
+	</xs:complexType>
+
+	<xs:complexType name="SequencePartition">
+		<xs:complexContent>
+			<xs:restriction base="GeneralSequencePartition">
+				<xs:attribute name="max" type="PositiveInteger" use="required"/>
+				<xs:attribute name="certainty" type="Certainty" fixed="Certain" use="prohibited"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralSequencePosition" sawsdl:modelReference="http://purl.org/edam/data/0001014">
+		<xs:annotation>
+			<xs:documentation>Position in the sequence, referring either to a subsequence, a single point, an insertion, or outside of the sequence, possibly uncertain</xs:documentation>
+		</xs:annotation>
+			<xs:choice>
+				<xs:element name="point" type="GeneralSequencePoint" maxOccurs="unbounded"/>
+				<xs:element name="insertion" type="GeneralSequenceInsertionPoint"/>
+				<xs:element name="segment" type="GeneralSequenceSegment" maxOccurs="unbounded"/>
+				<xs:element name="nextPoint" type="Flag"/>
+				<xs:element name="nextPartition" type="GeneralSequencePartition"/>
+				<xs:element name="outside" type="GeneralOutsideSequencePosition"/>
+			</xs:choice>
+	</xs:complexType>
+
+	<xs:complexType name="SequencePosition">
+		<xs:annotation>
+			<xs:documentation>Certain position in the sequence, referring either to a subsequence, a single point, an insertion, or outside of the sequence</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralSequencePosition">
+					<xs:choice>
+						<xs:element name="point" type="SequencePoint" maxOccurs="unbounded"/>
+						<xs:element name="insertion" type="SequenceInsertionPoint"/>
+						<xs:element name="segment" type="SequenceSegment" maxOccurs="unbounded"/>
+						<xs:element name="nextPoint" type="Flag"/>
+						<xs:element name="nextPartition" type="SequencePartition"/>
+						<xs:element name="outside" type="OutsideSequencePosition"/>
+					</xs:choice>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralOutsideSequencePosition" sawsdl:modelReference="http://purl.org/edam/data/0001014">
+		<xs:annotation>
+			<xs:documentation>Position outside of the sequence, possibly uncertain</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:sequence minOccurs="0">
+				<xs:element name="correspondance" type="OutsidePositionCorrespondance"/>
+				<xs:choice>
+					<xs:element name="point" type="GeneralOutsideSequencePoint" maxOccurs="unbounded"/>
+					<xs:element name="insertion" type="GeneralOutsideSequencePoint"/>
+					<xs:element name="segment" type="GeneralOutsideSequenceSegment" maxOccurs="unbounded"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:element name="explicitSequenceReference" type="SequenceReference" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="OutsideSequencePosition">
+		<xs:annotation>
+			<xs:documentation>Certain position outside of the sequence</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralOutsideSequencePosition">
+				<xs:sequence>
+					<xs:sequence minOccurs="0">
+						<xs:element name="correspondance" type="OutsidePositionCorrespondance"/>
+						<xs:choice>
+							<xs:element name="point" type="OutsideSequencePoint" maxOccurs="unbounded"/>
+							<xs:element name="insertion" type="OutsideSequencePoint"/>
+							<xs:element name="segment" type="OutsideSequenceSegment" maxOccurs="unbounded"/>
+						</xs:choice>
+					</xs:sequence>
+					<xs:element name="explicitSequenceReference" type="SequenceReference" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+
+
+	<!--=========================== GENETIC CODE, TRANSLATION DATA ===========================-->
+
+
+
+
+	<xs:complexType name="GeneticCode" sawsdl:modelReference="http://purl.org/edam/data/0001598 http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Particular genetic code (codon encoding)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="reference" type="EntryReference" minOccurs="0" sawsdl:modelReference="http://purl.org/edam/data/0002127"/>
+			<xs:element name="codon" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0002116 http://purl.org/edam/format/0002352">
+				<xs:complexType>
+					<xs:attribute name="code" use="required">
+						<xs:annotation>
+							<xs:documentation>Codon code consisting of 3 bases (possibly ambiguous, "degenerate")</xs:documentation>
+						</xs:annotation>						
+						<xs:simpleType>
+							<xs:restriction base="GeneralNucleotideSequence">
+								<xs:length value="3"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="start" type="xs:boolean" default="false"/>
+					<xs:attribute name="end" type="xs:boolean" default="false"/>
+					<xs:attribute name="aminoacid" sawsdl:modelReference="http://purl.org/edam/data/0000994">
+						<xs:annotation>
+							<xs:documentation>One amino-acid (possibly ambiguous). NB. If the same codon codes for multiple amino-acids, use multiple 'codon' elements and fill in the 'note' attribute</xs:documentation>
+						</xs:annotation>						
+						<xs:simpleType>
+							<xs:restriction base="GeneralAminoacidSequence">
+								<xs:length value="1"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="veryRare" type="xs:boolean" default="false"/>
+					<xs:attribute name="note" type="Text"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="TranslationData" sawsdl:modelReference="http://purl.org/edam/data/0001317 http://purl.org/edam/format/0002352">
+		<xs:sequence>
+			<xs:element name="geneticCode" type="GeneticCode" minOccurs="0"/>
+			<xs:element name="phase" type="Phase" minOccurs="0"/>
+			<xs:element name="reversedTranslationDirection" type="Flag" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="AminoacidTranslationData">
+		<xs:complexContent>
+			<xs:restriction base="TranslationData">
+				<xs:sequence>
+					<xs:element name="geneticCode" type="GeneticCode" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+
+
+	<!--=========================== REFERENCES ===========================-->
+
+
+
+
+	<xs:attributeGroup name="WebserviceReference">
+		<xs:annotation>
+			<xs:documentation>A reference to a SOAP Web service</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="wsdl" type="Uri"/>
+		<xs:attribute name="wsdlService" type="xs:NMTOKEN"/>
+		<xs:attribute name="wsdlPort" type="xs:NMTOKEN"/>
+		<xs:attribute name="webserviceOperation" type="xs:NMTOKEN"/>
+		<xs:attribute name="webserviceVersion" type="Name"/>
+		<xs:attribute name="webserviceDate" type="xs:date">
+			<xs:annotation>
+				<xs:documentation>Date when this Web-service reference was fully valid: created or last time updated</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+
+	<xs:complexType name="DatabaseReference" sawsdl:modelReference="http://purl.org/edam/data/0001048 http://purl.org/edam/resource/0000005 http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Reference to a database</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="dbName" type="DatabaseName"/>
+		<xs:attribute name="dbUri" type="Uri" sawsdl:modelReference="http://purl.org/edam/data/0001048">
+			<xs:annotation>
+				<xs:documentation>General URI of the database</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="dbVersion" type="Name" sawsdl:modelReference="http://purl.org/edam/data/0001670"/>
+		<xs:attribute name="localCopyOfDb" type="xs:boolean" default="false"/>
+		<xs:attributeGroup ref="WebserviceReference"/>
+	</xs:complexType>
+	
+	<xs:complexType name="EntryReference" sawsdl:modelReference="http://purl.org/edam/data/0000842">
+		<xs:annotation>
+			<xs:documentation>Reference to an entry in a database</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="DatabaseReference">
+				<xs:attribute name="accession" type="Accession"/>
+				<xs:attribute name="entryUri" type="Uri" sawsdl:modelReference="http://purl.org/edam/data/0000842 http://purl.org/edam/data/0002091"/>
+				<xs:attribute name="entryVersion" type="Name" sawsdl:modelReference="http://purl.org/edam/data/0002090"/>
+				<xs:attribute name="date" type="xs:date" sawsdl:modelReference="http://purl.org/edam/data/0002156 http://purl.org/edam/data/0002337">
+					<xs:annotation>
+						<xs:documentation>Date when this reference was fully valid: created or last time updated</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="OntologyReference" sawsdl:modelReference="http://purl.org/edam/data/0002338 http://purl.org/edam/resource/0002221 http://purl.org/edam/data/0002352">
+		<xs:annotation>
+			<xs:documentation>Reference to an ontology or controlled vocabulary</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="ontologyName" type="OntologyName" sawsdl:modelReference="http://purl.org/edam/data/0001051"/>
+		<xs:attribute name="ontologyUri" type="Uri" sawsdl:modelReference="http://purl.org/edam/data/0002338">
+			<xs:annotation>
+				<xs:documentation>General URI of the controlled vocabulary (ontology)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ontologyVersion" type="Name" sawsdl:modelReference="http://purl.org/edam/data/0001670"/>
+		<xs:attribute name="localCopyOfOntology" type="xs:boolean" default="false"/>
+	</xs:complexType>
+
+	<xs:complexType name="OntologyConcept" sawsdl:modelReference="http://purl.org/edam/data/0000966 http://purl.org/edam/data/0001087 http://purl.org/edam/data/0002352">
+		<xs:annotation>
+			<xs:documentation>Reference to a concept from a ontology or a term from a controlled vocabulary</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="OntologyReference">
+				<xs:attribute name="accession" type="Accession" sawsdl:modelReference="http://purl.org/edam/data/0001087"/>
+				<xs:attribute name="conceptUri" type="Uri" sawsdl:modelReference="http://purl.org/edam/data/0001087"/>
+				<xs:attribute name="term" type="Name" sawsdl:modelReference="http://purl.org/edam/data/0002339">
+					<xs:annotation>
+						<xs:documentation>Human-readable term, or a name of an ontology concept. NB. Does not have to be always up to date and canonical.
+(Use also 'conceptUri' or 'accession': up-to-date name and other properties of the concept should be downloadable given the 'conceptUri' or 'accession')</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="Species" sawsdl:modelReference="http://purl.org/edam/data/0001869 http://purl.org/edam/resource/0000637 http://purl.org/edam/format/2352">
+		<xs:annotation>
+			<xs:documentation>Reference to a species (can be used also for a phenotype, cell line, tissue, sample, geo location, ...)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EntryReference">
+				<xs:attribute name="speciesName" type="Name" sawsdl:modelReference="http://purl.org/edam/data/0001045">
+					<xs:annotation>
+						<xs:documentation>Custom human-readable name of the species. NB. Does not have to be always up to date and canonical. Use also entryUri or accession if possible</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="speciesNote" type="Text"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="SequenceReference" sawsdl:modelReference="http://purl.org/edam/data/0001063 http://purl.org/edam/resource/0000584">
+		<xs:annotation>
+			<xs:documentation>Formal reference to a sequence in a database or an explicit super-sequence</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EntryReference">
+				<xs:sequence>
+					<xs:element name="subsequencePosition" type="SequencePosition" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Coordinates of the sub-sequence within the referenced sequence</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="supersequence" type="Biosequence" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Explicit super-sequence, in case it is not desired or not possible to point to a database entry</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="supersequenceName" type="Name" minOccurs="0" sawsdl:modelReference="http://purl.org/edam/data/0002154">
+						<xs:annotation>
+							<xs:documentation>Custom name of the super-sequence, in case it is not desired or not possible to point to a database entry</xs:documentation>
+						</xs:annotation>
+					</xs:element>	
+				</xs:sequence>
+				<xs:attribute name="sequenceVersion" type="Name" sawsdl:modelReference="http://purl.org/edam/data/0001771"/>
+				<xs:attribute name="variantAccession" type="Accession" sawsdl:modelReference="http://purl.org/edam/data/0001063 http://purl.org/edam/data/0002091"/>
+				<xs:attribute name="variantNote" type="Name" sawsdl:modelReference="http://purl.org/edam/data/0001063"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="Method" sawsdl:modelReference="http://purl.org/edam/data/0000007 http://purl.org/edam/data/0002337 http://purl.org/edam/data/0000977 http://purl.org/edam/format/0002352">
+		<xs:sequence>
+			<xs:element name="categoryConcept" type="OntologyConcept" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0000958 http://purl.org/edam/operation/0000004"/>
+			<xs:element name="citation" type="EntryReference" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://purl.org/edam/data/0000958 http://purl.org/edam/data/0000970 http://purl.org/edam/resource/0000606"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="Name" use="required" sawsdl:modelReference="http://purl.org/edam/data/0001190"/>
+		<xs:attribute name="uri" type="Uri" sawsdl:modelReference="http://purl.org/edam/data/0000977"/>
+		<xs:attribute name="version" type="Name" sawsdl:modelReference="http://purl.org/edam/data/0001671"/>
+		<xs:attribute name="date" type="xs:date" sawsdl:modelReference="http://purl.org/edam/data/0002156 http://purl.org/edam/data/0002337"/>
+		<xs:attributeGroup ref="WebserviceReference"/>
+	</xs:complexType>
+
+	<xs:simpleType name="LocalId">
+		<xs:annotation>
+			<xs:documentation>Identifier for local references within a data record. NB. Objects define their local identifier always in their 'localId' attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Za-z0-9#]{1,2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+
+
+	<!--=========================== ACCESSIONS ===========================-->
+
+
+
+
+	<xs:simpleType name="Accession" sawsdl:modelReference="http://purl.org/edam/data/0000976">
+		<xs:annotation>
+			<xs:documentation>Generalisation of bioinformatics accession numbers (stable primary keys/stable unique identifiers), or bioinformatics primary keys/unique identifiers (where no stable accessions)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Za-z0-9\-._~]+"/>
+			<xs:maxLength value="1000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="EmblAccession" sawsdl:modelReference="http://purl.org/edam/data/0001107">
+		<xs:restriction base="Accession">
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="ExtendedUniprotAccession">
+		<xs:annotation>
+			<xs:documentation>UniProt accession number, optionally with version after a dot (.) or the variant (isoform) suffix after a hyphen (-).</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="Accession">
+			<xs:pattern value="[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]"/>
+			<xs:pattern value="[OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9]"/>
+			<xs:pattern value="[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9][.-][0-9]+"/>
+			<xs:pattern value="[OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9][.-][0-9]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="UniprotAccession" sawsdl:modelReference="http://purl.org/edam/data/0001099">
+		<xs:annotation>
+			<xs:documentation>UniProt accession number, without the sequence version and splice-variant suffix</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="ExtendedUniprotAccession">
+			<xs:pattern value="[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]"/>
+			<xs:pattern value="[OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="ExtendedGenbankAccession">
+		<xs:restriction base="Accession">
+			<xs:pattern value="[A-Z][0-9]{5}(.[0-9]+)?"/>
+			<xs:pattern value="[A-Z]{2}[0-9]{6}(.[0-9]+)?"/>
+			<xs:pattern value="[A-Z]{3}[0-9]{5}(.[0-9]+)?"/>
+			<xs:pattern value="[A-Z]{4}[0-9]{8,10}(.[0-9]+)?"/>
+			<xs:pattern value="[A-Z]{5}[0-9]{7}(.[0-9]+)?"/>
+			<xs:pattern value="[A-Z]{2}_[0-9]{6}(.[0-9]+)?"/>
+			<xs:pattern value="[A-Z]{2}_[0-9]{9}(.[0-9]+)?"/>
+			<xs:pattern value="[A-Z]{2}_[A-Z]{4}[0-9]{8,10}(.[0-9]+)?"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	
+	<xs:simpleType name="GenbankAccession">
+		<xs:restriction base="ExtendedGenbankAccession">
+			<xs:pattern value="[A-Z][0-9]{5}"/>
+			<xs:pattern value="[A-Z]{2}[0-9]{6}"/>
+			<xs:pattern value="[A-Z]{3}[0-9]{5}"/>
+			<xs:pattern value="[A-Z]{4}[0-9]{8,10}"/>
+			<xs:pattern value="[A-Z]{5}[0-9]{7}"/>
+			<xs:pattern value="[A-Z]{2}_[0-9]{6}"/>
+			<xs:pattern value="[A-Z]{2}_[0-9]{9}"/>
+			<xs:pattern value="[A-Z]{2}_[A-Z]{4}[0-9]{8,10}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="GenbankNucleotideAccession" sawsdl:modelReference="http://purl.org/edam/data/0001108">
+		<xs:annotation>
+			<xs:documentation>GenBank/EMBL/DDBJ nucleotide accession number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="GenbankAccession">
+			<xs:pattern value="[A-Z][0-9]{5}"/>
+			<xs:pattern value="[A-Z]{2}[0-9]{6}"/>
+			<xs:pattern value="[A-Z]{2}_[0-9]{6}"/>
+			<xs:pattern value="[A-Z]{2}_[0-9]{9}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="GenbankProteinAccession">
+		<xs:annotation>
+			<xs:documentation>GenBank/EMBL/DDBJ protein accession number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="GenbankAccession">
+			<xs:pattern value="[A-Z]{3}[0-9]{5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="GenbankWgsAccession">
+		<xs:annotation>
+			<xs:documentation>GenBank/EMBL/DDBJ WGS accession number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="GenbankAccession">
+			<xs:pattern value="[A-Z]{4}[0-9]{8,10}"/>
+			<xs:pattern value="[A-Z]{2}_[A-Z]{4}[0-9]{8,10}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="GenbankMgaAccession">
+		<xs:annotation>
+			<xs:documentation>GenBank/EMBL/DDBJ MGA accession number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="GenbankAccession">
+			<xs:pattern value="[A-Z]{5}[0-9]{7}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="PubmedId">
+		<xs:restriction base="Accession">
+			<xs:pattern value="[1-9][0-9]{0,8}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="NcbiTaxonomyId" sawsdl:modelReference="http://purl.org/edam/data/0001179">
+		<xs:annotation>
+			<xs:documentation>NCBI Taxonomy ID (0 ... 999999999; i.e. a subset of 32-bit (4B) signed int)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="Accession">
+			<xs:pattern value="[1-9][0-9]{0,8}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="NcbiGeneticCodeId">
+		<xs:annotation>
+			<xs:documentation>NCBI ID of a genetic code (1 ... 99)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="Accession">
+			<xs:pattern value="[1-9][0-9]?"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+
+
+	<!--=========================== ENUMERATIONS ===========================-->
+
+	<xs:simpleType name="RecommendedScoreName">
+		<xs:restriction base="Name">
+			<xs:enumeration value="p-value" sawsdl:modelReference="http://purl.org/edam/data/0001669"/>
+			<xs:enumeration value="E-value" sawsdl:modelReference="http://purl.org/edam/data/0001667"/>
+			<xs:enumeration value="Standard deviation"/>
+			<xs:enumeration value="Bit score" sawsdl:modelReference="http://purl.org/edam/data/0002335"/>
+			<xs:enumeration value="Z-score"/>
+			<xs:enumeration value="Probability"/>
+		</xs:restriction>
+	</xs:simpleType>
+													<xs:simpleType name="RecommendedVerdict">
+														<xs:annotation>
+															<xs:documentation>Predefined, recommended verdict of a predicted or experimental evidence</xs:documentation>
+														</xs:annotation>
+														<xs:restriction base="Name">
+															<xs:enumeration value="Present"/>
+															<xs:enumeration value="Putative"/>
+															<xs:enumeration value="Improbable"/>
+															<xs:enumeration value="Not present"/>
+														</xs:restriction>
+													</xs:simpleType>
+												
+													<xs:simpleType name="RecommendedReliability">
+														<xs:annotation>
+															<xs:documentation>Predefined, recommended reliability of an experimental evidence</xs:documentation>
+														</xs:annotation>
+														<xs:restriction base="Name">
+															<xs:enumeration value="Reliable"/>
+															<xs:enumeration value="Disputable"/>
+														</xs:restriction>
+													</xs:simpleType>
+
+	<xs:simpleType name="QualitativeCertainty" sawsdl:modelReference="http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Qualitative certainty tag</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="Name">
+			<xs:enumeration value="Certain"/>
+			<xs:enumeration value="Uncertain"/>
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation>The reffered value completely unknown, not the certainty unknown</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Certainly greater or equal"/>
+			<xs:enumeration value="Certainly less or equal"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Strand" sawsdl:modelReference="http://purl.org/edam/data/0000853 http://purl.org/edam/format/0002352">
+		<xs:restriction base="Name">
+			<xs:enumeration value="+"/>
+			<xs:enumeration value="-"/>
+			<xs:enumeration value="+ over start"/>
+			<xs:enumeration value="- over start"/>
+			<xs:enumeration value="Unknown"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="OutsidePositionCorrespondance" sawsdl:modelReference="http://purl.org/edam/format/0002352">
+		<xs:annotation>
+			<xs:documentation>Correspondance of the outside positions to the reference sequence</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="Name">
+			<xs:enumeration value="In chromosome/scaffold/contig">
+				<xs:annotation>
+					<xs:documentation>The outside position is in the nucleotide sequence of the either explicitly given chromosome or scaffold/contig, or the chromosome/scaffold/contig of the reference sequence.
+Outside-positions 1..m are positions in the chromosome</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="In explicit sequence">
+				<xs:annotation>
+					<xs:documentation>The outside position is in an explicitly referenced nucleotide or amino-acid sequence. Can but does not have to be a supersequence of the reference sequence.
+Outside-positions 1..m are in the explicitly referenced supersequence. Fill in the 'explicitSequenceReference' element.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="In implicit supersequence">
+				<xs:annotation>
+					<xs:documentation>The outside position is in a nucleotide or amino-acid supersequence (respectively) of the reference subsequence.
+Positions 1..n correspond, position -1 is the preceding (next point to the left) from 1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Relative to 1st translated base">
+				<xs:annotation>
+					<xs:documentation>The outside position is in a nucleotide sequence.
+Position 1 corresponds to the 1st base of the 1st translated codon within the reference isoform, position -1 is the next to the left from 1
+(NB. CDSs include the start and stop codons: do not use this correspondance option for outside features of CDSs)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Relative to 1st transcribed base">
+				<xs:annotation>
+					<xs:documentation>The outside position is in a nucleotide sequence.
+Position 1 corresponds to the 1st base transcribed within the reference isoform, position -1 is the next to the left from 1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="RecommendedDatabaseName">
+		<xs:annotation>
+			<xs:documentation>Predefined, recommended database name of a public database</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="Name">
+			<xs:enumeration value="EMBL"/>
+			<xs:enumeration value="EMBLCON"/>
+			<xs:enumeration value="EMBLANN"/>
+			<xs:enumeration value="EMBLCDS"/>
+			<xs:enumeration value="EMBLSVA"/>
+			<xs:enumeration value="Ensembl Gene"/>
+			<xs:enumeration value="Ensembl Transcript"/>
+			<xs:enumeration value="UniProt" sawsdl:modelReference="http://purl.org/edam/resource/0000651"/>
+				<xs:enumeration value="UniProt/Swiss-Prot" sawsdl:modelReference="http://purl.org/edam/resource/0000649"/>
+				<xs:enumeration value="UniProt/TrEMBL" sawsdl:modelReference="http://purl.org/edam/resource/0000650"/>
+			<xs:enumeration value="UniSave"/>
+			<xs:enumeration value="UniRef100"/>
+			<xs:enumeration value="UniRef90"/>
+			<xs:enumeration value="UniRef50"/>
+			<xs:enumeration value="UniParc"/>
+			<xs:enumeration value="IPI"/>
+			<xs:enumeration value="RefSeq"/>
+			<xs:enumeration value="InterPro"/>
+			<xs:enumeration value="PDB"/>
+			<xs:enumeration value="HGVbase"/>
+			<xs:enumeration value="GenomeReviews"/>
+			<xs:enumeration value="EPO Proteins"/>
+			<xs:enumeration value="JPO Proteins"/>
+			<xs:enumeration value="KIPO Proteins"/>
+			<xs:enumeration value="USPO Proteins"/>
+			<xs:enumeration value="Medline"/>
+			<xs:enumeration value="DDBJ/GenBank/EMBL"/>
+			<xs:enumeration value="PDB"/>
+			<xs:enumeration value="DAD"/>
+			<xs:enumeration value="PRF"/>
+			<xs:enumeration value="Patent"/>
+			<xs:enumeration value="NCBI Taxonomy" sawsdl:modelReference="http://purl.org/edam/resource/0000833"/>
+			<xs:enumeration value="NCBI Genetic Code"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="RecommendedOntologyName">
+		<xs:annotation>
+			<xs:documentation>Predefined, recommended name of a public ontology or controlled vocabulary</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="Name">
+			<xs:enumeration value="Gene Ontology" sawsdl:modelReference="http://purl.org/edam/resource/0000830"/>
+			<xs:enumeration value="Sequence Ontology"/>
+			<xs:enumeration value="ChEBI"/>
+			<xs:enumeration value="EDAM"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+
+
+	<!--=========================== BASIC GENERAL TYPES (chosen subset of xs built-ins) ===========================-->
+
+
+
+
+	<xs:complexType name="Flag" final="#all"/>
+
+	<xs:simpleType name="AnyInteger">
+		<xs:annotation>
+			<xs:documentation>Any integer number (~-9.2x10^18 ... ~9.2x10^18). Represented by a 64-bit (8B) signed long integer (long, long long, int64, same as xs:long, different from xs:integer)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="NonnegativeInteger">
+		<xs:annotation>
+			<xs:documentation>Non-negative integer number (0 ... ~9.2x10^18). Represented by a 64-bit (8B) signed long integer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="AnyInteger">
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="NonzeroInteger">
+		<xs:annotation>
+			<xs:documentation>Non-zero integer number (~-9.2x10^18 ... -1, 1 ... ~9.2x10^18). Represented by a 64-bit (8B) signed long integer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="AnyInteger">
+			<xs:pattern value="[\-+]?[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="InsertionInteger">
+		<xs:annotation>
+			<xs:documentation>Insertion-point specific integer number (-1, 1 ... ~9.2x10^18). Represented by a 64-bit (8B) signed long integer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="NonzeroInteger">
+			<xs:minInclusive value="-1"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="PositiveInteger">
+		<xs:annotation>
+			<xs:documentation>Positive integer number (1 ... ~9.2x10^18). Represented by a 64-bit (8B) signed long integer</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="NonzeroInteger">
+			<xs:minInclusive value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="AnyDecimal">
+		<xs:annotation>
+			<xs:documentation>Any decimal number with double precision (-INF, ~-1.7E308 ... 0, ~5E-324 subnormal ... ~2.3E-308 ... ~1.7E308, INF; +NaN). Represented by a 64-bit (8B) signed floating point number (double, long double, same as xs:double, different from xs:decimal)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:double"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="Probability">
+		<xs:annotation>
+			<xs:documentation>Probability with double precision (0 ... 1). Represented by a 64-bit (8B) signed floating point number</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="AnyDecimal">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Certainty">
+		<xs:annotation>
+			<xs:documentation>Quantitave or qualitative certainty</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="Probability QualitativeCertainty"/>
+	</xs:simpleType>
+															<xs:simpleType name="Verdict">
+																<xs:union memberTypes="Name RecommendedVerdict"/>
+															</xs:simpleType>
+														
+															<xs:simpleType name="Reliability">
+																<xs:union memberTypes="Name RecommendedReliability"/>
+															</xs:simpleType>
+
+	<xs:simpleType name="ScoreValue">
+		<xs:union memberTypes="AnyDecimal Name RecommendedVerdict RecommendedReliability"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="Uri" sawsdl:modelReference="http://purl.org/edam/data/0001047 http://purl.org/edam/format/0002334"><!--"URI"(0001047)--><!--"URI format"(0002334)-->
+		<xs:annotation>
+			<xs:documentation>An absolute Unified Resource Identifier (URI), possibly a Web link.
+NB. Supports a subset of RFC 3986 generic syntax (selected schemes, DNS only, no user info, constrained port and characters)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="http://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=]|%[0-9A-F]{2})+)*(\?([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?"/>
+			<xs:pattern value="https://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=]|%[0-9A-F]{2})+)*(\?([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?"/>
+			<xs:pattern value="ftp://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=]|%[0-9A-F]{2})+)*(\?([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?"/>
+			<xs:pattern value="urn:lsid:[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*:[A-Za-z0-9\-._~]+:[A-Za-z0-9\-._~]+(:[A-Za-z0-9\-._~]+)?"/>
+			<!--=As the whole BioXSD, these patterns are copyrighted and available under the Creative Commons attribution no-modification licence (CC-BY-ND 3.0; Derivation waived by xs:extension and xs:restriction in user's namespace; Address change requests to bioxsd.org)=-->
+			<xs:maxLength value="1000"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Text" sawsdl:modelReference="http://purl.org/edam/data/0000969 http://purl.org/edam/format/0002330">
+	<!--"Data/Free text"(0000006/0000969)--><!--"Data format/Text format"(0001915/0002330)-->
+		<xs:annotation>
+			<xs:documentation>Any plain text (possibly formatted)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">			
+			<xs:minLength value="1"/>
+			<xs:whiteSpace value="preserve"/>
+			<xs:maxLength value="1000000"/>
+		</xs:restriction>		
+	</xs:simpleType>
+
+	<xs:simpleType name="Name" sawsdl:modelReference="http://purl.org/edam/format/0002099 http://purl.org/edam/format/0002330">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="\S(\S|\s\S)*"/>
+			<xs:maxLength value="1000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="ChromosomeName" sawsdl:modelReference="http://purl.org/edam/data/0000987">
+		<xs:restriction base="Name">
+			<xs:pattern value="[A-Z][A-Za-z]*"/>
+			<xs:pattern value="[0-9]+[A-Za-z]*"/>
+			<xs:pattern value="[a-z]+[0-9]+[A-Za-z]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="DatabaseName" sawsdl:modelReference="http://purl.org/edam/data/0001056">
+		<xs:annotation>
+			<xs:documentation>Name of a public or private database (predefined or arbitrary name)</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="Name RecommendedDatabaseName"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="OntologyName" sawsdl:modelReference="http://purl.org/edam/data/0001051">
+		<xs:annotation>
+			<xs:documentation>Name of a public or private ontology or controlled vocabulary (predefined or arbitrary name)</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="Name RecommendedOntologyName"/>
+	</xs:simpleType>
+
+	<xs:simpleType name="ScoreName">
+		<xs:union memberTypes="Name RecommendedScoreName"/>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Phase" sawsdl:modelReference="http://purl.org/edam/data/0002336">
+		<xs:annotation>
+			<xs:documentation>Phase of an incomplete peptide-coding nucleotide sequence, in the direction of translation</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="NonnegativeInteger">
+			<xs:maxInclusive value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+
+	
+</xs:schema>
+
+<!--================ CHANGELOG ====================
+version      status           released      changes
+===================================================
+  1.1beta1                    2011-05-11*   maxOccur=1 simple elements of many supplementary complexTypes now represented by attributes (applies to positions, references, and score);        [*pre-released as BioXSD-1.1beta1.xsd, xmlns http://bioxsd.org/BioXSD-1.1beta1]
+                                            a few renamings (e.g. terms to concepts, isoform to variant, removal of "custom", Empty to Flag);
+                                            AnnotatedSequence only for 1 sequence/chromosome/scaffold/contig, no chromosome in positions;
+                                            all nested positions local with respect to encapsulating sequence/(multi)segment/partition/(tuple(='multi-point'));
+                                            dense positions added ('nextPoint', 'nextPartition') referring to preceding position element in the data or to the start of the reference sequence/(multi)segment/partition;
+                                            score: any Name allowed as value (in addition to AnyDecimal), 'method'-s & 'methodIdRef'-s added;
+                                            'condensedReferences' added for feature occurrences;
+                                            one of 'name' or 'equalConcept' mandatory in Feature;
+                                            limited length of sequences;
+                                            LocalId value: max 2 characters from 63 allowed characters;
+                                            (evolved from 1.0.3; order of definitions changed).
+===================================================
+1.0.3                         unreleased    inline read quality string added (FASTQ/Phred); OboTermId removed (unused and incorrect); BiosequenceAlignment can contain full AnnotatedSequence-s; annotation with EDAM extended; experimental: BiosequenceCollection, rare variant.
+1.0.2        Current 1.0      2010-10-27    references/associations between feature occurrences modified (unused before); slight refactoring of positions: multiple points allowed, strand of point instead of segment (unused before); EDAM URIs updated.
+1.0.1                         2010-10-22    PubmedId added.
+1.0.0                         2010-04-08    (same as the pre-production version 0.4, only namespace and version changed, and dev comments & ineffectual annotations removed).
+==================== CHANGELOG =================-->

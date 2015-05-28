@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bxExamples
+	xmlns="http://bioxsd.org/example"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.1beta1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://bioxsd.org/example bxExamples(1.1beta1).xsd"
+>
+	<exampleTrack>
+		<bx:referenceSequence>
+			<bx:species/>
+			<bx:genomeBuild/>
+			<bx:chromosome>1</bx:chromosome>
+		</bx:referenceSequence>
+		<bx:annotation>
+			<bx:feature>
+				<bx:name>Example track 3</bx:name>
+			</bx:feature>
+			<bx:occurrence>
+				<bx:position>
+					<bx:point pos="201"/>
+				</bx:position>
+				<bx:score value="25"/>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position>
+					<bx:point pos="301"/>
+				</bx:position>
+				<bx:score value="26"/>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position>
+					<bx:point pos="351"/>
+				</bx:position>
+				<bx:score value="25"/>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position>
+					<bx:point pos="476"/>
+				</bx:position>
+				<bx:score value="23"/>
+			</bx:occurrence>
+		</bx:annotation>
+	</exampleTrack>
+	<exampleTrack>
+		<bx:referenceSequence>
+			<bx:species/>
+			<bx:genomeBuild/>
+			<bx:chromosome>2</bx:chromosome>
+		</bx:referenceSequence>
+		<bx:annotation>
+			<bx:feature>
+				<bx:name>Example track 3</bx:name>
+			</bx:feature>
+			<bx:occurrence>
+				<bx:position>
+					<bx:point pos="151"/>
+				</bx:position>
+				<bx:score value="10"/>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position>
+					<bx:point pos="251"/>
+				</bx:position>
+				<bx:score value="11"/>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position>
+					<bx:point pos="376"/>
+				</bx:position>
+				<bx:score value="13"/>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position>
+					<bx:point pos="501"/>
+				</bx:position>
+				<bx:score value="14"/>
+			</bx:occurrence>
+		</bx:annotation>
+	</exampleTrack>
+</bxExamples>

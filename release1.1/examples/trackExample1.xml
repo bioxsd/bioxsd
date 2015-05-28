@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bxExamples
+	xmlns="http://bioxsd.org/example"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.1beta1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://bioxsd.org/example bxExamples(1.1beta1).xsd"
+>
+	<exampleTrack>
+		<bx:referenceSequence>
+			<bx:sequenceReference>
+				<bx:subsequencePosition>
+					<bx:segment min="1" max="1497228"/>
+				</bx:subsequencePosition>
+				<bx:supersequenceName>ctg123</bx:supersequenceName>
+			</bx:sequenceReference>
+		</bx:referenceSequence>
+		<bx:blockWithOccurrenceReferences>
+			<bx:ontologyConcept ontologyName="Sequence Ontology" accession="part_of" term="part_of" localId="p1"/>
+			<bx:annotation>
+				<bx:feature>
+					<bx:equalConcept ontologyName="Sequence Ontology" accession="704" term="gene"/>
+				</bx:feature>
+				<bx:occurrence localId="g1">
+					<bx:position>
+						<bx:segment min="1000" max="9000" strand="+"/>
+					</bx:position>
+					<bx:occurrenceName>EDEN</bx:occurrenceName>
+				</bx:occurrence>
+			</bx:annotation>
+			<bx:annotation>
+				<bx:feature>
+					<bx:equalConcept ontologyName="Sequence Ontology" accession="234" term="mRNA"/>
+				</bx:feature>
+				<bx:occurrence localId="m1">
+					<bx:position>
+						<bx:segment min="1050" max="7000" strand="+"/>
+					</bx:position>
+					<bx:occurrenceName>EDEN.1</bx:occurrenceName>
+					<bx:association>
+						<bx:relationConceptIdRef>p1</bx:relationConceptIdRef>
+						<bx:associatedFeatureOccurrence localIdRef="g1"/>
+					</bx:association>
+				</bx:occurrence>
+				<bx:occurrence localId="m2">
+					<bx:position>
+						<bx:segment min="1300" max="7000" strand="+"/>
+					</bx:position>
+					<bx:occurrenceName>EDEN.2</bx:occurrenceName>
+					<bx:association>
+						<bx:relationConceptIdRef>p1</bx:relationConceptIdRef>
+						<bx:associatedFeatureOccurrence localIdRef="g1"/>
+					</bx:association>
+				</bx:occurrence>
+			</bx:annotation>
+			<bx:annotation>
+				<bx:feature>
+					<bx:equalConcept ontologyName="Sequence Ontology" accession="147" term="exon"/>
+				</bx:feature>
+				<bx:occurrence localId="e1">
+					<bx:position>
+						<bx:segment min="1300" max="1500" strand="+"/>
+					</bx:position>
+					<bx:association>
+						<bx:relationConceptIdRef>p1</bx:relationConceptIdRef>
+						<bx:associatedFeatureOccurrence localIdRef="m2"/>
+					</bx:association>
+				</bx:occurrence>
+				<bx:occurrence localId="e2">
+					<bx:position>
+						<bx:segment min="3000" max="3902" strand="+"/>
+					</bx:position>
+					<bx:association>
+						<bx:relationConceptIdRef>p1</bx:relationConceptIdRef>
+						<bx:associatedFeatureOccurrence localIdRef="m1"/>
+						<bx:associatedFeatureOccurrence localIdRef="m2"/>
+					</bx:association>
+				</bx:occurrence>
+				<bx:occurrence localId="e3">
+					<bx:position>
+						<bx:segment min="5000" max="7000" strand="+"/>
+					</bx:position>
+					<bx:association>
+						<bx:relationConceptIdRef>p1</bx:relationConceptIdRef>
+						<bx:associatedFeatureOccurrence localIdRef="m1"/>
+						<bx:associatedFeatureOccurrence localIdRef="m2"/>
+					</bx:association>
+				</bx:occurrence>
+			</bx:annotation>
+			<bx:annotation>
+				<bx:feature>
+					<bx:equalConcept ontologyName="Sequence Ontology" accession="316" term="CDS"/>
+				</bx:feature>
+				<bx:occurrence localId="c1">
+					<bx:position>
+						<bx:segment min="1201" max="1500" strand="+"/>
+						<bx:segment min="3000" max="3902" strand="+"/>
+						<bx:segment min="5000" max="5500" strand="+"/>
+					</bx:position>
+					<bx:occurrenceName>edenprotein.1</bx:occurrenceName>
+					<bx:phase>0</bx:phase>
+					<bx:association>
+						<bx:relationConceptIdRef>p1</bx:relationConceptIdRef>
+						<bx:associatedFeatureOccurrence localIdRef="m1"/>
+					</bx:association>
+				</bx:occurrence>
+				<bx:occurrence localId="c3">
+					<bx:position>
+						<bx:segment min="3301" max="3902" strand="+"/>
+						<bx:segment min="5000" max="5500" strand="+"/>
+					</bx:position>
+					<bx:occurrenceName>edenprotein.2</bx:occurrenceName>
+					<bx:phase>0</bx:phase>
+					<bx:association>
+						<bx:relationConceptIdRef>p1</bx:relationConceptIdRef>
+						<bx:associatedFeatureOccurrence localIdRef="m2"/>
+					</bx:association>
+				</bx:occurrence>
+				<bx:occurrence localId="c4">
+					<bx:position>
+						<bx:segment min="3391" max="3902" strand="+"/>
+						<bx:segment min="5000" max="5500" strand="+"/>
+					</bx:position>
+					<bx:occurrenceName>edenprotein.3</bx:occurrenceName>
+					<bx:phase>0</bx:phase>
+					<bx:association>
+						<bx:relationConceptIdRef>p1</bx:relationConceptIdRef>
+						<bx:associatedFeatureOccurrence localIdRef="m2"/>
+					</bx:association>
+				</bx:occurrence>
+			</bx:annotation>
+		</bx:blockWithOccurrenceReferences>
+	</exampleTrack>
+</bxExamples>

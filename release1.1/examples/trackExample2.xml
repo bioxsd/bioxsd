@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bxExamples
+	xmlns="http://bioxsd.org/example"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.1beta1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://bioxsd.org/example bxExamples(1.1beta1).xsd"
+>
+	<exampleTrack>
+		<bx:referenceSequence>
+			<bx:species/>
+			<bx:genomeBuild/>
+			<bx:chromosome>22</bx:chromosome>
+		</bx:referenceSequence>
+		<bx:annotation>
+			<bx:feature>
+				<bx:name>Example track 2</bx:name>
+			</bx:feature>
+			<bx:occurrence>
+				<bx:position>
+					<bx:segment min="1000" max="1567" strand="+"/>
+					<bx:segment min="4512" max="5000" strand="+"/>
+				</bx:position>
+				<bx:occurrenceName>cloneA</bx:occurrenceName>
+				<bx:score value="960"/>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position>
+					<bx:segment min="2000" max="2433" strand="-"/>
+					<bx:segment min="5601" max="6000" strand="-"/>
+				</bx:position>
+				<bx:occurrenceName>cloneB</bx:occurrenceName>
+				<bx:score value="900"/>
+			</bx:occurrence>
+		</bx:annotation>
+	</exampleTrack>
+</bxExamples>

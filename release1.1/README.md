@@ -1,17 +1,17 @@
-## BioXSD 1.0
+## BioXSD 1.1beta1
 
-This is the folder with the last, unpublished minor version of **deprecated** BioXSD 1.0 (*i.e.* major version `1.0`, minor version `1.0.3`), before the switch to BioXSD version 1.1.
+This is the folder with the major beta pre-release towards the new major BioXSD version 1.1. To avoid later incompatibility issues, this version is released in its own `1.1beta1` namespace (*i.e.* http://bioxsd.org/BioXSD-1.1beta1).
 
-`1.0.3` is not a true release, but an intermediate archived version. Added to GitHub for eventual "archaeological" purposes.
+BioXSD 1.1beta1 is a **deprecated** beta release, added to GitHub for archival purposes. It served as a release candidate for the following major production release `1.1.0`.
 
 
 
-**Namespace:** http://bioxsd.org/BioXSD-1.0
+**Namespace:** http://bioxsd.org/BioXSD-1.1beta1
 
-**Canonical location:** *n/a*
+**Canonical location:** http://bioxsd.org/BioXSD-1.1beta1.xsd
 
-**Major version:** 1.0
+**Major version:** 1.1beta1
 
-**Minor version:** 1.0.3
+**Minor version:** 1.1beta1
 
-**Release date:** *n/a*
+**Release date:** 2011-05-11

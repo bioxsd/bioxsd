@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mySequenceRecord
+	xmlns:bx="http://bioxsd.org/BioXSD-1.1beta1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://bioxsd.org/BioXSD-1.1beta1 http://bioxsd.org/BioXSD-1.1beta1.xsd"
+	xsi:type="bx:GeneralAminoacidSequenceRecord"
+>
+	<bx:sequence>MDPLGDTLRRLREAFHAGRTRPAEFRAAQLQGLGRFLQENKQLLHDALAQDLHKSAFESEVSEVAISQGEVTLAELGGKNPCYVDDNCDPQTVANRVAWFRYFNAGQTCVAPDYVLCSPEMQERLLPALQSTITRFYGDDPQSSPNLGRIINQKQFQRLRALLGGKFSFDTFSHHRACLLRSPGMEKLNALRYPPQSPRRLRMLLVAMEAQGCSCTLL</bx:sequence>
+	<bx:species
+		dbName="NCBI Taxonomy"
+		accession="9606"
+		entryUri="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=9606"
+		speciesName="Human"
+	/>
+	<bx:reference
+		dbName="UniProt"
+		accession="P43353"
+		entryUri="http://www.uniprot.org/uniprot/P43353"
+		sequenceVersion="1"
+		variantAccession="P43353-1"
+	/>
+	<bx:name>Aldehyde dehydrogenase family 3 member B1 (ALDH3B1)</bx:name>
+</mySequenceRecord>

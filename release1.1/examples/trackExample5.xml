@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bxExamples
+	xmlns="http://bioxsd.org/example"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.1beta1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://bioxsd.org/example bxExamples(1.1beta1).xsd"
+>
+	<exampleTrack>
+		<bx:referenceSequence>
+			<bx:species/>
+			<bx:genomeBuild/>
+			<bx:chromosome>1</bx:chromosome>
+			<bx:subsequencePosition>
+				<bx:segment min="100" max="400"/>
+			</bx:subsequencePosition>
+		</bx:referenceSequence>
+		<bx:blockWithOccurrenceReferences>
+			<bx:annotation>
+				<bx:feature>
+					<bx:name>Example track 5</bx:name>
+				</bx:feature>
+				<bx:occurrence localId="0">
+					<bx:position>
+						<bx:nextPartition max="1"/>
+					</bx:position>
+					<bx:association>
+						<bx:relationName>directed</bx:relationName>
+						<bx:associatedFeatureOccurrence localIdRef="2">
+							<bx:score value="1.4"/>
+						</bx:associatedFeatureOccurrence>
+					</bx:association>
+					<bx:association>
+						<bx:relationName>undirected</bx:relationName>
+						<bx:associatedFeatureOccurrence localIdRef="2">
+							<bx:score value="1.4"/>
+						</bx:associatedFeatureOccurrence>
+					</bx:association>
+				</bx:occurrence>
+				<bx:occurrence localId="1">
+					<bx:position>
+						<bx:nextPartition max="101"/>
+					</bx:position>
+				</bx:occurrence>
+				<bx:occurrence localId="2">
+					<bx:position>
+						<bx:nextPartition max="201"/>
+					</bx:position>
+					<bx:association>
+						<bx:relationName>directed</bx:relationName>
+						<bx:associatedFeatureOccurrence localIdRef="6">
+							<bx:score value="2.3"/>
+						</bx:associatedFeatureOccurrence>
+					</bx:association>
+					<bx:association>
+						<bx:relationName>undirected</bx:relationName>
+						<bx:associatedFeatureOccurrence localIdRef="0">
+							<bx:score value="1.4"/>
+						</bx:associatedFeatureOccurrence>
+						<bx:associatedFeatureOccurrence localIdRef="5">
+							<bx:score value="2.3"/>
+						</bx:associatedFeatureOccurrence>
+					</bx:association>
+				</bx:occurrence>
+			</bx:annotation>
+		</bx:blockWithOccurrenceReferences>
+	</exampleTrack>
+	<exampleTrack>
+		<bx:referenceSequence>
+			<bx:species/>
+			<bx:genomeBuild/>
+			<bx:chromosome>2</bx:chromosome>
+			<bx:subsequencePosition>
+				<bx:segment min="150" max="450"/>
+			</bx:subsequencePosition>
+		</bx:referenceSequence>
+		<bx:blockWithOccurrenceReferences>
+			<bx:annotation>
+				<bx:feature>
+					<bx:name>Example track 5</bx:name>
+				</bx:feature>
+				<bx:occurrence localId="3">
+					<bx:position>
+						<bx:nextPartition max="1"/>
+					</bx:position>
+					<bx:association>
+						<bx:relationName>directed</bx:relationName>
+						<bx:associatedFeatureOccurrence localIdRef="4">
+							<bx:score value="1.2"/>
+						</bx:associatedFeatureOccurrence>
+					</bx:association>
+					<bx:association>
+						<bx:relationName>undirected</bx:relationName>
+						<bx:associatedFeatureOccurrence localIdRef="4">
+							<bx:score value="1.2"/>
+						</bx:associatedFeatureOccurrence>
+						<bx:associatedFeatureOccurrence localIdRef="5">
+							<bx:score value="1.7"/>
+						</bx:associatedFeatureOccurrence>
+					</bx:association>
+				</bx:occurrence>
+				<bx:occurrence localId="4">
+					<bx:position>
+						<bx:nextPartition max="151"/>
+					</bx:position>
+					<bx:association>
+						<bx:relationName>undirected</bx:relationName>
+						<bx:associatedFeatureOccurrence localIdRef="3">
+							<bx:score value="1.2"/>
+						</bx:associatedFeatureOccurrence>
+					</bx:association>
+				</bx:occurrence>
+				<bx:occurrence localId="5">
+					<bx:position>
+						<bx:nextPartition max="301"/>
+					</bx:position>
+					<bx:association>
+						<bx:relationName>directed</bx:relationName>
+						<bx:associatedFeatureOccurrence localIdRef="3">
+							<bx:score value="1.7"/>
+						</bx:associatedFeatureOccurrence>
+					</bx:association>
+					<bx:association>
+						<bx:relationName>undirected</bx:relationName>
+						<bx:associatedFeatureOccurrence localIdRef="2">
+							<bx:score value="2.3"/>
+						</bx:associatedFeatureOccurrence>
+						<bx:associatedFeatureOccurrence localIdRef="3">
+							<bx:score value="1.7"/>
+						</bx:associatedFeatureOccurrence>
+					</bx:association>
+				</bx:occurrence>
+			</bx:annotation>
+		</bx:blockWithOccurrenceReferences>
+	</exampleTrack>
+</bxExamples>
