@@ -37,9 +37,9 @@ For version information, changelog, and release dates, please refer to the botto
 ======================================-->
 
 <xs:schema
-	version="1.1.3beta1"
-	targetNamespace="http://bioxsd.org/BioXSD-1.1.3beta1"
-	xmlns="http://bioxsd.org/BioXSD-1.1.3beta1"
+	version="1.1.3beta2"
+	targetNamespace="http://bioxsd.org/BioXSD-1.1"
+	xmlns="http://bioxsd.org/BioXSD-1.1"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:sawsdl="http://www.w3.org/ns/sawsdl"
 	elementFormDefault="qualified"
@@ -1825,9 +1825,9 @@ Position 1 corresponds to the 1st base transcribed within the reference isoform,
 NB. Supports a subset of RFC 3986 generic syntax (selected schemes, DNS only, no user info, constrained port and characters)</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:pattern value="http://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=]|%[0-9A-F]{2})+)*(\?([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?"/>
-			<xs:pattern value="https://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=]|%[0-9A-F]{2})+)*(\?([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?"/>
-			<xs:pattern value="ftp://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=]|%[0-9A-F]{2})+)*(\?([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?"/>
+			<xs:pattern value="http://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=&amp;]|%[0-9A-F]{2})+)*/?(\?([A-Za-z0-9\-._~!$'()*+,;=&amp;/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=&amp;/\?]|%[0-9A-F]{2})*)?"/>
+			<xs:pattern value="https://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=&amp;]|%[0-9A-F]{2})+)*/?(\?([A-Za-z0-9\-._~!$'()*+,;=&amp;/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=&amp;/\?]|%[0-9A-F]{2})*)?"/>
+			<xs:pattern value="ftp://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=&amp;]|%[0-9A-F]{2})+)*/?(\?([A-Za-z0-9\-._~!$'()*+,;=&amp;/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=&amp;/\?]|%[0-9A-F]{2})*)?"/>
 			<xs:pattern value="urn:lsid:[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*:[A-Za-z0-9\-._~]+:[A-Za-z0-9\-._~]+(:[A-Za-z0-9\-._~]+)?"/>
 			<!--=As the whole BioXSD, these patterns are copyrighted and available under the Creative Commons attribution no-modification licence (CC-BY-ND 3.0; Derivation waived by xs:extension and xs:restriction in user's namespace; Change requests to bioxsd.org)=-->
 			<xs:maxLength value="1000"/>
@@ -1898,8 +1898,9 @@ NB. Supports a subset of RFC 3986 generic syntax (selected schemes, DNS only, no
 <!--================ CHANGELOG ====================
 version      status           released      changes
 ===================================================
+  1.1.3beta2 Current 1.1      2013-09-19*   trailing slash and '&' allowed in Uri.        [*pre-released as BioXSD-1.1.3beta.xsd]
   1.1.3beta1                  2013-06-19*   'inputParameter'-s and 'outputParameter'-s added to Method.        [*pre-released as BioXSD-1.1.3beta1.xsd, target namespace http://bioxsd.org/BioXSD-1.1.3beta1]
-1.1.2        Current 1.1      2013-05-13    uniqueness constraints removed in restricted complex subtypes;
+1.1.2                         2013-05-13    uniqueness constraints removed in restricted complex subtypes;
                                             fixed="Certain" removed where use="prohibited";
                                             maxLength constraint for nucleotide sequence removed (due to incompatibility with Xerces);
                                             'insert'-s added to aligned sequences (in addition to 'gap'-s, for optimisation and convenience);

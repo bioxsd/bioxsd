@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mySequenceRecord
-	xmlns:bx="http://bioxsd.org/BioXSD-1.1.3beta1"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://bioxsd.org/BioXSD-1.1.3beta1 ../BioXSD-1.1.3beta1.xsd"
+	xsi:schemaLocation="http://bioxsd.org/BioXSD-1.1 ../BioXSD-1.1.3beta.xsd"
 	xsi:type="bx:GeneralAminoacidSequenceRecord"
 >
 	<bx:sequence>MDPLGDTLRRLREAFHAGRTRPAEFRAAQLQGLGRFLQENKQLLHDALAQDLHKSAFESEVSEVAISQGEVTLAELGGKNPCYVDDNCDPQTVANRVAWFRYFNAGQTCVAPDYVLCSPEMQERLLPALQSTITRFYGDDPQSSPNLGRIINQKQFQRLRALLGGKFSFDTFSHHRACLLRSPGMEKLNALRYPPQSPRRLRMLLVAMEAQGCSCTLL</bx:sequence>
