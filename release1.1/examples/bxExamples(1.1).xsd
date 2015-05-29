@@ -2,23 +2,23 @@
 <xs:schema
 	targetNamespace="http://bioxsd.org/example"
 	xmlns="http://bioxsd.org/example"
-	xmlns:bx="http://bioxsd.org/BioXSD-1.1beta1"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.1"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	elementFormDefault="qualified"
 	attributeFormDefault="unqualified"
 >
 
-	<xs:import namespace="http://bioxsd.org/BioXSD-1.1beta1" schemaLocation="http://bioxsd.org/BioXSD-1.1beta1.xsd"/>
+	<xs:import namespace="http://bioxsd.org/BioXSD-1.1" schemaLocation="../BioXSD-1.1.xsd"/>
 	
 	<xs:element name="bxExamples">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="exampleSequenceRecord" type="bx:BiosequenceRecord" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element name="exampleFromGFF3" type="bx:AnnotatedSequence" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element name="exampleTrack" type="bx:AnnotatedSequence" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element name="exampleFromUniProtKB" type="bx:AnnotatedSequence" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element name="exampleFromClassification" type="bx:AnnotatedSequence" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element name="exampleSimilaritySearchOutput" type="bx:AnnotatedSequence" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="exampleFromGFF3" type="bx:FeatureRecord" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="exampleTrack" type="bx:FeatureRecord" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="exampleFromUniProtKB" type="bx:FeatureRecord" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="exampleFromClassification" type="bx:FeatureRecord" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="exampleSimilaritySearchOutput" type="bx:FeatureRecord" minOccurs="0" maxOccurs="unbounded"/>
 				
 				<xs:element name="exampleRnaWithStructure" minOccurs="0">
 					<xs:complexType>
@@ -40,7 +40,7 @@
 						</xs:complexContent>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="exampleRnaStructureAnnotation" type="bx:AnnotatedSequence" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="exampleRnaStructureAnnotation" type="bx:FeatureRecord" minOccurs="0" maxOccurs="unbounded"/>
 				
 				<xs:element name="listOfSequences" minOccurs="0" maxOccurs="unbounded">
 					<xs:complexType>

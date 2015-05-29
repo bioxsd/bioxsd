@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bxExamples
 	xmlns="http://bioxsd.org/example"
-	xmlns:bx="http://bioxsd.org/BioXSD-1.1beta1"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://bioxsd.org/example bxExamples(1.1beta1).xsd"
+	xsi:schemaLocation="http://bioxsd.org/example bxExamples(1.1).xsd"
 >
 
 	<!--The following 3 pairs of sequence records illustrate usage and importance of various sequence metadata within simple sequence records in BioXSD (type BiosequenceRecord).
