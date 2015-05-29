@@ -21,15 +21,15 @@ support@bioxsd.org
 
 ================ CREDITS ================
 XML Schema editing and documentation: Matúš Kalaš
-PIs: Inge Jonassen, Pål Puntervoll, Kristoffer Rapacki, Christophe Blanchet
+Senior scientists: Inge Jonassen, Pål Puntervoll, Kristoffer Rapacki, Christophe Blanchet
 Requirements, supporting implementations, or testing: Edita Karosiene, László Kaján & Rostlab, Alexandre Joseph, Armin Töpfer, Jan Krüger & Sven Hartmeier (BiBiServ), Sveinung Gundersen & the GTrack team, OpenBio* and EMBOSS developers, and all software developers and data providers that use or explore BioXSD
 Semantic annotation: Matúš Kalaš, Jon Ison (EDAM), acknowledgement to the DBCLS BioHackathon series, Andrea Splendiani and Jerven Bolleman (RDF gurus)
 Acknowledgement for conceptual support: Steffen Möller, Steve Pettifer, Gert Vriend, Rodrigo Lopez, Jan Christian Bryne, Renzo Kottmann (GCDML), Toshiaki Katayama (BioHackathon), participants in the EMBRACE project
-And for technical support: Torbjørn Lium, Alexandr Oltu
+And for technical support: Lóránd-János Szentannai, Torbjørn Lium, Alexandr Oltu, Armin Töpfer
 
 BioXSD has been and is further being developed as a part of multiple collaborative projects. There has never been any funding dedicated exclusively to BioXSD.
-Projects that contributed to BioXSD are mainly: eSysbio (Research Council of Norway), EMBRACE (European Commission FP6)
-And: Center for Disease Systems Biology (Villum Foundation), HIPCAL (l'Agence Nationale de la Recherche)
+Projects that contributed to BioXSD are mainly: eSysbio and ELIXIR.NO (both from the Research Council of Norway), EMBRACE (European Commission FP6)
+And: Center for Disease Systems Biology (Villum Foundation), HIPCAL (l'Agence Nationale de la Recherche), FUGE Bioinformatics platform (Research Council of Norway)
 And short-term also the DBCLS BioHackathon (Japan Science and Technology Agency), ISCB Travel Fellowship, Meltzer Foundation, and others
 
 ========== RELEASE INFORMATION ==========
@@ -37,7 +37,7 @@ For version information, changelog, and release dates, please refer to the botto
 ======================================-->
 
 <xs:schema
-	version="1.1.1"
+	version="1.1.2"
 	targetNamespace="http://bioxsd.org/BioXSD-1.1"
 	xmlns="http://bioxsd.org/BioXSD-1.1"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -55,6 +55,18 @@ Defines XML exchange formats for: sequences, sequence annotations, sequence simi
 
 
 
+	<!--= Validated:
+		XML Schema validated successfully by
+			Altova XMLSpy 2009 32-bit and 2013 64-bit (text, schema)
+			XSV (at http://www.w3.org/2001/03/webdata/xsv and in oXygen XMl Editor 64-bit 14.2)
+			MSXML.NET (in oXygen XMl Editor 64-bit 14.2)
+			Eclipse (Eclipse Java EE IDE for Web Developers. Helios Service Release 1)
+			Validome (with http://bioxsd.org/BioXSD-1.1.xsd)
+	=-->
+
+
+
+
 	<!--============================ SIMPLE SEQUENCES ============================-->
 
 
@@ -67,7 +79,6 @@ Defines XML exchange formats for: sequences, sequence annotations, sequence simi
 		<xs:restriction base="xs:string">
 			<xs:pattern value="[acgtrykmswbdhvn]+"/>
 			<xs:pattern value="[acgurykmswbdhvn]+"/>
-			<xs:maxLength value="1000000000000"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -110,7 +121,6 @@ Defines XML exchange formats for: sequences, sequence annotations, sequence simi
 	<xs:simpleType name="BaseQualityString">
 		<xs:restriction base="xs:string">
 			<xs:pattern value="[!-~]+"/>
-			<xs:maxLength value="1000000000000"/>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -264,12 +274,111 @@ NB. ID/accession is part of the 'reference'</xs:documentation>
 
 
 
+	<xs:complexType name="BiosequenceAlignment" sawsdl:modelReference="http://edamontology.org/data_0863 http://edamontology.org/format_2352">
+		<xs:annotation>
+			<xs:documentation>Alignment of 2..n generic nucleotide or amino-acid sequences. A *multiple sequence alignment* in the sense that all sequences are treated equally</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="alignedSequence" type="AlignedBiosequence" minOccurs="2" maxOccurs="unbounded">
+				<xs:unique name="uniqueGapPos_b">
+					<xs:selector xpath="gap"/>
+					<xs:field xpath="@pos"/>
+				</xs:unique>
+				<xs:unique name="uniqueInsertPos_b">
+					<xs:selector xpath="insert"/>
+					<xs:field xpath="@min"/>
+					<xs:field xpath="@max"/>
+				</xs:unique>
+				<xs:unique name="uniqueFrameshiftPos_b">
+					<xs:selector xpath="frameshift"/>
+					<xs:field xpath="@pos"/>
+				</xs:unique>
+			</xs:element>
+			<xs:element name="note" type="Text" minOccurs="0" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#comment"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralNucleotideSequenceAlignment" sawsdl:modelReference="http://edamontology.org/data_1383">
+		<xs:annotation>
+			<xs:documentation>Alignment of 2..n generic nucleotide sequences. A *multiple sequence alignment* in the sense that all sequences are treated equally</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="BiosequenceAlignment">
+				<xs:sequence>
+					<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="alignedSequence" type="AlignedGeneralNucleotideSequence" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:element name="note" type="Text" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="GeneralAminoacidSequenceAlignment" sawsdl:modelReference="http://edamontology.org/data_1384">
+		<xs:annotation>
+			<xs:documentation>Alignment of 2..n generic amino-acid sequences. A *multiple sequence alignment* in the sense that all sequences are treated equally</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="BiosequenceAlignment">
+				<xs:sequence>
+					<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="alignedSequence" type="AlignedGeneralAminoacidSequence" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:element name="note" type="Text" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="NucleotideSequenceAlignment">
+		<xs:annotation>
+			<xs:documentation>Alignment of 2..n nucleotide sequences. A *multiple sequence alignment* in the sense that all sequences are treated equally</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralNucleotideSequenceAlignment">
+				<xs:sequence>
+					<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="alignedSequence" type="AlignedNucleotideSequence" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:element name="note" type="Text" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="AminoacidSequenceAlignment">
+		<xs:annotation>
+			<xs:documentation>Alignment of 2..n amino-acid sequences. A *multiple sequence alignment* in the sense that all sequences are treated equally</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="GeneralAminoacidSequenceAlignment">
+				<xs:sequence>
+					<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="alignedSequence" type="AlignedAminoacidSequence" minOccurs="2" maxOccurs="unbounded"/>
+					<xs:element name="note" type="Text" minOccurs="0"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+
+
+
+
 	<xs:complexType name="Gap">
 		<xs:annotation>
 			<xs:documentation>Single gap in an aligned sequence</xs:documentation>
 		</xs:annotation>
 		<xs:attribute name="pos" type="InsertionInteger" use="required" sawsdl:modelReference="http://edamontology.org/data_1016"/>
 		<xs:attribute name="len" type="PositiveInteger" use="required"/>
+	</xs:complexType>
+
+	<xs:complexType name="Insert">
+		<xs:annotation>
+			<xs:documentation>Single insert in an aligned sequence</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="SequenceSegment">
+				<xs:attribute name="strand" type="Strand" use="prohibited"/>
+			</xs:restriction>
+		</xs:complexContent>
 	</xs:complexType>
 
 	<xs:complexType name="Frameshift">
@@ -315,6 +424,7 @@ NB. ID/accession is part of the 'reference'</xs:documentation>
 				</xs:sequence>
 			</xs:choice>
 			<xs:element name="gap" type="Gap" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="insert" type="Insert" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="frameshift" type="Frameshift" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="reversedDirection" type="Flag" minOccurs="0"/>
 			<xs:element name="sequenceScore" type="Result" minOccurs="0" maxOccurs="unbounded"/>
@@ -332,6 +442,7 @@ NB. ID/accession is part of the 'reference'</xs:documentation>
 					</xs:element>
 					<xs:element name="sequenceRecord" type="GeneralNucleotideSequenceRecord"/>
 					<xs:element name="gap" type="Gap" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="insert" type="Insert" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="reversedDirection" type="Flag" minOccurs="0"/>
 					<xs:element name="sequenceScore" type="Result" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -350,6 +461,7 @@ NB. ID/accession is part of the 'reference'</xs:documentation>
 					</xs:element>
 					<xs:element name="sequenceRecord" type="GeneralAminoacidSequenceRecord"/>
 					<xs:element name="gap" type="Gap" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="insert" type="Insert" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="frameshift" type="Frameshift" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="reversedDirection" type="Flag" minOccurs="0"/>
 					<xs:element name="sequenceScore" type="Result" minOccurs="0" maxOccurs="unbounded"/>
@@ -369,6 +481,7 @@ NB. ID/accession is part of the 'reference'</xs:documentation>
 					</xs:element>
 					<xs:element name="sequenceRecord" type="NucleotideSequenceRecord"/>
 					<xs:element name="gap" type="Gap" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="insert" type="Insert" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="reversedDirection" type="Flag" minOccurs="0"/>
 					<xs:element name="sequenceScore" type="Result" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -387,120 +500,10 @@ NB. ID/accession is part of the 'reference'</xs:documentation>
 					</xs:element>
 					<xs:element name="sequenceRecord" type="AminoacidSequenceRecord"/>
 					<xs:element name="gap" type="Gap" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="insert" type="Insert" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="frameshift" type="Frameshift" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element name="reversedDirection" type="Flag" minOccurs="0"/>
 					<xs:element name="sequenceScore" type="Result" minOccurs="0" maxOccurs="unbounded"/>
-				</xs:sequence>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-
-
-
-
-	<xs:complexType name="BiosequenceAlignment" sawsdl:modelReference="http://edamontology.org/data_0863 http://edamontology.org/format_2352">
-		<xs:annotation>
-			<xs:documentation>Alignment of 2..n generic nucleotide or amino-acid sequences. A *multiple sequence alignment* in the sense that all sequences are treated equally</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="alignedSequence" type="AlignedBiosequence" minOccurs="2" maxOccurs="unbounded">
-				<xs:unique name="uniqueGapPos_b">
-					<xs:selector xpath="gap"/>
-					<xs:field xpath="@pos"/>
-				</xs:unique>
-				<xs:unique name="uniqueFrameshiftPos_b">
-					<xs:selector xpath="frameshift"/>
-					<xs:field xpath="@pos"/>
-				</xs:unique>
-			</xs:element>
-			<xs:element name="note" type="Text" minOccurs="0" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#comment"/>
-		</xs:sequence>
-	</xs:complexType>
-
-	<xs:complexType name="GeneralNucleotideSequenceAlignment" sawsdl:modelReference="http://edamontology.org/data_1383">
-		<xs:annotation>
-			<xs:documentation>Alignment of 2..n generic nucleotide sequences. A *multiple sequence alignment* in the sense that all sequences are treated equally</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="BiosequenceAlignment">
-				<xs:sequence>
-					<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="alignedSequence" type="AlignedGeneralNucleotideSequence" minOccurs="2" maxOccurs="unbounded">
-						<xs:unique name="uniqueGapPos_gn">
-							<xs:selector xpath="gap"/>
-							<xs:field xpath="@pos"/>
-						</xs:unique>
-					</xs:element>
-					<xs:element name="note" type="Text" minOccurs="0"/>
-				</xs:sequence>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-
-	<xs:complexType name="GeneralAminoacidSequenceAlignment" sawsdl:modelReference="http://edamontology.org/data_1384">
-		<xs:annotation>
-			<xs:documentation>Alignment of 2..n generic amino-acid sequences. A *multiple sequence alignment* in the sense that all sequences are treated equally</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="BiosequenceAlignment">
-				<xs:sequence>
-					<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="alignedSequence" type="AlignedGeneralAminoacidSequence" minOccurs="2" maxOccurs="unbounded">
-						<xs:unique name="uniqueGapPos_ga">
-							<xs:selector xpath="gap"/>
-							<xs:field xpath="@pos"/>
-						</xs:unique>
-						<xs:unique name="uniqueFrameshiftPos_ga">
-							<xs:selector xpath="frameshift"/>
-							<xs:field xpath="@pos"/>
-						</xs:unique>
-					</xs:element>
-					<xs:element name="note" type="Text" minOccurs="0"/>
-				</xs:sequence>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-	
-	<xs:complexType name="NucleotideSequenceAlignment">
-		<xs:annotation>
-			<xs:documentation>Alignment of 2..n nucleotide sequences. A *multiple sequence alignment* in the sense that all sequences are treated equally</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="GeneralNucleotideSequenceAlignment">
-				<xs:sequence>
-					<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="alignedSequence" type="AlignedNucleotideSequence" minOccurs="2" maxOccurs="unbounded">
-						<xs:unique name="uniqueGapPos_n">
-							<xs:selector xpath="gap"/>
-							<xs:field xpath="@pos"/>
-						</xs:unique>
-					</xs:element>
-					<xs:element name="note" type="Text" minOccurs="0"/>
-				</xs:sequence>
-			</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-
-	<xs:complexType name="AminoacidSequenceAlignment">
-		<xs:annotation>
-			<xs:documentation>Alignment of 2..n amino-acid sequences. A *multiple sequence alignment* in the sense that all sequences are treated equally</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:restriction base="GeneralAminoacidSequenceAlignment">
-				<xs:sequence>
-					<xs:element name="alignedBy" type="MethodResult" minOccurs="0" maxOccurs="unbounded"/>
-					<xs:element name="alignedSequence" type="AlignedAminoacidSequence" minOccurs="2" maxOccurs="unbounded">
-						<xs:unique name="uniqueGapPos_a">
-							<xs:selector xpath="gap"/>
-							<xs:field xpath="@pos"/>
-						</xs:unique>
-						<xs:unique name="uniqueFrameshiftPos_a">
-							<xs:selector xpath="frameshift"/>
-							<xs:field xpath="@pos"/>
-						</xs:unique>
-					</xs:element>
-					<xs:element name="note" type="Text" minOccurs="0"/>
 				</xs:sequence>
 			</xs:restriction>
 		</xs:complexContent>
@@ -629,6 +632,7 @@ NB. ID/accession is part of the 'reference'</xs:documentation>
 							<xs:complexType>
 								<xs:sequence>
 									<xs:element name="gap" type="Gap" minOccurs="0" maxOccurs="unbounded"/>
+									<xs:element name="insert" type="Insert" minOccurs="0" maxOccurs="unbounded"/>
 									<xs:element name="frameshift" type="Frameshift" minOccurs="0" maxOccurs="unbounded"/>
 									<xs:element name="sequenceScore" type="Result" minOccurs="0" maxOccurs="unbounded"/>
 								</xs:sequence>
@@ -636,6 +640,11 @@ NB. ID/accession is part of the 'reference'</xs:documentation>
 							<xs:unique name="uniqueGapPos_ar">
 								<xs:selector xpath="gap"/>
 								<xs:field xpath="@pos"/>
+							</xs:unique>
+							<xs:unique name="uniqueInsertPos_ar">
+								<xs:selector xpath="insert"/>
+								<xs:field xpath="@min"/>
+								<xs:field xpath="@max"/>
 							</xs:unique>
 							<xs:unique name="uniqueFrameshiftPos_ar">
 								<xs:selector xpath="frameshift"/>
@@ -646,6 +655,11 @@ NB. ID/accession is part of the 'reference'</xs:documentation>
 							<xs:unique name="uniqueGapPos_as">
 								<xs:selector xpath="gap"/>
 								<xs:field xpath="@pos"/>
+							</xs:unique>
+							<xs:unique name="uniqueInsertPos_as">
+								<xs:selector xpath="insert"/>
+								<xs:field xpath="@min"/>
+								<xs:field xpath="@max"/>
 							</xs:unique>
 							<xs:unique name="uniqueFrameshiftPos_as">
 								<xs:selector xpath="frameshift"/>
@@ -828,7 +842,7 @@ The reference sequence may me included explicitly, referred to remotely, or impl
 																				<xs:sequence>
 																					<xs:element name="score" type="Score" minOccurs="0" maxOccurs="unbounded"/>
 																				</xs:sequence>
-																				<xs:attribute name="localIdRef" use="required"/>
+																				<xs:attribute name="localIdRef" type="LocalId" use="required"/>
 																			</xs:complexType>
 																		</xs:element>
 																	</xs:sequence>
@@ -980,7 +994,7 @@ The reference sequence may me included explicitly, referred to remotely, or impl
 		<xs:complexContent>
 			<xs:restriction base="GeneralSequencePoint">
 				<xs:attribute name="pos" type="PositiveInteger" use="required"/>
-				<xs:attribute name="certainty" type="Certainty" fixed="Certain" use="prohibited"/>
+				<xs:attribute name="certainty" type="Certainty" use="prohibited"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1007,7 +1021,7 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 		<xs:complexContent>
 			<xs:restriction base="GeneralSequenceInsertionPoint">
 				<xs:attribute name="pos" type="InsertionInteger" use="required"/>
-				<xs:attribute name="certainty" type="Certainty" fixed="Certain" use="prohibited"/>
+				<xs:attribute name="certainty" type="Certainty" use="prohibited"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1032,7 +1046,7 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 		<xs:complexContent>
 			<xs:restriction base="GeneralOutsideSequencePoint">
 				<xs:attribute name="pos" type="NonzeroInteger" use="required"/>
-				<xs:attribute name="certainty" type="Certainty" fixed="Certain" use="prohibited"/>
+				<xs:attribute name="certainty" type="Certainty" use="prohibited"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1072,8 +1086,8 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 						<xs:documentation>NB. Keep 'max' > 'min', use 'strand' if necessary</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="minCertainty" type="Certainty" fixed="Certain" use="prohibited"/>
-				<xs:attribute name="maxCertainty" type="Certainty" fixed="Certain" use="prohibited"/>
+				<xs:attribute name="minCertainty" type="Certainty" use="prohibited"/>
+				<xs:attribute name="maxCertainty" type="Certainty" use="prohibited"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1113,8 +1127,8 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 						<xs:documentation>NB. Keep 'max' > 'min', use 'strand' if necessary</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="minCertainty" type="Certainty" fixed="Certain" use="prohibited"/>
-				<xs:attribute name="maxCertainty" type="Certainty" fixed="Certain" use="prohibited"/>
+				<xs:attribute name="minCertainty" type="Certainty" use="prohibited"/>
+				<xs:attribute name="maxCertainty" type="Certainty" use="prohibited"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1132,7 +1146,7 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 		<xs:complexContent>
 			<xs:restriction base="GeneralSequencePartition">
 				<xs:attribute name="max" type="PositiveInteger" use="required"/>
-				<xs:attribute name="certainty" type="Certainty" fixed="Certain" use="prohibited"/>
+				<xs:attribute name="certainty" type="Certainty" use="prohibited"/>
 			</xs:restriction>
 		</xs:complexContent>
 	</xs:complexType>
@@ -1578,9 +1592,11 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 			<xs:enumeration value="p-value" sawsdl:modelReference="http://edamontology.org/data_1669"/>
 			<xs:enumeration value="E-value" sawsdl:modelReference="http://edamontology.org/data_1667"/>
 			<xs:enumeration value="Standard deviation"/>
-			<xs:enumeration value="Bit score" sawsdl:modelReference="http://edamontology.org/data_2335"/>
+			<xs:enumeration value="Bit" sawsdl:modelReference="http://edamontology.org/data_2335"/>
 			<xs:enumeration value="Z-score"/>
 			<xs:enumeration value="Probability"/>
+			<xs:enumeration value="Q3" sawsdl:modelReference="http://edamontology.org/NumberOfBlahblah"/>
+			<xs:enumeration value="SOV" sawsdl:modelReference="http://edamontology.org/SegmentOverlap"/>
 		</xs:restriction>
 	</xs:simpleType>
 													<xs:simpleType name="RecommendedVerdict">
@@ -1733,7 +1749,7 @@ Position 1 corresponds to the 1st base transcribed within the reference isoform,
 
 
 
-	<xs:complexType name="Flag" final="#all"/>
+	<xs:complexType name="Flag"/>
 
 	<xs:simpleType name="AnyInteger">
 		<xs:annotation>
@@ -1892,7 +1908,12 @@ NB. Supports a subset of RFC 3986 generic syntax (selected schemes, DNS only, no
 <!--================ CHANGELOG ====================
 version      status           released      changes
 ===================================================
-1.1.1        Current 1.1      2012-01-13    'samePoint' and 'samePartition' added (as choices of positions);
+1.1.2        Current 1.1      2013-05-13    uniqueness constraints removed in restricted complex subtypes;
+                                            fixed="Certain" removed where use="prohibited";
+                                            maxLength constraint for nucleotide sequence removed (due to incompatibility with Xerces);
+                                            'insert'-s added to aligned sequences (in addition to 'gap'-s, for optimisation and convenience);
+                                            Flag extendable (and theoretically restrictable).
+1.1.1                         2012-01-13    'samePoint' and 'samePartition' added (as choices of positions);
                                             updated URIs of EDAM concepts;
                                             a few xs:documentation-s updated.
 1.1.0                         2011-09-27    renamed: AnnotatedSequence to FeatureRecord, OntologyConcept to SemanticConcept, 'original' to 'canonicalVariant', 'Unknown' to 'Value unknown';
