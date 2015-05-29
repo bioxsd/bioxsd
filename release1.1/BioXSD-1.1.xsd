@@ -1,14 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--============ LICENCE ================
-Available under the Creative Commons BY-ND 3.0 licence with additionally allowed:
-a) usage within XSD import-s, type-s, extension-s, restriction-s, union-s and list-s, in user's XML namespace (that is URI domain associated with the user; or a generic "public" domain for URIs, with user-specific path);
-b) public redistribution of versions with custom XSD appinfo-s or SAWSDL attributes in the original 'http://bioxsd.org/...' XML namespace under the assumption that the XSD is synchronised with the minor releases of BioXSD at bioxsd.org. (The content of the additional xs:appinfo must be in user's or third-party's namespaces.)
-Note: Redistribution of BioXSD is allowed only in the original 'http://bioxsd.org/...' XML namespace and under the assumption that the XSD is synchronised with the minor releases of BioXSD at bioxsd.org.
-Contributions to new canonical versions, in the 'http://bioxsd.org/...' XML namespace, are welcome under the supervision of the BioXSD consortium (in order to keep BioXSD a common, canonical data model).
+Licensed under a Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).
+Please note also the Code of Conduct including main guidelines for contributing, redistributing, or adapting BioXSD or its part.
+
+Translated to XML-Schema terms, the CC BY-SA 4.0 licence grants freedoms to:
+ * *Use* BioXSD as a format for data instances or values of I/O parameters or programming variables
+ * *Use* BioXSD inside other XSDs via xs:import, and subsequently use its types for any xs:element-s, xs:attribute-s, xs:extension-s, and xs:restriction-s
+ * *Redistribute* BioXSD at other web locations or other media (e.g. with software or data)
+ * *Adapt* BioXSD by modifying its annotation, or by modifying its definitional content or its format
+ * *Adapt* BioXSD by extracting, and redistributing or modifying its part
+Under the obligations of:
+ * Giving appropriate credit to BioXSD and its authors (in case of scholarly publications by referencing the relevant publications)
+ * Indicating informatively if changes were made, and retaining indications of previous modifications
+ * Publicly distributing eventual modifications and adaptations of BioXSD or its parts, under a compatible licence
+Disclaimer: This is a brief overview of CC BY-SA 4.0 applied to BioXSD, and not the licence.
+
+For details about CC BY-SA 4.0, please refer to:
+http://creativecommons.org/licenses/by-sa/4.0
+http://creativecommons.org/licenses/by-sa/4.0/legalcode
+http://creativecommons.org/compatiblelicenses
+http://wiki.creativecommons.org
+http://wiki.creativecommons.org/Best_practices_for_attribution
+http://wiki.creativecommons.org/License_Versions
+http://wiki.creativecommons.org/Considerations_for_licensors_and_licensees
+http://wiki.creativecommons.org/Frequently_Asked_Questions
+
+============ CODE OF CONDUCT ============
+BioXSD is developed and maintained to serve as a common data model/format between a variety of bioinformatics tools and their providers. In order to provide the intended interoperability between tools and between data instances, the evolution, modifications, and adaptations of BioXSD must be carried out with particular care, reflecting relevant technological constraints in order to avoid inconsistencies, unexpected behaviour, or undesired side-effects.
+
+Unmodified BioXSD can be redistributed, e.g. at other web locations or with software or data. Redistributed copies should be kept updated with future stable releases of BioXSD - at least with the minor compatible releases - if applicable and practically doable. However, as a default option when using BioXSD for production data and tools, it is recommended to use directly the canonical location http://bioxsd.org/BioXSD-1.1.xsd (by referring it in xsi:schemaLocation or schemaLocation in xs:import), if applicable.
+
+Modifications that are fully maintaining definitional compatibility, such as additional or modified annotations or minor changes in format, can be redistributed under the same condition as unmodified copies, with modifications being indicated (best both indicatively in the version attribute of xs:schema and informatively in a comment) and distributed under a compatible licence.
+
+If definitional modifications are required, these can be tested with temporary, non-distributed modified copies of BioXSD (e.g. privately or in a GitHub fork), and shared with the developers of BioXSD in order to seek a consensus integration into the mainstream development.
+
+More-or-less-compatible distributions (e.g. less-restricted, with improved validation, or using a different schema language), aimed at compatibility with a certain library or serialisation format, are welcome but should be actively consulted during their development with BioXSD developers, and agreed before distribution.
+
+Adaptations of BioXSD with incompatible definitional modifications are discouraged, except for temporary, non-distributed experimental versions. Instead, collaborative evolution of BioXSD is welcome. While BioXSD is actively maintained, distributed incompatible adaptations must have a different targetNamespace, a different xs:schema version attribute, and a different filename, than the canonical http://bioxsd.org/... and BioXSD-x.y.xsd.
+
+Parts of BioXSD, with or without eventual modifications, should preferably be reused using the respective XSD mechanisms of xs:import from the canonical location at http://bioxsd.org/BioXSD-x.y.xsd into a user's XSD, and eventual xs:extension-s and/or xs:restriction-s. If this is not possible or not desired, and parts of BioXSD are being copied or derived from, BioXSD and its authors must be attributed, the copied or derived parts marked, and the eventual modifications shared under a compatible licence.
+
+With a new major release of BioXSD, all usage, implementations, redistributions, modifications, and adaptations should gradually be updated to the new version, as resources permit. The developers of BioXSD will try to supply help to make such transitions easier.
+
+With a new minor, i.e. "backwards-compatible" release, updating implementations is not mandatory, but may in some cases be useful (e.g. using more information from extended input to a tool) or necessary (in some inflexible implementations). At least testing with data that utilise new features of the new minor release is recommended. However, updating redistributions (unmodified and modified) is desired if applicable. For the purpose of receiving help and personalised updates, and for other purposes, it is recommended that providers or maintainers of BioXSD implementations, redistributions, etc. inform support@bioxsd.org about their resources that make use of BioXSD.
+
+Contributions from users to the evolution of BioXSD are encouraged, and collaborative consensus is sought as the primary goal. Essential guidelines for contributions to the development of BioXSD are:
+ * Requirements, suggestions, or experimentally tested modifications should be shared with BioXSD developers via http://github.com/bioxsd/bioxsd/issues, http://github.com/bioxsd/bioxsd/pulls, or developers@bioxsd.org.
+ * "Backwards-compatible" modifications (i.e. less-restricted, optionally-extended, or with added types) are preferred if possible. These can be included in the next minor release which can in case of minor changes be released promptly. BioXSD developers will try to fulfill such requirements as quickly as possible, and as long as resources permit.
+ * If "backwards-compatible" modifications are not possible for fulfilling the given requirements, or not desired due to design issues, satisfactory "backwards-INcompatible" modifications will be sought towards the next or one of the next major releases. If urgent, a major pre-release will be considered.
+ * Developing and distributing modified versions of BioXSD with OTHER THAN minor changes to non-definitional parts (e.g. annotation), i.e. with changes to the definitional content, should be appropriately consulted with BioXSD developers, and the contributions must be shared publicly under a compatible licence.
+
+DISCLAIMER: This Code of Conduct (CoC) declaration is non-exhaustive, and additional technological and ethical constraints apply, together with the terms of the licence. The CoC aims at reflecting technological constraints, participatory design, and contribution guidelines in a reasonable way appropriate for fulfilling the interoperability goals and appropriate ethically. This CoC is at the moment provisional and subject to change. Objections or suggestions can be addressed to developers@bioxsd.org. Please see the latest stable release at http://bioxsd.org/BioXSD-1.1.xsd for the most recent released version.
 
 ============= PUBLICATIONS ==============
+If using BioXSD in work published or advertised as a scholarly publication, please reference:
+
 Kalaš, M., Puntervoll, P., Joseph, A., Bartaševičiūtė (now Karosiene), E., Töpfer, A., Venkataraman, P., Pettifer, S., Bryne, J.C., Ison, J., Blanchet, C., Rapacki, K. and Jonassen, I. (2010). 
-BioXSD: the common data-exchange format for everyday bioinformatics web services. Bioinformatics, 26, i540-i546. doi: 10.1093/bioinformatics/btS391	PMID: 20823319
+BioXSD: the common data-exchange format for everyday bioinformatics web services. Bioinformatics, 26, i540-i546. doi: 10.1093/bioinformatics/btq391	PMID: 20823319
+
+
+If using the optimised sequence/genome feature representation (since BioXSD version 1.1), please reference also: 
 
 Gundersen, S., Kalaš, M., Abul, O., Frigessi, A., Hovig, E. and Sandve, G.K. (2011). 
 Identifying elemental genomic track types and representing them uniformly. BMC Bioinformatics, 212, 494. doi: 10.1186/1471-2105-12-494	PMID: 22208806
@@ -20,12 +71,12 @@ http://bioxsd.org
 support@bioxsd.org
 
 ================ CREDITS ================
-XML Schema editing and documentation: Matúš Kalaš
-Senior scientists: Inge Jonassen, Pål Puntervoll, Kristoffer Rapacki, Christophe Blanchet
-Requirements, supporting implementations, or testing: Edita Karosiene, László Kaján & Rostlab, Alexandre Joseph, Armin Töpfer, Jan Krüger & Sven Hartmeier (BiBiServ), Sveinung Gundersen & the GTrack team, OpenBio* and EMBOSS developers, and all software developers and data providers that use or explore BioXSD
-Semantic annotation: Matúš Kalaš, Jon Ison (EDAM), acknowledgement to the DBCLS BioHackathon series, Andrea Splendiani and Jerven Bolleman (RDF gurus)
-Acknowledgement for conceptual support: Steffen Möller, Steve Pettifer, Gert Vriend, Rodrigo Lopez, Jan Christian Bryne, Renzo Kottmann (GCDML), Toshiaki Katayama (BioHackathon), participants in the EMBRACE project
-And for technical support: Lóránd-János Szentannai, Torbjørn Lium, Alexandr Oltu, Armin Töpfer
+XML Schema and documentation: Matúš Kalaš
+Core contributors with requirements, design, and implementations: Sveinung Gundersen & the GTrack team, László Kaján & Rostlab folks, Edita Karosiene, Pål Puntervoll
+Senior scientists: Inge Jonassen, Kristoffer Rapacki, Christophe Blanchet
+Semantic annotation: Matúš Kalaš, Jon Ison (EDAM), acknowledgement to the DBCLS BioHackathon series, Andrea Splendiani and Jerven Bolleman (the RDF gurus)
+Acknowledgement for major conceptual support and/or influential contribution with requirements: Hervé Ménager, Steffen Möller, Steve Pettifer, Gert Vriend, Rodrigo Lopez, Jan Christian Bryne, Jan Krüger & Sven Hartmeier (BiBiServ), Renzo Kottmann (GCDML), Toshiaki Katayama (DBCLS BioHackathon), Jim Procter (Jalview), Hilmar Lapp and others from O|B|F, the EMBRACE project, ELIXIR Norway, Denmark, and France
+Acknowledgement for technical support: Stanislav Oltu, Lóránd-János Szentannai, Torbjørn Lium, Alexandr Oltu, Armin Töpfer
 
 BioXSD has been and is further being developed as a part of multiple collaborative projects. There has never been any funding dedicated exclusively to BioXSD.
 Projects that contributed to BioXSD are mainly: eSysbio and ELIXIR.NO (both from the Research Council of Norway), EMBRACE (European Commission FP6)
@@ -37,8 +88,8 @@ For version information, changelog, and release dates, please refer to the botto
 ======================================-->
 
 <xs:schema
-	version="1.1.3beta2"
 	targetNamespace="http://bioxsd.org/BioXSD-1.1"
+	version="1.1.3"
 	xmlns="http://bioxsd.org/BioXSD-1.1"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:sawsdl="http://www.w3.org/ns/sawsdl"
@@ -990,7 +1041,7 @@ The reference sequence may me included explicitly, referred to remotely, or impl
 	<xs:complexType name="GeneralSequenceInsertionPoint" sawsdl:modelReference="http://edamontology.org/data_1016">
 		<xs:annotation>
 			<xs:documentation>Position of an insertion into the sequence, possibly with a certain level of uncertainty.
-NB. Insertion *behind* (to the right of) the given point in the direction of the sequence; *-1* for preceeding the sequence</xs:documentation>
+NB. Insertion *behind* (to the right of) the given point in the direction of the sequence; *-1* for preceding the sequence</xs:documentation>
 		</xs:annotation>
 		<xs:attribute name="pos" type="InsertionInteger">
 			<xs:annotation>
@@ -1004,7 +1055,7 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 	<xs:complexType name="SequenceInsertionPoint">
 		<xs:annotation>
 			<xs:documentation>Certain position of an insertion into the sequence.
-NB. Insertion *behind* (to the right of) the given point in the direction of the sequence; *-1* for preceeding the sequence</xs:documentation>
+NB. Insertion *behind* (to the right of) the given point in the direction of the sequence; *-1* for preceding the sequence</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="GeneralSequenceInsertionPoint">
@@ -1060,7 +1111,7 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 
 	<xs:complexType name="SequenceSegment">
 		<xs:annotation>
-			<xs:documentation>Certain position in the sequence referring to a scontinuous segment of the sequence</xs:documentation>
+			<xs:documentation>Certain position in the sequence referring to a continuous segment of the sequence</xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:restriction base="GeneralSequenceSegment">
@@ -1286,16 +1337,69 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 
 	<xs:attributeGroup name="WebserviceReference">
 		<xs:annotation>
-			<xs:documentation>A reference to a SOAP Web service</xs:documentation>
+			<xs:documentation>A group of attributes for recording a reference to a data entry or resource via a Web service, or a reference to a Web service itself</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="wsdl" type="Uri"/>
-		<xs:attribute name="wsdlService" type="xs:NMTOKEN"/>
-		<xs:attribute name="wsdlPort" type="xs:NMTOKEN"/>
-		<xs:attribute name="webserviceOperation" type="xs:NMTOKEN"/>
-		<xs:attribute name="webserviceVersion" type="Name"/>
+		<xs:attribute name="wsdl" type="Uri">
+			<xs:annotation>
+				<xs:documentation>URL of a WSDL file describing the referenced Web service (can be WSDL version 1.0, 1.1, 2.0)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="wsdlService" type="xs:NMTOKEN">
+			<xs:annotation>
+				<xs:documentation>A 'wsdl:service' 'name' in the WSDL file referenced in 'wsdl'</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="wsdlPort" type="xs:NMTOKEN">
+			<xs:annotation>
+				<xs:documentation>A 'wsdl:port' 'name' (WSDL 1.0/1.1) or 'wsdl:endpoint' 'name' (WSDL 2.0) in the WSDL file referenced in 'wsdl'</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="webserviceEndpointAddress" type="Uri">
+			<xs:annotation>
+				<xs:documentation>URI of the referenced Web service endpoint</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="webserviceOperation" type="xs:NMTOKEN">
+			<xs:annotation>
+				<xs:documentation>Identifier of an operation of the Web service referenced in 'wsdl' or 'webserviceEnpointAddress'. Can be a 'wsdl:operation' 'name' in a WSDL file, or another operation handle</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="webserviceInputParameters">
+			<xs:annotation>
+				<xs:documentation>Space-separated list of input-parameter identifiers of the Web-service operation referenced in 'webserviceOperation'. Used together with the 'webserviceInputValues' attribute in order to define a list of necessary parameter-value pairs for obtaining the referenced data entry or resource. NB. Space characters will be interpreted as delimiters. An item in the 'webserviceInputParameters' list can be a parameter handle without whitespace characters such as an XPath or JSONPath expression, an 'xs:element' or 'wsdl:part' 'name', or another placeholder, name, or label without whitespace characters</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:list>
+					<xs:simpleType>
+						<xs:restriction base="Name">
+							<xs:pattern value="\S+"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:list>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="webserviceInputValues">
+			<xs:annotation>
+				<xs:documentation>Space-separated list of input values of the Web-service operation referenced in 'webserviceOperation'. Used together with the 'webserviceInputParameters' attribute in order to define a list of necessary parameter-value pairs for obtaining the referenced data entry or resource. NB. Space characters will be interpreted as delimiters. n-th item in the 'webserviceInputValues' list corresponds to the n-th item in the 'webserviceInputParameters' list. An empty 'webserviceInputParameters' with a single item in 'webserviceInputValues' is usable for unary operations. An item of the 'webserviceInputValues' list can be a simple value without whitespace characters. Cannot be used for complex input values. If complex input values are required as part of a reference to a Web service, use 'bx:Method' complex type instead</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:list>
+					<xs:simpleType>
+						<xs:restriction base="Name">
+							<xs:pattern value="\S+"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:list>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="webserviceVersion" type="Name">
+			<xs:annotation>
+				<xs:documentation>Version of the Web service referenced in 'wsdl' or 'webserviceEnpointAddress'</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 		<xs:attribute name="webserviceDate" type="xs:date">
 			<xs:annotation>
-				<xs:documentation>Date when this Web-service reference was fully valid: created or last time updated</xs:documentation>
+				<xs:documentation>The date when this Web-service reference was valid (created or last time updated)</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:attributeGroup>
@@ -1464,10 +1568,12 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 			<xs:documentation>UniProt accession number, optionally with version after a dot (.) or the variant (isoform) suffix after a hyphen (-)</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="Accession">
-			<xs:pattern value="[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]"/>
 			<xs:pattern value="[OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9]"/>
-			<xs:pattern value="[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9][.-][0-9]+"/>
+			<xs:pattern value="[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]"/>
+			<xs:pattern value="[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]"/>
 			<xs:pattern value="[OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9][.-][0-9]+"/>
+			<xs:pattern value="[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9][.-][0-9]+"/>
+			<xs:pattern value="[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9][A-Z][A-Z0-9][A-Z0-9][0-9][.-][0-9]+"/>
 		</xs:restriction>
 	</xs:simpleType>
 	
@@ -1476,8 +1582,9 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 			<xs:documentation>UniProt accession number, without the sequence version and splice-variant suffix</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="ExtendedUniprotAccession">
-			<xs:pattern value="[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]"/>
 			<xs:pattern value="[OPQ][0-9][A-Z0-9][A-Z0-9][A-Z0-9][0-9]"/>
+			<xs:pattern value="[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]"/>
+			<xs:pattern value="[A-NR-Z][0-9][A-Z][A-Z0-9][A-Z0-9][0-9][A-Z][A-Z0-9][A-Z0-9][0-9]"/>
 		</xs:restriction>
 	</xs:simpleType>
 	
@@ -1640,7 +1747,7 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 
 	<xs:simpleType name="OutsidePositionCorrespondance" sawsdl:modelReference="http://edamontology.org/format_2352">
 		<xs:annotation>
-			<xs:documentation>Correspondance of the outside positions to the reference sequence</xs:documentation>
+			<xs:documentation>Correspondence of the outside positions to the reference sequence</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="Name">
 			<xs:enumeration value="In chromosome/scaffold/contig">
@@ -1665,7 +1772,7 @@ Positions 1..n correspond, position -1 is the preceding (next point to the left)
 				<xs:annotation>
 					<xs:documentation>The outside position is in a nucleotide sequence.
 Position 1 corresponds to the 1st base of the 1st translated codon within the reference isoform, position -1 is the next to the left from 1
-(NB. CDSs include the start and stop codons: do not use this correspondance option for outside features of CDSs)</xs:documentation>
+(NB. CDSs include the start and stop codons: do not use this correspondence option for outside features of CDSs)</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="Relative to 1st transcribed base">
@@ -1803,7 +1910,7 @@ Position 1 corresponds to the 1st base transcribed within the reference isoform,
 
 	<xs:simpleType name="Certainty">
 		<xs:annotation>
-			<xs:documentation>Quantitave or qualitative certainty</xs:documentation>
+			<xs:documentation>Quantitative or qualitative certainty</xs:documentation>
 		</xs:annotation>
 		<xs:union memberTypes="Probability QualitativeCertainty"/>
 	</xs:simpleType>
@@ -1825,11 +1932,12 @@ Position 1 corresponds to the 1st base transcribed within the reference isoform,
 NB. Supports a subset of RFC 3986 generic syntax (selected schemes, DNS only, no user info, constrained port and characters)</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
+		
 			<xs:pattern value="http://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=&amp;]|%[0-9A-F]{2})+)*/?(\?([A-Za-z0-9\-._~!$'()*+,;=&amp;/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=&amp;/\?]|%[0-9A-F]{2})*)?"/>
 			<xs:pattern value="https://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=&amp;]|%[0-9A-F]{2})+)*/?(\?([A-Za-z0-9\-._~!$'()*+,;=&amp;/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=&amp;/\?]|%[0-9A-F]{2})*)?"/>
 			<xs:pattern value="ftp://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=&amp;]|%[0-9A-F]{2})+)*/?(\?([A-Za-z0-9\-._~!$'()*+,;=&amp;/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=&amp;/\?]|%[0-9A-F]{2})*)?"/>
 			<xs:pattern value="urn:lsid:[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*:[A-Za-z0-9\-._~]+:[A-Za-z0-9\-._~]+(:[A-Za-z0-9\-._~]+)?"/>
-			<!--=As the whole BioXSD, these patterns are copyrighted and available under the Creative Commons attribution no-modification licence (CC-BY-ND 3.0; Derivation waived by xs:extension and xs:restriction in user's namespace; Change requests to bioxsd.org)=-->
+			<!--= These URI patterns (regular expressions) are original work of the BioXSD editors, and thus - likewise the whole BioXSD data model and schema - are available under the restrictions of the Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0). =-->
 			<xs:maxLength value="1000"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -1893,12 +2001,13 @@ NB. Supports a subset of RFC 3986 generic syntax (selected schemes, DNS only, no
 
 	
 </xs:schema>
-
-
 <!--================ CHANGELOG ====================
 version      status           released      changes
 ===================================================
-  1.1.3beta2 Current 1.1      2013-09-19*   trailing slash and '&' allowed in Uri.        [*pre-released as BioXSD-1.1.3beta.xsd]
+1.1.3        Current 1.1      2015-05-15    licence changed to CC BY-SA 4.0, code of conduct added;
+                                            WebserviceReference attributeGroup updated for more flexibility (various WSDL versions, WSDL-less Web services, and multi-parameter queries): 'webserviceEndpointAddress', 'webserviceInputParamaters', and 'webserviceInputValues' attributes added;
+                                            added new form of UniProt accessions.
+  1.1.3beta2                  2013-09-19*   trailing slash and '&' allowed in Uri.        [*pre-released as BioXSD-1.1.3beta.xsd]
   1.1.3beta1                  2013-06-19*   'inputParameter'-s and 'outputParameter'-s added to Method.        [*pre-released as BioXSD-1.1.3beta1.xsd, target namespace http://bioxsd.org/BioXSD-1.1.3beta1]
 1.1.2                         2013-05-13    uniqueness constraints removed in restricted complex subtypes;
                                             fixed="Certain" removed where use="prohibited";

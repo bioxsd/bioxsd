@@ -1,17 +1,17 @@
 ## BioXSD 1.1
 
-This is the folder with an old minor beta release towards BioXSD version 1.1.3, namely version 1.1.3beta2.
+This is the folder with the **latest stable release** of BioXSD.
 
-Added to GitHub for archival purposes. Superceded by a newer stable minor release.
+The latest stable release of BioXSD is the latest stable *minor release* (namely version `1.1.3`) within the latest stable *major release* (*i.e.* major version `1.1` aka BioXSD 1.1).
 
 
 
 **Namespace:** http://bioxsd.org/BioXSD-1.1
 
-**Canonical location:** http://bioxsd.org/BioXSD-1.1.3beta.xsd
+**Canonical location:** http://bioxsd.org/BioXSD-1.1.xsd	(may get superceded at this location with a future stable *minor release*)
 
 **Major version:** 1.1
 
-**Minor version:** 1.1.3beta2
+**Minor version:** 1.1.3
 
-**Release date:** 2013-09-19
+**Release date:** 2015-05-15

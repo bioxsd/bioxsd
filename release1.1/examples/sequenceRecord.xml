@@ -2,7 +2,7 @@
 <mySequenceRecord
 	xmlns:bx="http://bioxsd.org/BioXSD-1.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://bioxsd.org/BioXSD-1.1 ../BioXSD-1.1.3beta.xsd"
+	xsi:schemaLocation="http://bioxsd.org/BioXSD-1.1 ../BioXSD-1.1.xsd"
 	xsi:type="bx:GeneralAminoacidSequenceRecord"
 >
 	<bx:sequence>MDPLGDTLRRLREAFHAGRTRPAEFRAAQLQGLGRFLQENKQLLHDALAQDLHKSAFESEVSEVAISQGEVTLAELGGKNPCYVDDNCDPQTVANRVAWFRYFNAGQTCVAPDYVLCSPEMQERLLPALQSTITRFYGDDPQSSPNLGRIINQKQFQRLRALLGGKFSFDTFSHHRACLLRSPGMEKLNALRYPPQSPRRLRMLLVAMEAQGCSCTLL</bx:sequence>

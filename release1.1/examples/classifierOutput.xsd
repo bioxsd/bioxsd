@@ -7,6 +7,6 @@
 	elementFormDefault="qualified"
 	attributeFormDefault="unqualified"
 >
-	<xs:import namespace="http://bioxsd.org/BioXSD-1.1" schemaLocation="../BioXSD-1.1.3beta.xsd"/>
+	<xs:import namespace="http://bioxsd.org/BioXSD-1.1" schemaLocation="../BioXSD-1.1.xsd"/>
 	<xs:element name="featureRecord" type="bx:FeatureRecord"/>
 </xs:schema>
