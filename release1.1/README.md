@@ -14,4 +14,4 @@ Added to GitHub for archival purposes. Superceded by a newer stable minor releas
 
 **Minor version:** 1.1.2
 
-**Release date:** 2012-05-13
+**Release date:** 2013-05-13
