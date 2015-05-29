@@ -2,6 +2,6 @@
 <myAccession
 	xmlns:bx="http://bioxsd.org/BioXSD-1.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://bioxsd.org/BioXSD-1.1 ../BioXSD-1.1.xsd"
+	xsi:schemaLocation="http://bioxsd.org/BioXSD-1.1 http://bioxsd.org/BioXSD-1.1.xsd"
 	xsi:type="bx:ExtendedUniprotAccession"
 >X2H3W1M1H2-3</myAccession>

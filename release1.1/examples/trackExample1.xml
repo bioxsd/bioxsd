@@ -3,7 +3,7 @@
 	xmlns="http://bioxsd.org/example"
 	xmlns:bx="http://bioxsd.org/BioXSD-1.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://bioxsd.org/example bxExamples(1.1).xsd"
+	xsi:schemaLocation="http://bioxsd.org/example http://bioxsd.org/bxExamples(1.1).xsd"
 >
 	<exampleTrack>
 		<bx:referenceSequence>

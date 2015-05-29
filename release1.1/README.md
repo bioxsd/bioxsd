@@ -8,7 +8,7 @@ The latest stable release of BioXSD is the latest stable *minor release* (namely
 
 **Namespace:** http://bioxsd.org/BioXSD-1.1
 
-**Canonical location:** http://bioxsd.org/BioXSD-1.1.xsd	(may get superceded at this location with a future stable *minor release*)
+**Canonical location:** http://bioxsd.org/BioXSD-1.1.xsd
 
 **Major version:** 1.1
 

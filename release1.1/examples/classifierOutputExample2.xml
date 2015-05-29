@@ -3,7 +3,7 @@
 	xmlns="http://bioxsd.org/classifierOutput"
 	xmlns:bx="http://bioxsd.org/BioXSD-1.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://bioxsd.org/classifierOutput classifierOutput.xsd"
+	xsi:schemaLocation="http://bioxsd.org/classifierOutput http://bioxsd.org/classifierOutput.xsd"
 >
 
 	<bx:referenceSequence>
