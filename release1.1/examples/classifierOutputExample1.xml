@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<featureRecord
+	xmlns="http://bioxsd.org/classifierOutput"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.1.3beta1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://bioxsd.org/classifierOutput classifierOutput.xsd"
+>
+
+	<bx:referenceSequence>
+		<bx:sequenceRecord xsi:type="bx:GeneralAminoacidSequenceRecord">
+			<bx:sequence>KLVVVGAGGVGKSALTIQLIQNHFVDEYDPTIEDSYRKQVVIDGETCLLDILDTAGQEEYSAMRDQYMRTGEGFLCVFAINNTKSFEDIHQYREQIKRVKDSDDVPMVLVGNKCDLAARTVESRQAQDLARSYGIPYIETSAKTRQGVEDAFYTLVREIRQ</bx:sequence>
+			<bx:reference>
+				<bx:subsequencePosition>
+					<bx:segment max="165" min="5" xsi:type="bx:SequenceSegment"/>
+				</bx:subsequencePosition>
+			</bx:reference>
+		</bx:sequenceRecord>
+	</bx:referenceSequence>
+	
+	<bx:blockWithOccurrenceReferences>
+		<bx:method localId="M#fc" name="freecontact">
+			<bx:categoryConcept accession="operation_0272" conceptUri="http://edamontology.org/operation_0272" ontologyName="EDAM" term="Residue interaction prediction"/>
+			<bx:citation date="2013-03-01"/>
+		</bx:method>
+		<bx:scoreType localId="S#l1">
+			<bx:method name="l1-norm">
+				<bx:citation accession="22101153" date="2011-11-17" dbName="PubMed" entryUri="http://www.ncbi.nlm.nih.gov/pubmed/22101153"/>
+			</bx:method>
+		</bx:scoreType>
+		<bx:scoreType localId="S#MI">
+			<bx:method name="Mutual information">
+				<bx:citation accession="22163331" date="2011-12-07" dbName="PubMed" entryUri="http://www.ncbi.nlm.nih.gov/pubmed/22163331"/>
+			</bx:method>
+		</bx:scoreType>
+		<bx:scoreType localId="S#fr">
+			<bx:method name="Frobenius norm">
+				<bx:citation accession="23410359" date="2013-01-11" dbName="PubMed" entryUri="http://www.ncbi.nlm.nih.gov/pubmed/23410359"/>
+			</bx:method>
+		</bx:scoreType>
+		
+		<bx:annotation>
+			<bx:feature>
+				<bx:name>Profiximity of residues</bx:name>
+				<bx:equalConcept term="Proximity of 2 residues ('contact', i.e. distance &lt; 8Å). Concept missing in common ontologies."/>
+			</bx:feature>
+			<bx:condensedReferences>
+				<bx:methodIdRef>M#fc</bx:methodIdRef>
+			</bx:condensedReferences>
+			
+			<bx:occurrence>
+				<bx:position xsi:type="bx:SequencePosition">
+					<bx:point pos="5" xsi:type="bx:SequencePoint"/>
+					<bx:point pos="6" xsi:type="bx:SequencePoint"/>
+				</bx:position>
+				<bx:score scoreTypeIdRef="S#l1" value="1492.88"/>
+				<bx:score scoreTypeIdRef="S#MI" value="0.332129"/>
+				<bx:score scoreTypeIdRef="S#fr" value="3.59798"/>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position xsi:type="bx:SequencePosition">
+					<bx:point pos="5" xsi:type="bx:SequencePoint"/>
+					<bx:point pos="7" xsi:type="bx:SequencePoint"/>
+				</bx:position>
+				<bx:score scoreTypeIdRef="S#l1" value="976.898"/>
+				<bx:score scoreTypeIdRef="S#MI" value="0.324137"/>
+				<bx:score scoreTypeIdRef="S#fr" value="2.98475"/>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position xsi:type="bx:SequencePosition">
+					<bx:point pos="5" xsi:type="bx:SequencePoint"/>
+					<bx:point pos="8" xsi:type="bx:SequencePoint"/>
+				</bx:position>
+				<bx:score scoreTypeIdRef="S#l1" value="476.425"/>
+				<bx:score scoreTypeIdRef="S#MI" value="0.26315"/>
+				<bx:score scoreTypeIdRef="S#fr" value="0.909986"/>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position xsi:type="bx:SequencePosition">
+					<bx:point pos="5" xsi:type="bx:SequencePoint"/>
+					<bx:point pos="9" xsi:type="bx:SequencePoint"/>
+				</bx:position>
+				<bx:score scoreTypeIdRef="S#l1" value="356.645"/>
+				<bx:score scoreTypeIdRef="S#MI" value="0.261639"/>
+				<bx:score scoreTypeIdRef="S#fr" value="0.492044"/>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position xsi:type="bx:SequencePosition">
+					<bx:point pos="5" xsi:type="bx:SequencePoint"/>
+					<bx:point pos="10" xsi:type="bx:SequencePoint"/>
+				</bx:position>
+				<bx:score scoreTypeIdRef="S#l1" value="363.207"/>
+				<bx:score scoreTypeIdRef="S#MI" value="0.224501"/>
+				<bx:score scoreTypeIdRef="S#fr" value="1.52313"/>
+			</bx:occurrence>
+			<!--...-->
+			
+		</bx:annotation>
+	</bx:blockWithOccurrenceReferences>
+	
+</featureRecord>

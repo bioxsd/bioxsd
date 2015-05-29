@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--============ LICENCE ================
 Available under the Creative Commons BY-ND 3.0 licence with additionally allowed:
-a) inclusion, xs:extensions, and xs:restrictions in user's XML namespace (that is URI domain associated with the user; or a generic "public" domain for URIs, with user-specific path);
-b) public redistribution of versions with custom xs:appinfo-s or sawsdl:..SchemaMapping-s in the original 'bioxsd.org' XML namespace under the assumption that the XSD is synchronised with the minor releases of BioXSD at bioxsd.org. (The content of the additional xs:appinfo and sawsdl:..SchemaMapping must be in user's or third-party's namespaces.)
-Note: Redistribution of BioXSD is allowed only in the original 'bioxsd.org' XML namespace and under the assumption that the XSD is synchronised with the minor releases of BioXSD at bioxsd.org.
-Contributions to new canonical versions, in the 'bioxsd.org' XML namespace, are welcome under supervision of the BioXSD consortium (in order to keep BioXSD a common, canonical data model).
+a) usage within XSD import-s, type-s, extension-s, restriction-s, union-s and list-s, in user's XML namespace (that is URI domain associated with the user; or a generic "public" domain for URIs, with user-specific path);
+b) public redistribution of versions with custom XSD appinfo-s or SAWSDL attributes in the original 'http://bioxsd.org/...' XML namespace under the assumption that the XSD is synchronised with the minor releases of BioXSD at bioxsd.org. (The content of the additional xs:appinfo must be in user's or third-party's namespaces.)
+Note: Redistribution of BioXSD is allowed only in the original 'http://bioxsd.org/...' XML namespace and under the assumption that the XSD is synchronised with the minor releases of BioXSD at bioxsd.org.
+Contributions to new canonical versions, in the 'http://bioxsd.org/...' XML namespace, are welcome under the supervision of the BioXSD consortium (in order to keep BioXSD a common, canonical data model).
 
 ============= PUBLICATIONS ==============
 Kalaš, M., Puntervoll, P., Joseph, A., Bartaševičiūtė (now Karosiene), E., Töpfer, A., Venkataraman, P., Pettifer, S., Bryne, J.C., Ison, J., Blanchet, C., Rapacki, K. and Jonassen, I. (2010). 
@@ -37,9 +37,9 @@ For version information, changelog, and release dates, please refer to the botto
 ======================================-->
 
 <xs:schema
-	version="1.1.2"
-	targetNamespace="http://bioxsd.org/BioXSD-1.1"
-	xmlns="http://bioxsd.org/BioXSD-1.1"
+	version="1.1.3beta1"
+	targetNamespace="http://bioxsd.org/BioXSD-1.1.3beta1"
+	xmlns="http://bioxsd.org/BioXSD-1.1.3beta1"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:sawsdl="http://www.w3.org/ns/sawsdl"
 	elementFormDefault="qualified"
@@ -51,18 +51,6 @@ For version information, changelog, and release dates, please refer to the botto
 		<xs:documentation>BioXSD: The common XML Schema (canonical data model) for bioinformatics Web services and everyday bioinformatics.
 Defines XML exchange formats for: sequences, sequence annotations, sequence similarity/alignments, references and supporting types of data</xs:documentation>
 	</xs:annotation>
-
-
-
-
-	<!--= Validated:
-		XML Schema validated successfully by
-			Altova XMLSpy 2009 32-bit and 2013 64-bit (text, schema)
-			XSV (at http://www.w3.org/2001/03/webdata/xsv and in oXygen XMl Editor 64-bit 14.2)
-			MSXML.NET (in oXygen XMl Editor 64-bit 14.2)
-			Eclipse (Eclipse Java EE IDE for Web Developers. Helios Service Release 1)
-			Validome (with http://bioxsd.org/BioXSD-1.1.xsd)
-	=-->
 
 
 
@@ -676,7 +664,7 @@ NB. ID/accession is part of the 'reference'</xs:documentation>
 
 
 
-	<!--=========================== FEATURE BUNDLES ===========================-->
+	<!--=========================== FEATURE RECORD ===========================-->
 	<xs:complexType name="FeatureRecord" sawsdl:modelReference="http://edamontology.org/data_2044 http://edamontology.org/data_0867 http://edamontology.org/data_1381 http://edamontology.org/data_0855 http://edamontology.org/data_2201 http://edamontology.org/data_0924 http://edamontology.org/data_0857 http://edamontology.org/data_0916 http://edamontology.org/data_2084 http://edamontology.org/data_0896 http://edamontology.org/data_2081 http://edamontology.org/format_2352"><!--"Sequence data"(2044)--><!--"Sequence alignment annotation"(0867)--><!--"Sequence alignment (pairwise)"(1381)--><!--"Sequence annotation"(0855)--><!--"Sequence record full"(2201)--><!--"Sequence trace"(0924)--><!--"Sequence database hits"(0857)--><!--"Gene annotation"(0916)--><!--"Nucleic acid annotation"(2084)--><!--"Protein annotation"(0896)--><!--"Secondary structure"(2081)--><!--"BioXSD format"(2352)-->
 		<xs:annotation>
 			<xs:documentation>Features of a sequence/biopolymer (or a genome/metagenome).
@@ -1428,6 +1416,8 @@ NB. Insertion *behind* (to the right of) the given point in the direction of the
 		<xs:sequence>
 			<xs:element name="categoryConcept" type="SemanticConcept" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://edamontology.org/data_0958 http://edamontology.org/operation_0004"/>
 			<xs:element name="citation" type="EntryReference" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://edamontology.org/data_0958 http://edamontology.org/data_0970 "/>
+			<xs:element name="inputParameter" type="Score" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://edamontology.org/data_2527"/><!--"Parameter"(2527)-->
+			<xs:element name="outputParameter" type="Score" minOccurs="0" maxOccurs="unbounded" sawsdl:modelReference="http://edamontology.org/data_2527"/><!--"Parameter"(2527)-->
 		</xs:sequence>
 		<xs:attribute name="name" type="Name" use="required" sawsdl:modelReference="http://edamontology.org/data_1190"/>
 		<xs:attribute name="uri" type="Uri" sawsdl:modelReference="http://edamontology.org/data_0977"/>
@@ -1839,7 +1829,7 @@ NB. Supports a subset of RFC 3986 generic syntax (selected schemes, DNS only, no
 			<xs:pattern value="https://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=]|%[0-9A-F]{2})+)*(\?([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?"/>
 			<xs:pattern value="ftp://[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*(:[2-9][0-9]{3,})?(/([A-Za-z0-9\-._~!$'()*+,;=]|%[0-9A-F]{2})+)*(\?([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?(#([A-Za-z0-9\-._~!$'()*+,;=/\?]|%[0-9A-F]{2})*)?"/>
 			<xs:pattern value="urn:lsid:[a-z0-9]([a-z0-9]|\-[a-z0-9])*(\.[a-z0-9]([a-z0-9]|\-[a-z0-9])*)*:[A-Za-z0-9\-._~]+:[A-Za-z0-9\-._~]+(:[A-Za-z0-9\-._~]+)?"/>
-			<!--=As the whole BioXSD, these patterns are copyrighted and available under the Creative Commons attribution no-modification licence (CC-BY-ND 3.0; Derivation waived by xs:extension and xs:restriction in user's namespace; Address change requests to bioxsd.org)=-->
+			<!--=As the whole BioXSD, these patterns are copyrighted and available under the Creative Commons attribution no-modification licence (CC-BY-ND 3.0; Derivation waived by xs:extension and xs:restriction in user's namespace; Change requests to bioxsd.org)=-->
 			<xs:maxLength value="1000"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -1847,7 +1837,7 @@ NB. Supports a subset of RFC 3986 generic syntax (selected schemes, DNS only, no
 	<xs:simpleType name="Text" sawsdl:modelReference="http://edamontology.org/data_0969 http://edamontology.org/format_2330">
 	<!--"Free text"(0969)--><!--"Text format"(2330)-->
 		<xs:annotation>
-			<xs:documentation>Any plain text (possibly formatted)</xs:documentation>
+			<xs:documentation>Any plain text, possibly formatted. Can include new lines, tabs, or any number of consecutive spaces</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">			
 			<xs:minLength value="1"/>
@@ -1908,6 +1898,7 @@ NB. Supports a subset of RFC 3986 generic syntax (selected schemes, DNS only, no
 <!--================ CHANGELOG ====================
 version      status           released      changes
 ===================================================
+  1.1.3beta1                  2013-06-19*   'inputParameter'-s and 'outputParameter'-s added to Method.        [*pre-released as BioXSD-1.1.3beta1.xsd, target namespace http://bioxsd.org/BioXSD-1.1.3beta1]
 1.1.2        Current 1.1      2013-05-13    uniqueness constraints removed in restricted complex subtypes;
                                             fixed="Certain" removed where use="prohibited";
                                             maxLength constraint for nucleotide sequence removed (due to incompatibility with Xerces);

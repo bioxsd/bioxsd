@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<featureRecord
+	xmlns="http://bioxsd.org/classifierOutput"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.1.3beta1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://bioxsd.org/classifierOutput classifierOutput.xsd"
+>
+
+	<bx:referenceSequence>
+		<bx:sequenceRecord xsi:type="bx:GeneralAminoacidSequenceRecord">
+			<bx:sequence>VSELPARWHELAKQFPKLERIPGERLLNDLRDWFHNDDPDKRDKITSQL<!--...--></bx:sequence>
+			<!--... plus metadata from the input ...-->
+		</bx:sequenceRecord>
+	</bx:referenceSequence>
+	
+	<bx:blockWithOccurrenceReferences>
+		<bx:method localId="M#np" name="NORSp">
+			<bx:categoryConcept conceptUri="http://edamontology.org/operation_0414" ontologyName="EDAM" accession="operation_0414" term="Protein feature prediction (from sequence)"/>
+			<bx:categoryConcept conceptUri="http://edamontology.org/operation_0267" ontologyName="EDAM" accession="operation_0267" term="Protein secondary structure prediction"/>
+			<bx:categoryConcept conceptUri="http://edamontology.org/operation" ontologyName="EDAM" accession="operation_0269" term="Transmembrane protein prediction"/>
+			<bx:categoryConcept conceptUri="http://edamontology.org/operation_0384" ontologyName="EDAM" accession="operation_0384" term="Protein solvent accessibility calculation"/>
+			<bx:citation accession="12824431" date="2003-07-01" dbName="PubMed" entryUri="http://www.ncbi.nlm.nih.gov/pubmed/12824431"/>
+			<bx:inputParameter name="Window size" value="70">
+				<bx:concept conceptUri="http://edamontology.org/data_1251" ontologyName="EDAM" accession="data_1251" term="Window size"/>
+			</bx:inputParameter>
+			<bx:inputParameter name="Structure content cutoff" value="12" unit="%"/>
+			<bx:inputParameter name="Minimum consecutive exposed residues" value="10"/>
+			<bx:outputParameter name="Sequence length" value="2465">
+				<bx:concept conceptUri="http://edamontology.org/data_1249" ontologyName="EDAM" accession="data_1249" term="Sequence length"/>
+			</bx:outputParameter>
+			<bx:outputParameter name="Secondary structure content" index="Helix" value="34.2" unit="%"/>
+			<bx:outputParameter name="Secondary structure content" index="Strand" value="14.4" unit="%"/>
+			<bx:outputParameter name="Secondary structure content" index="Loop" value="51.4" unit="%"/>
+		</bx:method>
+		
+		<bx:annotation>
+			<bx:feature>
+				<bx:name>Disordered region</bx:name>
+				<bx:equalConcept conceptUri="http://purl.obolibrary.org/obo/SO_0100003" ontologyName="Sequence Ontology" accession="0100003" term="intrinsically_unstructured_polypeptide_region"/>
+			</bx:feature>
+			<bx:condensedReferences>
+				<bx:methodIdRef>M#np</bx:methodIdRef>
+			</bx:condensedReferences>			
+			<bx:occurrence>
+				<bx:position>
+					<bx:segment min="1061" max="1167"/>
+				</bx:position>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position>
+					<bx:segment min="1421" max="1513"/>
+				</bx:position>
+			</bx:occurrence>			
+		</bx:annotation>
+		
+		<bx:annotation>
+			<bx:feature>
+				<bx:name>Alpha helix</bx:name>
+				<bx:equalConcept conceptUri="http://purl.obolibrary.org/obo/SO_0001117" ontologyName="Sequence Ontology" accession="0001117" term="alpha_helix"/>
+				<bx:className>Secondary structure</bx:className>
+				<bx:classConcept conceptUri="http://purl.obolibrary.org/obo/SO_0001078" ontologyName="Sequence Ontology" accession="0001078" term="polypeptide_secondary_structure"/>
+			</bx:feature>
+			<bx:condensedReferences>
+				<bx:methodIdRef>M#np</bx:methodIdRef>
+			</bx:condensedReferences>			
+			<bx:occurrence>
+				<bx:position>
+					<bx:segment min="5" max="14"/>
+				</bx:position>
+			</bx:occurrence>
+			<bx:occurrence>
+				<bx:position>
+					<bx:segment min="17" max="19"/>
+				</bx:position>
+			</bx:occurrence>
+			<!--...-->
+		</bx:annotation>
+		
+		<bx:annotation>
+			<bx:feature>
+				<bx:name>Beta sheet</bx:name>
+				<bx:equalConcept conceptUri="http://purl.obolibrary.org/obo/SO_0001111" ontologyName="Sequence Ontology" accession="0001111" term="beta_strand"/>
+				<bx:className>Secondary structure</bx:className>
+				<bx:classConcept conceptUri="http://purl.obolibrary.org/obo/SO_0001078" ontologyName="Sequence Ontology" accession="0001078" term="polypeptide_secondary_structure"/>
+			</bx:feature>
+			<bx:condensedReferences>
+				<bx:methodIdRef>M#np</bx:methodIdRef>
+			</bx:condensedReferences>			
+			<bx:occurrence>
+				<bx:position>
+					<bx:segment min="94" max="98"/>
+				</bx:position>
+			</bx:occurrence>
+			<!--...-->
+		</bx:annotation>
+		
+		<bx:annotation>
+			<bx:feature>
+				<bx:name>Coiled-coil</bx:name>
+				<bx:equalConcept conceptUri="http://purl.obolibrary.org/obo/SO_0001080" ontologyName="Sequence Ontology" accession="0001080" term="coiled_coil"/>
+			</bx:feature>
+			<bx:condensedReferences>
+				<bx:methodIdRef>M#np</bx:methodIdRef>
+			</bx:condensedReferences>			
+			<bx:occurrence>
+				<bx:position>
+					<bx:segment min="1634" max="1662"/>
+				</bx:position>
+			</bx:occurrence>			
+		</bx:annotation>
+		
+		<bx:annotation>
+			<bx:feature>
+				<bx:name>Transmembrane helix</bx:name>
+				<bx:equalConcept conceptUri="http://purl.obolibrary.org/obo/SO_0001812" ontologyName="Sequence Ontology" accession="0001812" term="transmembrane_helix"/>
+			</bx:feature>
+			<bx:condensedReferences>
+				<bx:methodIdRef>M#np</bx:methodIdRef>
+			</bx:condensedReferences>
+			<!--(nothing here if none identified)-->
+		</bx:annotation>
+		
+		<bx:annotation>
+			<bx:feature>
+				<bx:name>Solvent accessibility</bx:name>
+				<bx:equalConcept term="Protein solvent accessibility. Concept not found in common ontologies (NB.: Corresponding concept in EDAM encompasses *data* about solvent accesibility, not the feature itself.)"/>
+			</bx:feature>
+			<bx:condensedReferences>
+				<bx:methodIdRef>M#np</bx:methodIdRef>
+			</bx:condensedReferences>			
+			<bx:occurrence>
+				<bx:position>
+					<bx:segment min="1" max="3"/>
+					<bx:segment min="5" max="7"/>
+					<bx:segment min="9" max="10"/>
+					<!--...-->
+				</bx:position>
+			</bx:occurrence>			
+		</bx:annotation>
+		
+	</bx:blockWithOccurrenceReferences>
+</featureRecord>

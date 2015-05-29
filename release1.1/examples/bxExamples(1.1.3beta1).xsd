@@ -2,13 +2,13 @@
 <xs:schema
 	targetNamespace="http://bioxsd.org/example"
 	xmlns="http://bioxsd.org/example"
-	xmlns:bx="http://bioxsd.org/BioXSD-1.1"
+	xmlns:bx="http://bioxsd.org/BioXSD-1.1.3beta1"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	elementFormDefault="qualified"
 	attributeFormDefault="unqualified"
 >
 
-	<xs:import namespace="http://bioxsd.org/BioXSD-1.1" schemaLocation="../BioXSD-1.1.xsd"/>
+	<xs:import namespace="http://bioxsd.org/BioXSD-1.1.3beta1" schemaLocation="../BioXSD-1.1.3beta1.xsd"/>
 	
 	<xs:element name="bxExamples">
 		<xs:complexType>
