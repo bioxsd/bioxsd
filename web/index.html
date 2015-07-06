@@ -1,6 +1,13 @@
 <html>
 	<head>
 		<title>BioXSD.org - A data model for biomolecular sequences, features, alignments, references</title>
+		<style type="text/css">
+			html	{ background-color: whitesmoke }
+			body	{ background-color: white; padding-left: 1.1%; padding-right: 1.1%; min-width: 480px; max-width: 960px; margin: auto; line-height: 1.4 }
+			h1::before	{width: 51%; display: block; overflow: hidden; content: ""}
+			hr		{ color: lightgray; background-color: whitesmoke; clear: both }
+			div		{ margin-left: 1.1%; margin-right: 1.3%; text-align: justify }
+		</style>
 	</head>
 	
 	
@@ -8,31 +15,17 @@
 	
 	<body>
 	
-		<table width="98%">
-			<tbody>
-			
-				<tr align="left" valign="middle">
-					<th width="400">
-					
-						<img alt="BioXSD" src="bxLogo.png" width="360"/>
-						<br/><br/>
-					</th>
-					
-					<th align="left">
-					
-						<h1><!--<big>--><!--<u>-->A data model for biomolecular sequences, features, alignments, references<!--</u>--><!--</big>--></h1>
-						<h2>Suitable as an exchange format for Web services and programmatic libraries</h2>
-					
-					</th>					
-				</tr>
-				
-			</tbody>
-		</table>
+		<img alt="BioXSD" src="bxLogo.png" style="float: left; margin-left: 1.1%; margin-right: 24px;  margin-top: 16px; margin-bottom: 24px; width: auto; height: auto; max-width: 60%; max-height: 80px"/>
 		
-				<!--<tr align="left">
-					<th width="100%">-->
-
+		<!--<p style="border: 1px solid green; width: 51%; display: block; overflow: hidden; margin: 0"/>doesn't work in firefox, needs ::before pseudo-element instead (or alternatively some further positioning hacking of this p)-->
+		
+		<h1 style="margin-left: 1.1%; margin-right: 1.3%; margin-top: 2px; margin-bottom: 2px">A data model for biomolecular sequences, features, alignments, references</h1>
+		
+		<h2 style="color: #424242; margin-left: 1.1%; margin-right: 1.3%">Suitable as an exchange format for Web services and programmatic libraries</h2>
+		
 		<hr/>
+		
+		<div>
 			<br/>
 			<a href="#News">News</a><br/>
 			<a href="#About">About</a><br/>
@@ -43,12 +36,15 @@
 			<a href="#Tools">Compliant tools</a><br/>
 			<a href="#Ongoing">Ongoing development</a><br/>
 			<a href="#Credits">Credits</a><br/>
-			<br/>		
+			<br/>
+		</div>		
+
 		<hr/>
 
-
-		<br/><br/>
-		<a name="News"/><h2>News</h2><br/><br/>
+		<div>
+			<br/><br/>
+			<a name="News"/><h2>News</h2>
+			<br/><br/>
 		
 			<p>
 				<big><u><b>BioXSD version 1.1, release 1.1.3</b></u></big><br/>
@@ -94,251 +90,289 @@
 				<br/><!--<i><small>-->For more details, help, and consultation, please contact <a href="mailto:support@bioxsd.org">support@bioxsd.org</a>.<!--</small></i>-->
 			</p>
 			
-		<br/>
-		<hr/>
-
-		
-		<!--<hr/>-->
-		<br/><br/>
-		<a name="About"/><h2>About</h2><br/><br/>
-		
-		<p><!--<big>-->BioXSD is a data model defining exchange formats of basic bioinformatics types of data.
-		BioXSD aims to serve as a common, canonical tree-structured format (XML, JSON, binary) for the basic bioinformatics data<!--</big>--></p>
-		
-		<p>Canonical data format does not mean "the only format", but an exchange format that can be common to several tools (as one of multiple formats the tools are supporting). Tools can produce and consume BioXSD directly, or BioXSD can be used as an intermediate canonical format rich enough to enable conversions among diverse formats. Using common exchange format enables smooth integration of compatible tools into analysis workflows.</p>
-		
-		<p>BioXSD is a rich but not too complicated data model and exchange format for <b>sequences</b>, <b>alignments</b>, <b>feature records</b>, and references to external resources.<!--<br/>-->
-		<!--<small>-->Specialised standard XML formats such as for example SBML, MAGE-ML, GCDML, PDBML, PSI MI MIF, PhyloXML or NeXML are orthogonal efforts and should be used whereever applicable. BioXSD aims at filling the gap between these specialised XML formats.<!--</small>--></p><!--Add links!-->
-		
-		<p><!--Interoperable Web services: -->BioXSD enables deployment of globally and smoothly interoperable bioinformatics tools on the World Wide Web of Services.<!--<br/>-->
-		<!--<small>-->BioXSD supports HTTP/"REST" Web services and WS-I compliant SOAP Web services, and interoperates with ordinary HTTP/REST, SOAP, and XML libraries for common programming languages. No other infrastructure than standard HTTP, XML, and eventually SOAP is necessary for using BioXSD-compatible Web services.<!--</small>--></p>
-		
-		<p><!--<em>-->BioXSD is a "blue-collar" initiative originating from the inside of the bioinformatics community, initiated among others by the <a href="http://www.embracegrid.info/page.php">EMBRACE</a> project partners and the DBCLS <a href="http://hackathon.dbcls.jp">BioHackathon 2008</a> and <a href="http://hackathon2.dbcls.jp">2009</a> participants.<!--</em>--></p>
-		
-		<br/><br/><p align="left"><u>The EMBRACE standards:</u></p>
-		<p align="center"><img alt="Diagram of EMBRACE standards" src="embraceInteroperability.png" width="700" align="middle"/></p>
-		<p></p><br/><br/><br/>
-		
-		<p><!--<big>-->BioXSD data-type definitions are annotated with <a href="http://edamontology.org">EDAM</a> and with a few main Semantic-Web vocabularies. BioXSD thus offers ready-made building blocks for tool interfaces with a globally defined, controlled meaning (semantics).<!--</big>--></p>
-
-		<br/><br/>
-		
-		<p>BioXSD has been developed by analysing existing requirements, tools, Web services, data formats, and ontologies.<!--<br/>-->
-		Feasibility was tested at different pilot providers, using diverse libraries and programming languages.</p>
-		
-		<p><!--<small>-->BioXSD types can be used directly if applicable; or can be included in other standard or custom types, extended or restricted.
-		With tools that use other or proprietary formats, BioXSD can be used as the canonical intermediate exchange format.<!--</small>--></p>
-
-		<br/><br/><!--<br/>-->
-		<p><b><big>Open collaboration within the community:</big></b> BioXSD welcomes feature requests, suggestions, and new collaborations!</p>
-		<p><small>
-			<i>To submit your suggestions and requirements, please write to <a href="mailto:developers@bioxsd.org">developers@bioxsd.org</a> or post an issue at <a href="http://github.com/bioxsd/bioxsd">http://github.com/bioxsd/bioxsd</a>.</i>
-		</small></p>
-		<br/><br/><br/>
-
-		<p><big><b><a href="bxPoster.pdf">A BioXSD poster</a></b></big></p>
-		
-		<!--<p><big><a href="bxAbstract.pdf">Abstract</a></big></p>-->
-		
-		<br/><br/><br/>
+			<br/>
+		</div>
 			
-			<p><big><b>Publications:</b></big></p>
-			<br/>
-			<p><i>If using BioXSD in work published or advertised as a scholarly publication, please reference:</i></p>
-			<p>
-				Kala&#353;, M., Puntervoll, P., Joseph, A.,
-				Barta&#353;evi&#269;i&#363;t&#279; (now Karosiene), E.,
-				T&#246;pfer, A., Venkataraman, P., Pettifer, S., Bryne, J.C.,
-				Ison, J., Blanchet, C., Rapacki, K. and Jonassen, I.
-				(2010).
-				<a href="http://bioinformatics.oxfordjournals.org/content/26/18/i540.full">BioXSD: the common data-exchange format for everyday bioinformatics web services.</a>
-				<i>Bioinformatics</i>, <b>26</b>, i540-i546.
-				<br/><small>doi: <a href="http://dx.doi.org/10.1093/bioinformatics/btq391">10.1093/bioinformatics/btq391</a>&#160;&#160; PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/20823319">20823319</a></small>
-			</p>
-			<br/>
-			<p><i>If using the optimised sequence/genome feature representation (since BioXSD 1.1), please reference also:</i></p>
-			<p>
-				Gundersen, S., Kala&#353;, M., Abul, O.,
-				Frigessi, A., Hovig, E. and Sandve, G.K.
-				(2011).
-				<a href="http://www.biomedcentral.com/1471-2105/12/494">Identifying elemental genomic track types and representing them uniformly.</a>
-				<i>BMC Bioinformatics</i>, <b>212</b>, 494.
-				<br/><small>doi: <a href="http://dx.doi.org/10.1186/1471-2105-12-494">10.1186/1471-2105-12-494</a>&#160;&#160; PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/22208806">22208806</a></small>
-			</p>
-			<br/>
-			<p>BioXSD 1.1 has been developed hand-in-hand with <a href="http://gtrack.no"><b>GTrack</b></a>, the unifying tabular format for sequence/genome features. Both formats use the same tactics for optimising size of diverse kinds of feature records, via flexible options for recording features' positions and other data.</p>
+		<hr/>
+		
+		<div>
+			<br/><br/>
+			<a name="About"/><h2>About</h2>
+			<br/><br/>
 			
-		<br/><br/>
+			<p><!--<big>-->BioXSD is a data model defining exchange formats of basic bioinformatics types of data.
+			BioXSD aims to serve as a common, canonical tree-structured format (XML, JSON, binary) for the basic bioinformatics data<!--</big>--></p>
+			
+			<p>Canonical data format does not mean "the only format", but an exchange format that can be common to several tools (as one of multiple formats the tools are supporting). Tools can produce and consume BioXSD directly, or BioXSD can be used as an intermediate canonical format rich enough to enable conversions among diverse formats. Using common exchange format enables smooth integration of compatible tools into analysis workflows.</p>
+			
+			<p>BioXSD is a rich but not too complicated data model and exchange format for <b>sequences</b>, <b>alignments</b>, <b>feature records</b>, and references to external resources.<!--<br/>-->
+			<!--<small>-->Specialised standard XML formats such as for example SBML, MAGE-ML, GCDML, PDBML, PSI MI MIF, PhyloXML or NeXML are orthogonal efforts and should be used whereever applicable. BioXSD aims at filling the gap between these specialised XML formats.<!--</small>--></p><!--Add links!-->
+			
+			<p><!--Interoperable Web services: -->BioXSD enables deployment of globally and smoothly interoperable bioinformatics tools on the World Wide Web of Services.<!--<br/>-->
+			<!--<small>-->BioXSD supports HTTP/"REST" Web services and WS-I compliant SOAP Web services, and interoperates with ordinary HTTP/REST, SOAP, and XML libraries for common programming languages. No other infrastructure than standard HTTP, XML, and eventually SOAP is necessary for using BioXSD-compatible Web services.<!--</small>--></p>
+			
+			<p><!--<em>-->BioXSD is a "blue-collar" initiative originating from the inside of the bioinformatics community, initiated among others by the <a href="http://www.embracegrid.info/page.php">EMBRACE</a> project partners and the DBCLS <a href="http://hackathon.dbcls.jp">BioHackathon 2008</a> and <a href="http://hackathon2.dbcls.jp">2009</a> participants.<!--</em>--></p>
+			
+			<br/><br/><p><u>The EMBRACE standards:</u></p>
+			<p><img alt="Diagram of EMBRACE standards" src="embraceInteroperability.png" style="display: block; margin-left: auto; margin-right: auto; width: auto; height: auto; max-width: 98%; max-height: 300px"/></p>
+			<p></p><br/><br/><br/>
+			
+			<p><!--<big>-->BioXSD data-type definitions are annotated with <a href="http://edamontology.org">EDAM</a> and with a few main Semantic-Web vocabularies. BioXSD thus offers ready-made building blocks for tool interfaces with a globally defined, controlled meaning (semantics).<!--</big>--></p>
+	
+			<br/><br/>
+			
+			<p>BioXSD has been developed by analysing existing requirements, tools, Web services, data formats, and ontologies.<!--<br/>-->
+			Feasibility was tested at different pilot providers, using diverse libraries and programming languages.</p>
+			
+			<p><!--<small>-->BioXSD types can be used directly if applicable; or can be included in other standard or custom types, extended or restricted.
+			With tools that use other or proprietary formats, BioXSD can be used as the canonical intermediate exchange format.<!--</small>--></p>
+	
+			<br/><br/><!--<br/>-->
+			<p><b><big>Open collaboration within the community:</big></b> BioXSD welcomes feature requests, suggestions, and new collaborations!</p>
+			<p><small>
+				<i>To submit your suggestions and requirements, please write to <a href="mailto:developers@bioxsd.org">developers@bioxsd.org</a> or post an issue at <a href="http://github.com/bioxsd/bioxsd">http://github.com/bioxsd/bioxsd</a>.</i>
+			</small></p>
+			<br/><br/><br/>
+	
+			<p><big><b><a href="bxPoster.pdf">A BioXSD poster</a></b></big></p>
+			
+			<!--<p><big><a href="bxAbstract.pdf">Abstract</a></big></p>-->
+			
+			<br/><br/><br/>
+				
+				<p><big><b>Publications:</b></big></p>
+				<br/>
+				<p><i>If using BioXSD in work published or advertised as a scholarly publication, please reference:</i></p>
+				<p>
+					Kala&#353;, M., Puntervoll, P., Joseph, A.,
+					Barta&#353;evi&#269;i&#363;t&#279; (now Karosiene), E.,
+					T&#246;pfer, A., Venkataraman, P., Pettifer, S., Bryne, J.C.,
+					Ison, J., Blanchet, C., Rapacki, K. and Jonassen, I.
+					(2010).
+					<a href="http://bioinformatics.oxfordjournals.org/content/26/18/i540.full">BioXSD: the common data-exchange format for everyday bioinformatics web services.</a>
+					<i>Bioinformatics</i>, <b>26</b>, i540-i546.
+					<br/><small>doi: <a href="http://dx.doi.org/10.1093/bioinformatics/btq391">10.1093/bioinformatics/btq391</a>&#160;&#160; PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/20823319">20823319</a></small>
+				</p>
+				<br/>
+				<p><i>If using the optimised sequence/genome feature representation (since BioXSD 1.1), please reference also:</i></p>
+				<p>
+					Gundersen, S., Kala&#353;, M., Abul, O.,
+					Frigessi, A., Hovig, E. and Sandve, G.K.
+					(2011).
+					<a href="http://www.biomedcentral.com/1471-2105/12/494">Identifying elemental genomic track types and representing them uniformly.</a>
+					<i>BMC Bioinformatics</i>, <b>212</b>, 494.
+					<br/><small>doi: <a href="http://dx.doi.org/10.1186/1471-2105-12-494">10.1186/1471-2105-12-494</a>&#160;&#160; PMID: <a href="http://www.ncbi.nlm.nih.gov/pubmed/22208806">22208806</a></small>
+				</p>
+				<br/>
+				<p>BioXSD 1.1 has been developed hand-in-hand with <a href="http://gtrack.no"><b>GTrack</b></a>, the unifying tabular format for sequence/genome features. Both formats use the same tactics for optimising size of diverse kinds of feature records, via flexible options for recording features' positions and other data.</p>
+				
+			<br/><br/>
+		</div>	
+		
 		<hr/>
-		<br/><br/>
-		<a name="XSD"/><h2>The XML Schema</h2><br/><br/>
 		
-		<p><!--<big>--><b>BioXSD 1.1</b> (namespace <small><code>http://bioxsd.org/BioXSD-1.1</code></small>) is available at <a href="http://bioxsd.org/BioXSD-1.1.xsd"><em>http://bioxsd.org/BioXSD-1.1.xsd</em></a>. This latest stable version is available for implementations, actively maintained, and open to further developments. New requirements and suggestions for changes are welcome and may be reflected in future versions. <!--</big>--></p>
+		<div>
+			<br/><br/>
+			<a name="XSD"/><h2>The XML Schema</h2>
+			<br/><br/>
+			
+			<p><big><b>BioXSD 1.1</b></big> (namespace <small><code>http://bioxsd.org/BioXSD-1.1</code></small>) is available at <a href="http://bioxsd.org/BioXSD-1.1.xsd"><em>http://bioxsd.org/BioXSD-1.1.xsd</em></a>. This latest stable version is available for implementations, actively maintained, and open to further developments. New requirements and suggestions for changes are welcome and may be reflected in future versions. <!--</big>--></p>
+			
+			<p><a href="http://bioxsd.org/BioXSD-1.1.xsd"><em>http://bioxsd.org/BioXSD-1.1.xsd</em></a> is the canonical schema location to be</p>
+			<ul>
+				<li>used for XML data instances
+					<p style="margin-left:16px"><small><code>xsi:schemaLocation="http://bioxsd.org/BioXSD-1.1 http://bioxsd.org/BioXSD-1.1.xsd"</code><br/><i>working <a href="sequenceRecord.xml">example</a></i></small></p>
+				</li>
+				<li>imported in document XSDs (including Web services' WSDLs)
+					<p style="margin-left:16px"><small><code>&lt;xs:import namespace="http://bioxsd.org/BioXSD-1.1" schemaLocation="http://bioxsd.org/BioXSD-1.1.xsd"/></code><br/><i>working example <a href="classifierOutput.xsd">XSD</a> and <a href="classifierOutputExample1.xml">instance</a></i></small></p>
+				</li>
+				<li>or to be synchronised with its future releases in case of publishing custom-annotated or custom-modified BioXSDs.</li>
+			</ul>
+			
+			<p><small>
+			(Note: There is no "worked-around" version of BioXSD 1.1 available for SOAP Web service providers using Python ZSI for their backend SOAP stack. It can be made available if required, please contact <a href="mailto:support@bioxsd.org">support@bioxsd.org</a>.)
+			</small></p>
+			
+			<br/><br/>
+			
+			<p><!--<big>-->Older <b>BioXSD 1.0</b> (namespace <small><code>http://bioxsd.org/BioXSD-1.0</code></small>) is available at <a href="http://bioxsd.org/BioXSD-1.0.xsd"><em>http://bioxsd.org/BioXSD-1.0.xsd</em></a>. <!--</big>--><!--This is the canonical Schema location to be imported in document XSDs (such as in Web services' WSDLs) or to be synchronised with.--></p>
+			
+			<p><small>
+			(For SOAP Web service providers using Python ZSI for their backend SOAP stack: Due to some important basic features missing in the Python Zolera Soap Infrastructure (ZSI) library, a special version for generating ZSI code is at
+			<a href="http://bioxsd.org/BioXSD-1.0.zsi.Workaround.xsd"><em>http://bioxsd.org/BioXSD-1.0.zsi.Workaround.xsd</em></a>.
+			Do not forget to get the <a href="http://bioxsd.org/ZSI-2.1_a2-py2.5.egg">ZSI patch</a> for the <a href="http://cagrid.org/display/knowledgebase/Develop+Python+Clients">empty-complexType bug</a>.
+			This xsd is "SOAP-compatible" with the normal xsd. It means that the services in Python should be generated from WSDLs importing the <em>BioXSD-x.x.zsi.Workaround.xsd</em> Schema,
+			but WSDLs of the deployed services should then be importing the normal <em>BioXSD-x.x.xsd</em> Schema.)
+			</small></p>
+			
+			<!--<p><small><i>Coming, supporting development:</i> tutorial, translators from/to community formats, support within O|B|F Bio*libraries, visualisation tools.</small></p>-->
+			
+			<br/><br/>
+			
+			<p>The source files and releases of the BioXSD schema, of supportive utility software, and of documentation are in transition to <a href="http://github.com/bioxsd/bioxsd">http://github.com/bioxsd/bioxsd</a>, and will gradually appear there.</p>
+			
+			<p>
+				<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+					<img alt="Creative Commons Attribution-ShareAlike 4.0 International License" style="border-width: 0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"/><!--style="border-width: 0; width: 66px"-->
+				</a>
+				<br/>
+				<a href="http://bioxsd.org/BioXSD-1.1.xsd"><!--<a xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/" href="http://bioxsd.org" rel="cc:attributionURL" property="dct:title">-->BioXSD</a> data models and schemata are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a> (CC BY-SA 4.0). Please note also the Code of Conduct for derived work, outlined at the top of the <a href="http://bioxsd.org/BioXSD-1.1.xsd">http://bioxsd.org/BioXSD-1.1.xsd</a> file.
+			</p>
+			
+			<!--<p>BioXSD Schemas are available under the <b>Creative Commons BY-ND 3.0</b> license with additionally allowed inclusion, extensions and restrictions in user's XML namespace. Contributions to new canonical versions, in the <i>bioxsd.org</i> XML namespace, are welcome under supervision of the BioXSD consortium (in order to keep BioXSD a common, canonical data model).</p>
+			
+			<br/><br/>-->
+			
+			<p>For release information including CHANGELOG, please refer to the bottom of the XSD files.</p>
+	
+			<br/><br/>
+		</div>
 		
-		<p><a href="http://bioxsd.org/BioXSD-1.1.xsd"><em>http://bioxsd.org/BioXSD-1.1.xsd</em></a> is the canonical schema location to be</p>
-		<ul>
-			<li>used for XML data instances
-				<p style="margin-left:16px"><small><code>xsi:schemaLocation="http://bioxsd.org/BioXSD-1.1 http://bioxsd.org/BioXSD-1.1.xsd"</code><br/><i>working <a href="sequenceRecord.xml">example</a></i></small></p>
-			</li>
-			<li>imported in document XSDs (including Web services' WSDLs)
-				<p style="margin-left:16px"><small><code>&lt;xs:import namespace="http://bioxsd.org/BioXSD-1.1" schemaLocation="http://bioxsd.org/BioXSD-1.1.xsd"/></code><br/><i>working example <a href="classifierOutput.xsd">XSD</a> and <a href="classifierOutputExample1.xml">instance</a></i></small></p>
-			</li>
-			<li>or to be synchronised with its future releases in case of publishing custom-annotated or custom-modified BioXSDs.</li>
-		</ul>
+		<hr/>
 		
-		<p><small>
-		(Note: There is no "worked-around" version of BioXSD 1.1 available for SOAP Web service providers using Python ZSI for their backend SOAP stack. It can be made available if required, please contact <a href="mailto:support@bioxsd.org">support@bioxsd.org</a>.)
-		</small></p>
+		<div>
+			<br/><br/>
+			<a name="Documentation"/><h2>Documentation</h2>
+			<br/><br/>
+	
+			
+			<p>A concise <big><b>quick overview guide</b></big> to the BioXSD format is at <a href="QuickReference"><!--<big>--><em>./QuickReference</em><!--</big>--></a>.</p>
+			
+			
+			<br/><br/>
+	
+			
+			<p>Full reference documentation of BioXSD version 1.1 is at <a href="technicalDocumentation/BioXSD-1.1"><!--<big>--><em>./technicalDocumentation/BioXSD-1.1</em><!--</big>--></a>.</p>
+			
+			
+			<br/><br/>
+			
+			<p>Documentation of BioXSD version 1.0 is available at <a href="technicalDocumentation/BioXSD-1.0"><!--<big>--><em>./technicalDocumentation/BioXSD-1.0</em><!--</big>--></a>.</p>
+	
+			<br/><br/>
+		</div>
 		
-		<br/><br/>
+		<hr/>
 		
-		<p><!--<big>-->Older <b>BioXSD 1.0</b> (namespace <small><code>http://bioxsd.org/BioXSD-1.0</code></small>) is available at <a href="http://bioxsd.org/BioXSD-1.0.xsd"><em>http://bioxsd.org/BioXSD-1.0.xsd</em></a>. <!--</big>--><!--This is the canonical Schema location to be imported in document XSDs (such as in Web services' WSDLs) or to be synchronised with.--></p>
+		<div>
+			<br/><br/>
+			<a name="ExampleData"/><h2>Examples of data</h2>
+			<br/><br/>
+			
+			<p>A <a href="accession.xml">UniProt accession as a BioXSD 1.1 element</a> - a toy example of an "inline" instance of a simple type.</p>
+			
+			<p>A BioXSD 1.1 <a href="sequenceRecord.xml">sequence record</a> is an example "inline" instance of a complex type.</p>
+			
+			<p><a href="exampleFeatureRecords.html">Examples of feature data</a> represented in <!--<a href="http://bioxsd.org/BioXSD-1.1beta1.xsd">--><!--<b>-->BioXSD 1.1<!--</b>--><!--</a>--> format.</p>
+			
+			<br/><br/>
+			
+			<p><a href="bxExamples(1.0).xml">Examples of diverse types of bioinformatics data</a> represented in the older <!--<a href="http://bioxsd.org/BioXSD-1.0.xsd">--><!--<b>-->BioXSD 1.0<!--</b>--><!--</a>--> format are available in the referred example file. The example file contains numerous examples of sequence records, annotated sequences, and multiple-sequence alignments.</p>
+			
+			<!--<p><small>Examples of data represented in beta <a href="http://bioxsd.org/BioXSD-0.4.xsd">BioXSD 0.4</a> format are <a href="bxExample(0.4).xml">here</a>.
+			(And examples in --><!--<a href="http://bioxsd.org/BioXSD-0.3u.xsd">--><!--BioXSD 0.3--><!--</a>--><!-- <a href="bxExample(0.3).xml">here</a>)</small></p>-->
+			
+			
+			
+			<br/><br/>
+		</div>
 		
-		<p><small>
-		(For SOAP Web service providers using Python ZSI for their backend SOAP stack: Due to some important basic features missing in the Python Zolera Soap Infrastructure (ZSI) library, a special version for generating ZSI code is at
-		<a href="http://bioxsd.org/BioXSD-1.0.zsi.Workaround.xsd"><em>http://bioxsd.org/BioXSD-1.0.zsi.Workaround.xsd</em></a>.
-		Do not forget to get the <a href="http://bioxsd.org/ZSI-2.1_a2-py2.5.egg">ZSI patch</a> for the <a href="http://cagrid.org/display/knowledgebase/Develop+Python+Clients">empty-complexType bug</a>.
-		This xsd is "SOAP-compatible" with the normal xsd. It means that the services in Python should be generated from WSDLs importing the <em>BioXSD-x.x.zsi.Workaround.xsd</em> Schema,
-		but WSDLs of the deployed services should then be importing the normal <em>BioXSD-x.x.xsd</em> Schema.)
-		</small></p>
+		<hr/>
 		
-		<!--<p><small><i>Coming, supporting development:</i> tutorial, translators from/to community formats, support within O|B|F Bio*libraries, visualisation tools.</small></p>-->
+		<div>
+			<br/><br/>
+			<a name="ExampleWorkflows"/><h2>Example workflows</h2>
+			<br/><br/>
+			
+			<p><a href="exampleWorkflows">Example workflows</a> (analysis pipelines) combine multiple bioinformatics Web services using BioXSD.</p>
+			
+			<p>Workflows show that such services are <i>smoothly compatible</i>.</p>
+			
+			
+			
+			<br/><br/>
+		</div>
 		
-		<br/><br/>
+		<hr/>
 		
-		<p>The source files and releases of the BioXSD schema, of supportive utility software, and of documentation are in transition to <a href="http://github.com/bioxsd/bioxsd">http://github.com/bioxsd/bioxsd</a>, and will gradually appear there.</p>
-		
-		<p>
-			<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-				<img alt="Creative Commons Attribution-ShareAlike 4.0 International License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"/><!--style="border-width:0; width:66px"-->
-			</a>
+		<div>
+			<br/><br/>
+			<a name="Tools"/><h2>Compliant tools</h2>
+			<br/><br/>
+	
+			<p>
+				Thanks to the providers of bioinformatics tools who started adopting BioXSD as pilot users, the number of services and software compatible with BioXSD rises. Currently adapted tools are:
+			</p><br/>
+			<p><big><b>Web services:</b></big></p>
+			<ul>
+				<li><em>CBS, DTU, Greater Copenhagen, Denmark:</em>
+					<a href="http://www.cbs.dtu.dk/ws/MaxAlign/MaxAlign_1_1_ws1.wsdl">MaxAlign</a>,
+					<a href="http://www.cbs.dtu.dk/ws/ProP/ProP_1_0_ws0.wsdl">ProP</a>,
+					<a href="http://www.cbs.dtu.dk/ws/NetNES/NetNES_1_1_ws0.wsdl">NetNES</a>
+					<!--<em>(more under development)</em>-->
+				</li>
+				<li><em>CBU, U Bergen, Norway:</em>
+					<a href="http://www.bccs.uni.no/services/blastws/BlastPublic_2_2_21_ws0.wsdl">BLAST</a>
+					<!--<em>(under development:</em> MAFFT, Mblosum<em>)</em>-->
+				</li>
+				<li><em>IBCP, CNRS, Lyon, France:</em>
+					<a href="http://gbio-pbil.ibcp.fr/Tools/ClustalW_bx/wsdl">ClustalW</a>,
+					<a href="http://gbio-pbil.ibcp.fr/Tools/Blast_bx/wsdl">BLAST</a>,<!--Does work?-->
+					<a href="http://gbio-pbil.ibcp.fr/Tools/GorIV_bx/wsdl">GorIV</a>
+					<!--<em>(more under development)</em>-->
+				</li>
+				<li><em>UBio, CNIO, Madrid, Spain:</em>
+					<a href="http://ws.bioinfo.cnio.es/iHOP/EMBRACE/iHOP-SOAP-document-literal-EDAM.wsdl">iHOP</a>
+				</li>
+			</ul>
+			<p><big><b>Software:</b></big></p>
+			<ul>
+				<li><em>Rostlab, TU Munich, Germany:</em>
+					<a href="ftp://rostlab.org/free">FreeContact</a> (in <a href="http://blends.debian.org/med/tasks/bio#freecontact">Debian Med</a>)
+				</li>
+			</ul>
 			<br/>
-			<a xmlns:dct="http://purl.org/dc/terms/" href="http://bioxsd.org/BioXSD-1.1.xsd" property="dct:title"><!--<a xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/" href="http://bioxsd.org" rel="cc:attributionURL" property="dct:title">-->BioXSD</a> data models and schemata are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a> (CC BY-SA 4.0). Please note also the Code of Conduct for derived work, outlined at the top of the <a href="http://bioxsd.org/BioXSD-1.1.xsd">http://bioxsd.org/BioXSD-1.1.xsd</a> file.
-		</p>
+			<p><small><i>If you started using BioXSD for your software, services, libraries, or other tools, please let us know by sending an email to <a href="mailto:support@bioxsd.org">support@bioxsd.org</a>. For maintenance and support purposes we would love to know about the providers using BioXSD. A registration system will be available in the future.</i></small></p>
+			
+			<br/><br/>
+			
+		</div>
 		
-		<!--<p>BioXSD Schemas are available under the <b>Creative Commons BY-ND 3.0</b> license with additionally allowed inclusion, extensions and restrictions in user's XML namespace. Contributions to new canonical versions, in the <i>bioxsd.org</i> XML namespace, are welcome under supervision of the BioXSD consortium (in order to keep BioXSD a common, canonical data model).</p>
-		
-		<br/><br/>-->
-		
-		<p>For release information including CHANGELOG, please refer to the bottom of the XSD files.</p>
-
-		<br/><br/>
 		<hr/>
-		<br/><br/>
-		<a name="Documentation"/><h2>Documentation</h2><br/><br/>
-
 		
-		<p>A concise <big><b>quick overview guide</b></big> to the BioXSD format is at <a href="QuickReference"><!--<big>--><em>./QuickReference</em><!--</big>--></a>.</p>
+		<div>
+			<br/><br/>
+			<a name="Ongoing"/><h2>Ongoing development</h2>
+			<br/><br/>
+			
+			<ul>
+			<li><!--<b>-->online BioXSD tutorial<!--</b>--></li>
+			<li>tools to translate between BioXSD and other formats (XML, JSON, binary, textual &amp; tabular formats, RDF), and other supportive tools</li>
+			<li>interoperability with the PROV standard for provenance metadata</li>
+			<!--<li>improvements in the automatically-generated comprehensive documentation (including ontology resolving)</li>-->
+			<li>additional examples and test-case workflows, including multiple programming/workflow languages and XSD|XML|EXI|JSON|BSON|HTTP|SOAP libraries</li>
+			<!--<li>improvements &amp; refinements of the data examples</li>-->
+			<li>enhancements of the existing BioXSD format. Objective is to support more conveniently and efficiently: experimental data (<i>e.g.</i> gene expression), sequence variation (in individuals or population), whole-genome alignments, sequence patterns, profiles and motifs, and other types of data</li>
+			</ul>
+			<br/><p><i>Contributions from the community are warmly welcome and needed! <small>(<a href="http://github.com/bioxsd/bioxsd">http://github.com/bioxsd/bioxsd</a>, <a href="mailto:developers@bioxsd.org">developers@bioxsd.org</a>)</small></i></p>
+			
+			<br/><p>Volunteers are welcome to join the <b><em>50 BioXSD-compatible Web services</em></b> challenge.</p>
+			
+			
+			<br/><br/>
+		</div>
 		
-		
-		<br/><br/>
-
-		
-		<p>Full reference documentation of BioXSD version 1.1 is at <a href="technicalDocumentation/BioXSD-1.1"><!--<big>--><em>./technicalDocumentation/BioXSD-1.1</em><!--</big>--></a>.</p>
-		
-		
-		<br/><br/>
-		
-		<p>Documentation of BioXSD version 1.0 is available at <a href="technicalDocumentation/BioXSD-1.0"><!--<big>--><em>./technicalDocumentation/BioXSD-1.0</em><!--</big>--></a>.</p>
-
-		<br/><br/>
 		<hr/>
-		<br/><br/>
-		<a name="ExampleData"/><h2>Examples of data</h2><br/><br/>
 		
-		<p>A <a href="accession.xml">UniProt accession as a BioXSD 1.1 element</a> - a toy example of an "inline" instance of a simple type.</p>
-		
-		<p>A BioXSD 1.1 <a href="sequenceRecord.xml">sequence record</a> is an example "inline" instance of a complex type.</p>
-		
-		<p><a href="exampleFeatureRecords.html">Examples of feature data</a> represented in <!--<a href="http://bioxsd.org/BioXSD-1.1beta1.xsd">--><!--<b>-->BioXSD 1.1<!--</b>--><!--</a>--> format.</p>
-		
-		<br/><br/>
-		
-		<p><a href="bxExamples(1.0).xml">Examples of diverse types of bioinformatics data</a> represented in the older <!--<a href="http://bioxsd.org/BioXSD-1.0.xsd">--><!--<b>-->BioXSD 1.0<!--</b>--><!--</a>--> format are available in the referred example file. The example file contains numerous examples of sequence records, annotated sequences, and multiple-sequence alignments.</p>
-		
-		<!--<p><small>Examples of data represented in beta <a href="http://bioxsd.org/BioXSD-0.4.xsd">BioXSD 0.4</a> format are <a href="bxExample(0.4).xml">here</a>.
-		(And examples in --><!--<a href="http://bioxsd.org/BioXSD-0.3u.xsd">--><!--BioXSD 0.3--><!--</a>--><!-- <a href="bxExample(0.3).xml">here</a>)</small></p>-->
-		
-		
-		
-		<br/><br/>
-		<hr/>
-		<br/><br/>
-		<a name="ExampleWorkflows"/><h2>Example workflows</h2><br/><br/>
-		
-		<p><a href="exampleWorkflows">Example workflows</a> (analysis pipelines) combine multiple bioinformatics Web services using BioXSD.</p>
-		
-		<p>Workflows show that such services are <i>smoothly compatible</i>.</p>
-		
-		
-		
-		<br/>
-		<hr/>
-		<br/><br/>
-		<a name="Tools"/><h2>Compliant tools</h2><br/><br/>
-
-		<p>
-			Thanks to the providers of bioinformatics tools who started adopting BioXSD as pilot users, the number of services and software compatible with BioXSD rises. Currently adapted tools are:
-		</p><br/>
-		<p><b>Web services:</b></p>
-		<ul>
-			<li><em>CBS, DTU, Greater Copenhagen, Denmark:</em>
-				<a href="http://www.cbs.dtu.dk/ws/MaxAlign/MaxAlign_1_1_ws1.wsdl">MaxAlign</a>,
-				<a href="http://www.cbs.dtu.dk/ws/ProP/ProP_1_0_ws0.wsdl">ProP</a>,
-				<a href="http://www.cbs.dtu.dk/ws/NetNES/NetNES_1_1_ws0.wsdl">NetNES</a>
-				<!--<em>(more under development)</em>-->
-			</li>
-			<li><em>CBU, U Bergen, Norway:</em>
-				<a href="http://www.bccs.uni.no/services/blastws/BlastPublic_2_2_21_ws0.wsdl">BLAST</a>
-				<!--<em>(under development:</em> MAFFT, Mblosum<em>)</em>-->
-			</li>
-			<li><em>IBCP, CNRS, Lyon, France:</em>
-				<a href="http://gbio-pbil.ibcp.fr/Tools/ClustalW_bx/wsdl">ClustalW</a>,
-				<a href="http://gbio-pbil.ibcp.fr/Tools/Blast_bx/wsdl">BLAST</a>,<!--Does work?-->
-				<a href="http://gbio-pbil.ibcp.fr/Tools/GorIV_bx/wsdl">GorIV</a>
-				<!--<em>(more under development)</em>-->
-			</li>
-			<li><em>UBio, CNIO, Madrid, Spain:</em>
-				<a href="http://ws.bioinfo.cnio.es/iHOP/EMBRACE/iHOP-SOAP-document-literal-EDAM.wsdl">iHOP</a>
-			</li>
-		</ul>
-		<p><b>Software:</b></p>
-		<ul>
-			<li><em>Rostlab, TU Munich, Germany:</em>
-				<a href="ftp://rostlab.org/free">FreeContact</a> (in <a href="http://blends.debian.org/med/tasks/bio#freecontact">Debian Med</a>)
-			</li>
-		</ul>
-		<br/>
-		<p><small><i>If you started using BioXSD for your software, services, libraries, or other tools, please let us know by sending an email to <a href="mailto:support@bioxsd.org">support@bioxsd.org</a>. For maintenance and support purposes we would love to know about the providers using BioXSD. A registration system will be available in the future.</i></small></p>
-		
-		<br/><br/>
-		<hr/>
-		<br/><br/>
-		<a name="Ongoing"/><h2>Ongoing development</h2><br/><br/>
-		
-		<ul>
-		<li><!--<b>-->online BioXSD tutorial<!--</b>--></li>
-		<li>tools to translate between BioXSD and other formats (XML, JSON, binary, textual &amp; tabular formats, RDF), and other supportive tools</li>
-		<li>interoperability with the PROV standard for provenance metadata</li>
-		<!--<li>improvements in the automatically-generated comprehensive documentation (including ontology resolving)</li>-->
-		<li>additional examples and test-case workflows, including multiple programming/workflow languages and XSD|XML|EXI|JSON|BSON|HTTP|SOAP libraries</li>
-		<!--<li>improvements &amp; refinements of the data examples</li>-->
-		<li>enhancements of the existing BioXSD format. Objective is to support more conveniently and efficiently: experimental data (<i>e.g.</i> gene expression), sequence variation (in individuals or population), whole-genome alignments, sequence patterns, profiles and motifs, and other types of data</li>
-		</ul>
-		<br/><p><i>Contributions from the community are warmly welcome and needed! <small>(<a href="http://github.com/bioxsd/bioxsd">http://github.com/bioxsd/bioxsd</a>, <a href="mailto:developers@bioxsd.org">developers@bioxsd.org</a>)</small></i></p>
-		
-		<br/><p>Volunteers are welcome to join the <b><em>50 BioXSD-compatible Web services</em></b> challenge.</p>
-		
-		
-		<br/><br/>
-		<hr/>
-		<br/><br/>
-		<a name="Credits"/><h2>Credits</h2><br/><br/>
+		<div>
+			<br/><br/>
+			<a name="Credits"/><h2>Credits</h2>
+			<br/><br/>
 
 			<p>BioXSD has been and is further being developed as part of multiple collaborative projects. There has never been any funding directed exclusively to BioXSD.</p>
 			<br/>
 			
-			<p><b>Contribution and advise to the development of BioXSD</b><!--</p>			
+			<p><big><b>Contribution and advise to the development of BioXSD:</b></big><!--</p>			
 			<p>--><br/><em>CBU, University of Bergen, Norway:</em>
 				<big>Mat&#250;&#353; Kala&#353;, Inge Jonassen, </big>P&#229;l Puntervoll<small> (until 2010; now Uni Milj&#248;, Bergen)</small><!--<big>-->, Jan Christian Bryne<!--</big>--><small> (until 2010; later Oslo University Hospital)</small><!--<big>-->, Armin T&#246;pfer<!--</big>--><small> (until 2011; also CeBiTec, Bielefeld, Germany; later D-BSSE, ETH Z&#252;rich, Basel, Switzerland)</small><!--<big>-->, Prabu Venkataraman<!--</big>--><small> (until 2011; later Fiskeridirektoratet, Bergen)</small>
 			<br/><em>CBS, DTU, Greater Copenhagen, Denmark:</em>
@@ -364,19 +398,17 @@
 			<br/>l'Agence Nationale de la Recherche (to HIPCAL)
 			<br/>Alexander von Humboldt Foundation (through the German Ministry for Research and Education)
 			<br/>European Commission FP6 and FP7 (to EMBRACE and ELIXIR)</p>
+			
+			<br/><br/>
+		</div>
 		
-		<br/><br/>
 		<hr/>
 		
-		<p>Contact: <a href="mailto:support@bioxsd.org">support@bioxsd.org</a></p>
-		
-		<p><small>Last update: 2015-May-18</small></p>
-		
-		
-					<!--</th>					
-				</tr>
-			</tbody>
-		</table>-->
+		<div>
+			<p>Contact: <a href="mailto:support@bioxsd.org">support@bioxsd.org</a></p>
+			
+			<p><small>Last update: 2015-Jul-06</small></p>
+		</div>
 		
 	</body>
 </html>
