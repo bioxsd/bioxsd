@@ -1,12 +1,13 @@
 <html>
 	<head>
-		<title>BioXSD.org - A data model for biomolecular sequences, features, alignments, references</title>
+		<title>BioXSD | BioJSON | BioYAML - Unified exchange formats for biomolecular sequences, features, alignments, references</title>
 		<style type="text/css">
 			html	{ background-color: whitesmoke }
 			body	{ background-color: white; padding-left: 1.1%; padding-right: 1.1%; padding-top: 8px; padding-top: 0.5em; padding-bottom: 8px; padding-bottom: 0.5em; min-width: 480px; min-width: 29em; max-width: 960px; max-width: 58em; margin: auto }
 			h1::before	{width: 51%; display: block; overflow: hidden; content: ""}
-			hr		{ color: lightgray; background-color: whitesmoke; clear: both }
+			hr		{ lightgray; background-color: whitesmoke; clear: both; padding-top: 0.5px; padding-top: 0.02em; padding-bottom: 0.5px; padding-bottom: 0.02em }
 			div		{ margin-left: 1.1%; margin-right: 1.3%; line-height: 1.4; text-align: justify }
+			p.tabbed	{ margin-left: 20px; margin-left: 1.3em; text-align: left }
 		</style>
 	</head>
 	
@@ -15,15 +16,15 @@
 	
 	<body>
 	
-		<img alt="BioXSD" src="bxLogo.png" style="float: left; margin-left: 1.1%; margin-right: 26px; margin-right: 1.64em; margin-top: 16px; margin-top: 1em; margin-bottom: 48px; margin-bottom: 3em; width: auto; height: auto; max-width: 60%; max-height: 82px; max-height: 5em"/>
+		<img alt="BioXSD | BioJSON | BioYAML" src="bxLogo.png" style="float: left; margin-left: 1.1%; margin-right: 26px; margin-right: 1.64em; margin-top: 12px; margin-top: 0.75em; margin-bottom: 48px; margin-bottom: 3em; width: auto; height: auto; max-width: 60%; max-height: 131.2px; max-height: 8em; min-width: 272px; min-width: 16em"/>
 		
 		<!--<p style="border: 1px solid green; width: 51%; display: block; overflow: hidden; margin: 0"/>doesn't work in firefox, needs ::before pseudo-element instead (or alternatively some further positioning hacking of this p)-->
 		
-		<h1 style="margin-left: 1.1%; margin-right: 1.3%; margin-top: 3px; margin-top: 0.18em; margin-bottom: 22px; margin-bottom: 1.4em; line-height: 1.3; font-size: 1.72em">A data model for biomolecular sequences, features, alignments, references</h1>
+		<h1 style="margin-left: 1.1%; margin-right: 1.3%; margin-top: 3px; margin-top: 0.18em; margin-bottom: 22px; margin-bottom: 1.4em; line-height: 1.3; font-size: 1.72em">A unified data model for biomolecular sequences, features, alignments, references</h1>
 		
-		<h2 style="color: #424242; margin-left: 1.1%; margin-right: 1.3%; margin-top: 16px; margin-top: 1em; margin-bottom: 16px; margin-bottom: 1em; line-height: 1.3; font-size: 1.34em">Suitable as an exchange format for Web services and programmatic libraries</h2>
+		<h2 style="color: #424242; margin-left: 1.1%; margin-right: 1.3%; margin-top: 16px; margin-top: 1em; margin-bottom: 16px; margin-bottom: 1em; line-height: 1.3; font-size: 1.34em">Suitable as <!--an--> exchange formats for Web services, web applications, and programmatic libraries</h2>
 		
-		<hr/>
+		<hr/><!--================================================================================================================================-->
 		
 		<div>
 			<br/>
@@ -36,15 +37,24 @@
 			<a href="#Tools">Compliant tools</a><br/>
 			<a href="#Ongoing">Ongoing development</a><br/>
 			<a href="#Credits">Credits</a><br/>
+			<a href="#Contact">Contact &amp; follow</a><br/>
 			<br/>
 		</div>		
 
-		<hr/>
+		<hr/><!--================================================================================================================================-->
 
 		<div>
 			<br/><br/>
 			<a name="News"/><h2>News</h2>
 			<br/><br/>
+		
+			<p>
+				<big><u><b>BioXSD | BioJSON | BioYAML - Towards a unified data model with multiple serialisation options</b></u></big><br/>
+				BioXSD is a construction site again. Current developments focus on employing XML Schema version 1.1 and JSON Schema, and enabling BioXSD to function as a single data model with multiple choices of tree-based exchange formats (serialisations).
+				<br/>Highest on the priority list is adding JSON and YAML as serialisation alternatives to XML, and implementing smooth interoperability between BioXSD, BioJSON, BioYAML, and <a href="http://gtrack.no">GTrack</a> (the unified tabular format for sequence features).
+			</p>
+			
+			<br/>
 		
 			<p>
 				<big><u><b>BioXSD version 1.1, release 1.1.3</b></u></big><br/>
@@ -93,28 +103,26 @@
 			<br/>
 		</div>
 			
-		<hr/>
+		<hr/><!--================================================================================================================================-->
 		
 		<div>
 			<br/><br/>
 			<a name="About"/><h2>About</h2>
 			<br/><br/>
 			
-			<p><!--<big>-->BioXSD is a data model defining exchange formats of basic bioinformatics types of data.
-			BioXSD aims to serve as a common, canonical tree-structured format (XML, JSON, binary) for the basic bioinformatics data<!--</big>--></p>
+			<p><!--<big>-->BioXSD is a data model defining exchange formats for <em>basic</em> bioinformatics types of data: <b>sequences</b>, <b>alignments</b>, <b>feature records</b> with associated data and metadata.
+			BioXSD aims to serve as a common, canonical tree-structured format (XML, JSON, YAML, binary) for the basic bioinformatics data.
+			Specialised standard XML-schema formats such as for example SBML, MAGE-ML, GCDML, PDBML, PSI MI MIF, PhyloXML or NeXML are orthogonal efforts and should be used wherever applicable. BioXSD aims at filling the gap between these specialised XML formats.</p><!--Add links!-->
 			
-			<p>Canonical data format does not mean "the only format", but an exchange format that can be common to several tools (as one of multiple formats the tools are supporting). Tools can produce and consume BioXSD directly, or BioXSD can be used as an intermediate canonical format rich enough to enable conversions among diverse formats. Using common exchange format enables smooth integration of compatible tools into analysis workflows.</p>
+			<p>A canonical data format does not mean "the only format", but an exchange format that can be common to several tools (as one of multiple formats the tools are supporting). Tools can produce and consume BioXSD directly, or BioXSD can be used as an intermediate canonical format, rich enough to enable conversions among diverse formats. Using common exchange format enables smooth integration of compatible tools into analysis workflows.</p>
 			
-			<p>BioXSD is a rich but not too complicated data model and exchange format for <b>sequences</b>, <b>alignments</b>, <b>feature records</b>, and references to external resources.<!--<br/>-->
-			<!--<small>-->Specialised standard XML formats such as for example SBML, MAGE-ML, GCDML, PDBML, PSI MI MIF, PhyloXML or NeXML are orthogonal efforts and should be used whereever applicable. BioXSD aims at filling the gap between these specialised XML formats.<!--</small>--></p><!--Add links!-->
+			<p>BioXSD is a rich but not too complicated data model and exchange format, aiming to enable deployment of globally and smoothly interoperable bioinformatics tools on the World Wide Web of Services.<!--<br/>-->
+			BioXSD supports HTTP ("REST") Web services and WS-I compliant SOAP Web services, and interoperates with ordinary HTTP (REST), SOAP, and XML libraries for common programming languages. No other infrastructure than standard HTTP and XML is necessary for using BioXSD-compatible Web services. In the near future, we would like to add <em>smooth</em> support for JSON, YAML, and eventually other data-serialisation languages, as alternatives to using BioXSD in XML.</p>
 			
-			<p><!--Interoperable Web services: -->BioXSD enables deployment of globally and smoothly interoperable bioinformatics tools on the World Wide Web of Services.<!--<br/>-->
-			<!--<small>-->BioXSD supports HTTP/"REST" Web services and WS-I compliant SOAP Web services, and interoperates with ordinary HTTP/REST, SOAP, and XML libraries for common programming languages. No other infrastructure than standard HTTP, XML, and eventually SOAP is necessary for using BioXSD-compatible Web services.<!--</small>--></p>
-			
-			<p><!--<em>-->BioXSD is a "blue-collar" initiative originating from the inside of the bioinformatics community, initiated among others by the <a href="http://www.embracegrid.info/page.php">EMBRACE</a> project partners and the DBCLS <a href="http://hackathon.dbcls.jp">BioHackathon 2008</a> and <a href="http://hackathon2.dbcls.jp">2009</a> participants.<!--</em>--></p>
+			<p><!--<em>-->BioXSD is a "blue-collar" initiative originating from the inside of the bioinformatics community, initiated among others by the <a href="http://www.embracegrid.info">EMBRACE</a> project partners and the participants of the <a href="http://hackathon.dbcls.jp">1<sup>st</sup> DBCLS BioHackathon</a>, in 2008.<!--</em>--></p>
 			
 			<br/>
-			<p><img alt="Diagram of EMBRACE standards" src="embraceInteroperability.png" style="display: block; margin-left: auto; margin-right: auto; width: auto; height: auto; max-width: 100%; max-height: 300px; max-height: 18em"/></p>
+			<p><img alt="Interoperability standards according to EMBRACE" src="embraceInteroperability.png" style="display: block; margin-left: auto; margin-right: auto; width: auto; height: auto; max-width: 100%; max-height: 300px; max-height: 18em; min-width: 480px; min-width: 29em"/></p>
 			<p/>
 			<p style="color: #424242; text-align: center; margin-top: 24px; margin-top: 1.5em"><u>The portfolio of standards according to EMBRACE</u></p>
 			<br/><br/>
@@ -127,13 +135,13 @@
 			Feasibility was tested at different pilot providers, using diverse libraries and programming languages.</p>
 			
 			<p><!--<small>-->BioXSD types can be used directly if applicable; or can be included in other standard or custom types, extended or restricted.
-			With tools that use other or proprietary formats, BioXSD can be used as the canonical intermediate exchange format.<!--</small>--></p>
+			With tools that use other or proprietary formats, BioXSD can be used as a canonical intermediate exchange format.<!--</small>--></p>
 	
 			<br/><br/><!--<br/>-->
 			<p><b><big>Open collaboration within the community:</big></b> BioXSD welcomes feature requests, suggestions, and new collaborations!</p>
-			<p><small>
-				<i>To submit your suggestions and requirements, please write to <a href="mailto:developers@bioxsd.org">developers@bioxsd.org</a> or post an issue at <a href="http://github.com/bioxsd/bioxsd">http://github.com/bioxsd/bioxsd</a>.</i>
-			</small></p>
+			<p>
+				To submit your proposals, suggestions and requirements, please post an issue at <a href="http://github.com/bioxsd/bioxsd">http://github.com/bioxsd/bioxsd</a>, or post to a new or existing topic at <a href="http://groups.google.com/group/bioxsd">http://groups.google.com/group/bioxsd</a><!-- (<a href="http://groups.google.com/group/bioxsd/subscribe">please join</a> first)-->, or write to <a href="mailto:developers@bioxsd.org">developers@bioxsd.org</a>. Please see <a href="#Contact">contact details</a>.
+			</p>
 			<br/><br/><br/>
 	
 			<p><big><b><a href="bxPoster.pdf">A BioXSD poster</a></b></big></p>
@@ -169,7 +177,7 @@
 			<br/><br/>
 		</div>	
 		
-		<hr/>
+		<hr/><!--================================================================================================================================-->
 		
 		<div>
 			<br/><br/>
@@ -181,10 +189,10 @@
 			<p><a href="http://bioxsd.org/BioXSD-1.1.xsd"><em>http://bioxsd.org/BioXSD-1.1.xsd</em></a> is the canonical schema location to be</p>
 			<ul>
 				<li>used for XML data instances
-					<p style="margin-left:16px"><small><code>xsi:schemaLocation="http://bioxsd.org/BioXSD-1.1 http://bioxsd.org/BioXSD-1.1.xsd"</code><br/><i>working <a href="sequenceRecord.xml">example</a></i></small></p>
+					<p class="tabbed"><small><code>xsi:schemaLocation="http://bioxsd.org/BioXSD-1.1 http://bioxsd.org/BioXSD-1.1.xsd"</code><br/><i>working <a href="sequenceRecord.xml">example</a></i></small></p>
 				</li>
 				<li>imported in document XSDs (including Web services' WSDLs)
-					<p style="margin-left:16px"><small><code>&lt;xs:import namespace="http://bioxsd.org/BioXSD-1.1" schemaLocation="http://bioxsd.org/BioXSD-1.1.xsd"/></code><br/><i>working example <a href="classifierOutput.xsd">XSD</a> and <a href="classifierOutputExample1.xml">instance</a></i></small></p>
+					<p class="tabbed"><small><code>&lt;xs:import namespace="http://bioxsd.org/BioXSD-1.1" schemaLocation="http://bioxsd.org/BioXSD-1.1.xsd"/></code><br/><i>working example <a href="classifierOutput.xsd">XSD</a> and <a href="classifierOutputExample1.xml">instance</a></i></small></p>
 				</li>
 				<li>or to be synchronised with its future releases in case of publishing custom-annotated or custom-modified BioXSDs.</li>
 			</ul>
@@ -228,7 +236,7 @@
 			<br/><br/>
 		</div>
 		
-		<hr/>
+		<hr/><!--================================================================================================================================-->
 		
 		<div>
 			<br/><br/>
@@ -252,7 +260,7 @@
 			<br/><br/>
 		</div>
 		
-		<hr/>
+		<hr/><!--================================================================================================================================-->
 		
 		<div>
 			<br/><br/>
@@ -261,7 +269,7 @@
 			
 			<p>A <a href="accession.xml">UniProt accession as a BioXSD 1.1 element</a> - a toy example of an "inline" instance of a simple type.</p>
 			
-			<p>A BioXSD 1.1 <a href="sequenceRecord.xml">sequence record</a> is an example "inline" instance of a complex type.</p>
+			<p>A BioXSD 1.1 <a href="sequenceRecord.xml+json+yaml.xml">sequence record</a> is an example "inline" instance of a complex type: in <a href="sequenceRecord.xml">XML</a>, <a href="sequenceRecord.json">JSON</a>, and <a href="sequenceRecord.yaml">YAML</a>.</p>
 			
 			<p><a href="exampleFeatureRecords.html">Examples of feature data</a> represented in <!--<a href="http://bioxsd.org/BioXSD-1.1beta1.xsd">--><!--<b>-->BioXSD 1.1<!--</b>--><!--</a>--> format.</p>
 			
@@ -277,7 +285,7 @@
 			<br/><br/>
 		</div>
 		
-		<hr/>
+		<hr/><!--================================================================================================================================-->
 		
 		<div>
 			<br/><br/>
@@ -293,7 +301,7 @@
 			<br/><br/>
 		</div>
 		
-		<hr/>
+		<hr/><!--================================================================================================================================-->
 		
 		<div>
 			<br/><br/>
@@ -332,37 +340,44 @@
 				</li>
 			</ul>
 			<br/>
-			<p><small><i>If you started using BioXSD for your software, services, libraries, or other tools, please let us know by sending an email to <a href="mailto:support@bioxsd.org">support@bioxsd.org</a>. For maintenance and support purposes we would love to know about the providers using BioXSD. A registration system will be available in the future.</i></small></p>
+			<p><small><i>If you started using BioXSD for your software, services, libraries, or other tools, please let us know by sending an email to <a href="mailto:support@bioxsd.org">support@bioxsd.org</a>. For maintenance and support purposes we would love to know about the providers using BioXSD. A registration system may become available in the future.</i></small></p>
 			
 			<br/><br/>
 			
 		</div>
 		
-		<hr/>
+		<hr/><!--================================================================================================================================-->
 		
 		<div>
 			<br/><br/>
-			<a name="Ongoing"/><h2>Ongoing development</h2>
+			<a name="Ongoing"/><h2>Ongoing and proposed developments</h2>
 			<br/><br/>
 			
 			<ul>
-			<li><!--<b>-->online BioXSD tutorial<!--</b>--></li>
-			<li>tools to translate between BioXSD and other formats (XML, JSON, binary, textual &amp; tabular formats, RDF), and other supportive tools</li>
-			<li>interoperability with the PROV standard for provenance metadata</li>
-			<!--<li>improvements in the automatically-generated comprehensive documentation (including ontology resolving)</li>-->
-			<li>additional examples and test-case workflows, including multiple programming/workflow languages and XSD|XML|EXI|JSON|BSON|HTTP|SOAP libraries</li>
-			<!--<li>improvements &amp; refinements of the data examples</li>-->
-			<li>enhancements of the existing BioXSD format. Objective is to support more conveniently and efficiently: experimental data (<i>e.g.</i> gene expression), sequence variation (in individuals or population), whole-genome alignments, sequence patterns, profiles and motifs, and other types of data</li>
+			<li>update BioXSD to XML Schema version 1.1</li>
+			<li>serialisation of BioXSD "data model" in multiple formats (XML, JSON, YAML, GTrack, binary, ... ), with associated validation and conversions</li>
+			<li>including JSON Schema, and considerably also other schema languages if desired: Relax NG, Avro, OWL, ...</li>
+			<li>tools to translate between BioXSD and other formats (specific textual, tabular, &amp; binary formats, RDF, HDF, ... ), and other supportive tools</li>
+			<li>interoperability with the <a href="http://www.w3.org/standards/techs/provenance">PROV</a> standard for provenance metadata</li>
+			<li>populating accession types and database names from <a href="http://github.org/edamontology/edamontology">EDAM</a> and <a href="http://drcat.sourceforge.net">DRCAT</a>, and considerably ontology names from the <a href="http://bioportal.bioontology.org">NCBO BioPortal</a> or <a href="http://www.ebi.ac.uk/ontology-lookup">OLS</a></li>
+			<li>additional data examples and test-case workflows, including multiple XSD|XML|EXI|JSON|BSON|YAML|HTTP libraries and programming|scripting|workflow languages</li>
+			<li>improved BioXSD 101 and an online BioXSD tutorial</li>
+			<li>enhancements of the existing BioXSD format. Objective is to support more conveniently and efficiently: measured data (<i>e.g.</i> gene expression), sequence variation (in individuals or population), whole-genome alignments, sequence patterns|profiles|motifs, and some other types of data</li>
 			</ul>
-			<br/><p><i>Contributions from the community are warmly welcome and needed! <small>(<a href="http://github.com/bioxsd/bioxsd">http://github.com/bioxsd/bioxsd</a>, <a href="mailto:developers@bioxsd.org">developers@bioxsd.org</a>)</small></i></p>
 			
-			<br/><p>Volunteers are welcome to join the <b><em>50 BioXSD-compatible Web services</em></b> challenge.</p>
+			<br/><p>Volunteers are still welcome to contribute by joining the <b><em>50 BioXSD-compatible Web services</em></b> challenge.</p>
 			
+			<br/><p>Contributions in all forms are warmly welcome and needed! <small><br/><a href="http://github.com/bioxsd/bioxsd">http://github.com/bioxsd/bioxsd</a>, <a href="https://groups.google.com/group/bioxsd">http://groups.google.com/group/bioxsd</a>, <a href="mailto:developers@bioxsd.org">developers@bioxsd.org</a>, see <a href="#Contact">contact details</a></small></p>
+			
+			<br/><br/>
+			<p><img alt="Ongoing and proposed interoperability developments" src="multiFormatDataModel.png" style="display: block; margin-left: auto; margin-right: auto; width: auto; height: auto; max-width: 100%; max-height: 530px; max-height: 32em; min-width: 480px; min-width: 29em"/></p>
+			<p/>
+			<p style="color: #424242; text-align: center; margin-top: 24px; margin-top: 1.5em"><u>The ongoing and proposed interoperability developments around BioXSD</u></p>			
 			
 			<br/><br/>
 		</div>
 		
-		<hr/>
+		<hr/><!--================================================================================================================================-->
 		
 		<div>
 			<br/><br/>
@@ -402,12 +417,29 @@
 			<br/><br/>
 		</div>
 		
-		<hr/>
+		<hr/><!--================================================================================================================================-->
 		
 		<div>
-			<p>Contact: <a href="mailto:support@bioxsd.org">support@bioxsd.org</a></p>
+			<a name="Contact"/><p><b>Contact:</b><!-- <a href="mailto:support@bioxsd.org">support@bioxsd.org</a>--></p>
 			
-			<p><small>Last update: 2015-Jul-07</small></p>
+			<p class="tabbed"><a href="mailto:support@bioxsd.org">support@bioxsd.org</a></p>
+			
+			<p class="tabbed"><a href="mailto:developers@bioxsd.org">developers@bioxsd.org</a></p>
+			
+			
+			<p><b>Connect with us:</b></p>
+			
+			<p class="tabbed"><a href="https://twitter.com/BioXSD">@BioXSD</a> (<a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fbioxsd.org&amp;region=follow_link&amp;screen_name=bioxsd&amp;tw_p=followbutton">follow</a>)<!--. Alternatively <a href="https://twitter.com/search?q=%23bioxsd">#bioxsd</a>--></p>
+			
+			<p class="tabbed"><a href="https://github.com/bioxsd/bioxsd">http://github.com/bioxsd/bioxsd</a></p>
+			
+			<p class="tabbed"><a href="https://groups.google.com/group/bioxsd">http://groups.google.com/group/bioxsd</a>. <a href="https://groups.google.com/group/bioxsd/subscribe">Please join first</a>. For membership without a Google account, just log out of Google before clicking. In such case, please feel free to contact <a href="mailto:bioxsd+manager@googlegroups.com">bioxsd+manager@googlegroups.com</a> after joining, <i>e.g.</i> to change your delivery settings between <i>all_email</i><small>(default)</small>|<i>abridged</i>|<i>digest</i>|<i>no_email</i>. Without a Google account, you can post via email to <a href="mailto:bioxsd@googlegroups.com">bioxsd@googlegroups.com</a> and read at <a href="http://groups.google.com/group/bioxsd">http://groups.google.com/group/bioxsd</a><!--.--></p>
+			
+			
+			<p><small>Please feel free to post and communicate in <b>any</b> language. We will do our best to understand.</small></p>
+			
+			<p><small><b>Last update:</b> 2016-Sep-04</small></p>
+			
 		</div>
 		
 	</body>
