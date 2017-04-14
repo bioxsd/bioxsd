@@ -1,11 +1,13 @@
-#BioXSD
-A data model for biopolymer/genomic sequences, their alignments, features, metadata, annotation, and related measured or inferred values
+# BioXSD | BioJSON | BioYAML
+A tree-based data model for biopolymer/genomic sequences, their alignments, features, metadata, annotation, and related measured or inferred values
+
+The tree-based data model is defined in an XML Schema ([BioXSD](http://bioxsd.org/BioXSD-1.1.xsd)), while data instances can be represented in XML, JSON, or YAML (a simple [comparative example is here](http://bioxsd.org/sequenceRecord.xml+json+yaml.xml), click _View source_).
 
 **Home:** http://bioxsd.org
 
-**Contact** for users**:** support@bioxsd.org
+**Contact** for users: support@bioxsd.org
 
-**Contact** for contributors**:** developers@bioxsd.org
+**Contact** for contributors: developers@bioxsd.org
 
 **GitHub home:** http://github.com/bioxsd/bioxsd
 
