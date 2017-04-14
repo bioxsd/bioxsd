@@ -1,7 +1,7 @@
 # BioXSD | BioJSON | BioYAML
 A tree-based data model for biopolymer/genomic sequences, their alignments, features, metadata, annotation, and related measured or inferred values
 
-The tree-based data model is defined in an XML Schema ([BioXSD](http://bioxsd.org/BioXSD-1.1.xsd)), while data instances can be represented in XML, JSON, or YAML (a simple [comparative example is here](http://bioxsd.org/sequenceRecord.xml+json+yaml.xml), click _View source_).
+The tree-based data model is defined in an XML Schema ([BioXSD](http://bioxsd.org/BioXSD-1.1.xsd)), while data instances can be represented in [XML](http://bioxsd.org/sequenceRecord.xml), [JSON](http://bioxsd.org/sequenceRecord.json), or [YAML](http://bioxsd.org/sequenceRecord.yaml) (a simple [comparative example is here](http://bioxsd.org/sequenceRecord.xml+json+yaml.xml), click _View source_).
 
 **Home:** http://bioxsd.org
 
