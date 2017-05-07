@@ -49,6 +49,15 @@
 			<br/><br/>
 		
 			<p>
+				<big><u><b>BioXSD | GTrack - A service developed by ELIXIR Norway</b></u></big><br/>
+				It has been confirmed that ELIXIR Norway will further develop and deliver BioXSD and <a href="http://gtrack.no">GTrack</a> as a family of interoperable data formats and supportive tools.
+				<br/>The family of interoperable generic data formats for bioinformatics and genomics comprises BioXSD, BioJSON, BioYAML, the tabular GTrack, binary tabular BTrack, and the integrative GSuite, with supportive conversion tools under development.
+				<br/>The aim is to provide a selection of generic, mutually loss-lessly convertible formats suitable for various usage scenarios, such as providing tools, APIs, web apps, or databases, or integrating bioinformatics|genomics data.
+			</p>
+			
+			<br/>
+		
+			<p>
 				<big><u><b>BioXSD | BioJSON | BioYAML - Towards a unified data model with multiple serialisation options</b></u></big><br/>
 				BioXSD is a construction site again. Current developments focus on employing XML Schema version 1.1 and JSON Schema, and enabling BioXSD to function as a single data model with multiple choices of tree-based exchange formats (serialisations).
 				<br/>Highest on the priority list is adding JSON and YAML as serialisation alternatives to XML, and implementing smooth interoperability between BioXSD, BioJSON, BioYAML, and <a href="http://gtrack.no">GTrack</a> (the unified tabular format for sequence features).
@@ -269,7 +278,7 @@
 			
 			<p>A <a href="accession.xml">UniProt accession as a BioXSD 1.1 element</a> - a toy example of an "inline" instance of a simple type.</p>
 			
-			<p>A BioXSD 1.1 <a href="sequenceRecord.xml+json+yaml.xml">sequence record</a> is an example "inline" instance of a complex type: in <a href="sequenceRecord.xml">XML</a>, <a href="sequenceRecord.json">JSON</a>, and <a href="sequenceRecord.yaml">YAML</a>.</p>
+			<p>A BioXSD 1.1 <a href="sequenceRecord.xml+json+yaml.xml">sequence record</a> is an example "inline" instance of a complex type: in <a href="sequenceRecord.xml">XML</a>, <a href="sequenceRecord.json">BioJSON</a>, and <a href="sequenceRecord.yaml">BioYAML</a>.</p>
 			
 			<p><a href="exampleFeatureRecords.html">Examples of feature data</a> represented in <!--<a href="http://bioxsd.org/BioXSD-1.1beta1.xsd">--><!--<b>-->BioXSD 1.1<!--</b>--><!--</a>--> format.</p>
 			
@@ -309,7 +318,7 @@
 			<br/><br/>
 	
 			<p>
-				Thanks to the providers of bioinformatics tools who started adopting BioXSD as pilot users, the number of services and software compatible with BioXSD rises. Currently adapted tools are:
+				Providers of bioinformatics tools who started adopting BioXSD as pilot users:
 			</p><br/>
 			<p><big><b>Web services:</b></big></p>
 			<ul>
@@ -365,7 +374,7 @@
 			<li>enhancements of the existing BioXSD format. Objective is to support more conveniently and efficiently: measured data (<i>e.g.</i> gene expression), sequence variation (in individuals or population), whole-genome alignments, sequence patterns|profiles|motifs, and some other types of data</li>
 			</ul>
 			
-			<br/><p>Volunteers are still welcome to contribute by joining the <b><em>50 BioXSD-compatible Web services</em></b> challenge.</p>
+			<br/><p>Volunteers are also always welcome to contribute by joining the <b><em>50 BioXSD|BioJSON|BioYAML-compatible tools or services</em></b> challenge.</p>
 			
 			<br/><p>Contributions in all forms are warmly welcome and needed! <small><br/><a href="http://github.com/bioxsd/bioxsd">http://github.com/bioxsd/bioxsd</a>, <a href="https://groups.google.com/group/bioxsd">http://groups.google.com/group/bioxsd</a>, <a href="mailto:developers@bioxsd.org">developers@bioxsd.org</a>, see <a href="#Contact">contact details</a></small></p>
 			
@@ -384,31 +393,31 @@
 			<a name="Credits"/><h2>Credits</h2>
 			<br/><br/>
 
-			<p>BioXSD has been and is further being developed as part of multiple collaborative projects. There has never been any funding directed exclusively to BioXSD.</p>
+			<p>BioXSD was developed as part of multiple collaborative projects. There has never been any funding directed exclusively to BioXSD. The current developments of BioXSD|BioJSON|BioYAML are done together with the developemnts of <a href="http://gtrack.no">GTrack|BTrack|GSuite</a>, as a <b>BioXSD|GTrack</b> service provided by <b>ELIXIR Norway</b>.</p>
 			<br/>
 			
 			<p><big><b>Contribution and advise to the development of BioXSD:</b></big><!--</p>			
-			<p>--><br/><em>CBU, University of Bergen, Norway:</em>
-				<big>Mat&#250;&#353; Kala&#353;, Inge Jonassen, </big>P&#229;l Puntervoll<small> (until 2010; now Uni Milj&#248;, Bergen)</small><!--<big>-->, Jan Christian Bryne<!--</big>--><small> (until 2010; later Oslo University Hospital)</small><!--<big>-->, Armin T&#246;pfer<!--</big>--><small> (until 2011; also CeBiTec, Bielefeld, Germany; later D-BSSE, ETH Z&#252;rich, Basel, Switzerland)</small><!--<big>-->, Prabu Venkataraman<!--</big>--><small> (until 2011; later Fiskeridirektoratet, Bergen)</small>
+			<p>--><br/><em>CBU, II, University of Bergen, Norway:</em>
+				<big>Mat&uacute;&scaron; Kal&#13;&#10;a&scaron; Inge Jonassen, </big>P&aring;l Puntervoll<small> (until 2010; now Uni Milj&oslash;, Bergen)</small><!--<big>-->, Jan Christian Bryne<!--</big>--><small> (until 2010; later Oslo University Hospital)</small><!--<big>-->, Armin T&#246;pfer<!--</big>--><small> (until 2011; also CeBiTec, Bielefeld, Germany; later D-BSSE, ETH Z&#252;rich, Basel, Switzerland)</small><!--<big>-->, Prabu Venkataraman<!--</big>--><small> (until 2011; later Fiskeridirektoratet, Bergen)</small>
 			<br/><em>CBS, DTU, Greater Copenhagen, Denmark:</em>
 				<big>Kristoffer Rapacki, Jon Ison</big> <small>(at CBS, DTU since 2014)</small>, Edita Karosiene <small>(until 2010)</small>
-			<br/><em>Oslo University Hospital, Norway:</em>
+			<br/><em>II, University of Oslo, and Oslo University Hospital, Norway:</em>
 				<big>Sveinung Gundersen</big>
 			<br/><em>IBCP, CNRS, Lyon, France:</em>
-				<big>Christophe Blanchet</big> <small>(now also IFB<!--L'Institut Fran&#231;ais de Bioinformatique-->, Gif-sur-Yvette, France)</small>, Alexandre Joseph <small>(until 2010)</small>
+				<big>Christophe Blanchet</big> <small>(now also IFB<!--L'Institut Fran&ccedil;ais de Bioinformatique-->, Gif-sur-Yvette, France)</small>, Alexandre Joseph <small>(until 2010)</small>
 			<br/><em>EBI, EMBL, Hinxton, U.K.:</em>
 				<big>Jon Ison</big> <small>(until 2013; now see at CBS, DTU above)</small><big>, Rodrigo Lopez</big>
 			<br/><em>CS, University of Manchester, U.K.:</em>
 				<big>Steve Pettifer</big>
 			<br/><em>Rostlab, TUM, Greater Munich, Germany:</em>
-				<big>L&#225;szl&#243; Kaj&#225;n</big> <small>(until 2013; now itelligence, Pozna&#324;, Poland)</small>
+				<big>L&aacute;szl&oacute; Kaj&aacute;n</big> <small>(until 2013; now itelligence, Pozna&#324;, Poland)</small>
 			<br/><em>... and multiple supporters at diverse research institutions</em>
 			</p><!--todo: improve abbrs and maintain links to institutes & people-->
 			
 			<br/>
 			
 			<p><big><b>Funding:</b></big>
-			<br/>Research Council of Norway (to eSysbio, to the FUGE Bioinformatics Platform, and ELIXIR.NO to the Norwegian Bioinformatics Platform)
+			<br/>Research Council of Norway (to eSysbio, to the FUGE Bioinformatics Platform, and <b>ELIXIR.NO</b> to the Norwegian Bioinformatics Platform)
 			<br/>Villum Foundation (to the Center for Disease Systems Biology)
 			<br/>l'Agence Nationale de la Recherche (to HIPCAL)
 			<br/>Alexander von Humboldt Foundation (through the German Ministry for Research and Education)
@@ -438,7 +447,7 @@
 			
 			<p><small>Please feel free to post and communicate in <b>any</b> language. We will do our best to understand.</small></p>
 			
-			<p><small><b>Last update:</b> 2016-Sep-04</small></p>
+			<p><small><b>Last update: </b>2017-May-07</small></p>
 			
 		</div>
 		
