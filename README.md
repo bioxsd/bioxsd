@@ -12,3 +12,5 @@ The tree-based data model is defined in an XML Schema ([BioXSD](http://bioxsd.or
 **GitHub home:** http://github.com/bioxsd/bioxsd
 
 **Licence:** CC BY-SA 4.0. Please note also the Code of Conduct stated in http://bioxsd.org/BioXSD-1.1.xsd.
+
+The project has reached a stable, usable state, and is currently not being actively developed. Support or further development will be provided as & when needed. [![Project Status: Inactive](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
